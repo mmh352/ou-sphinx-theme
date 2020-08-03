@@ -1,0 +1,579 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #0a0a0a; }
+
+a {
+  color: #1e4b9b; }
+  a:hover {
+    color: #002158; }
+
+div#app {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  overflow: hidden; }
+  div#app.layout-tutorial {
+    max-width: 50rem;
+    margin: 0 auto; }
+  div#app.layout-tutorial-iframe {
+    grid-template-columns: 50rem 1fr;
+    grid-template-rows: 1fr; }
+    div#app.layout-tutorial-iframe #tutorial {
+      grid-column: 1;
+      grid-row: 1; }
+    div#app.layout-tutorial-iframe #iframe {
+      grid-column: 2;
+      grid-row: 1; }
+
+.show-for-sr {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden; }
+
+svg.icon {
+  width: 1.28571rem;
+  height: 1.28571rem; }
+  svg.icon.large {
+    width: 1.71429rem;
+    height: 1.71429rem; }
+  svg.icon.small {
+    width: 1rem;
+    height: 1rem; }
+
+[role="tablist"] {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0; }
+  [role="tablist"] a[role="tab"] {
+    display: block;
+    padding: 0.5rem 2rem;
+    cursor: pointer; }
+
+#tutorial {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: scroll; }
+  #tutorial.full-within-block-active {
+    overflow: hidden; }
+  #tutorial header {
+    display: flex;
+    flex-direction: row;
+    background: #1e4b9b;
+    color: #fefefe;
+    padding: 1rem 0;
+    align-items: center; }
+    #tutorial header > div {
+      flex: 0 0 auto;
+      padding: 0 1rem; }
+      #tutorial header > div:first-child {
+        font-size: 2.28571rem; }
+      #tutorial header > div a {
+        color: #fefefe;
+        text-decoration: none; }
+        #tutorial header > div a:hover {
+          color: #fefefe; }
+        #tutorial header > div a img {
+          max-height: 2.28571rem; }
+    #tutorial header > form {
+      flex: 1 1 auto;
+      padding: 0 1rem;
+      display: flex; }
+      #tutorial header > form label {
+        flex: 1 1 auto; }
+        #tutorial header > form label input {
+          width: 100%;
+          border: 0.14286rem solid #fefefe;
+          padding: 0.25rem; }
+          #tutorial header > form label input:focus {
+            outline: none;
+            border: 0.14286rem solid #ffc23d; }
+      #tutorial header > form button {
+        flex: 0 0 auto;
+        border: 0;
+        background: #577f00;
+        padding: 0;
+        width: 3.42857rem;
+        cursor: pointer; }
+        #tutorial header > form button svg path, #tutorial header > form button svg g {
+          fill: #fefefe; }
+  #tutorial nav.block {
+    background: #002158;
+    font-size: 1.14286rem; }
+    #tutorial nav.block ul {
+      display: flex;
+      flex-direction: row;
+      margin: 0; }
+      #tutorial nav.block ul > li {
+        flex: 1 1 auto; }
+    #tutorial nav.block a {
+      display: block;
+      text-align: center;
+      padding: 1rem;
+      border-bottom: 0.14286rem solid #002158;
+      color: #fefefe;
+      text-decoration: none; }
+      #tutorial nav.block a[aria-current="true"], #tutorial nav.block a:hover {
+        border-bottom-color: #ffc23d; }
+  #tutorial nav.within-block {
+    background: #e5f0f9;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    transition: 0.3s background-color; }
+    #tutorial nav.within-block ul {
+      display: flex;
+      flex-direction: row;
+      margin: 0; }
+      #tutorial nav.within-block ul > li {
+        flex: 1 1 auto; }
+        #tutorial nav.within-block ul > li:first-child, #tutorial nav.within-block ul > li:last-child {
+          flex: 0 0 auto; }
+    #tutorial nav.within-block a {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      padding: 1rem;
+      transition: 0.3s color;
+      cursor: pointer; }
+    #tutorial nav.within-block span {
+      display: block;
+      text-align: center;
+      padding: 1rem;
+      cursor: not-allowed;
+      color: #4a4a4a; }
+  #tutorial nav.full-within-block {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 0;
+    background: #e5f0f9;
+    z-index: 2;
+    overflow-x: auto;
+    overflow-y: scroll;
+    transition: 0.3s height; }
+    #tutorial nav.full-within-block button {
+      background: #e5f0f9;
+      border: 0;
+      cursor: pointer;
+      padding: 0.5rem 1rem; }
+      #tutorial nav.full-within-block button.close-full-within-block {
+        position: absolute;
+        right: 0;
+        top: 0; }
+      #tutorial nav.full-within-block button svg path {
+        fill: #0a0a0a; }
+    #tutorial nav.full-within-block ul {
+      margin-left: 1rem; }
+    #tutorial nav.full-within-block a {
+      display: block;
+      padding: 0.5rem 1rem;
+      text-decoration: none; }
+      #tutorial nav.full-within-block a[aria-current="true"] {
+        background: #002158;
+        color: #fefefe; }
+    #tutorial nav.full-within-block > ul > li > span button {
+      display: none; }
+    #tutorial nav.full-within-block li > ul {
+      display: none; }
+    #tutorial nav.full-within-block li[aria-expanded="true"] > span button svg:nth-child(1) {
+      display: none; }
+    #tutorial nav.full-within-block li[aria-expanded="true"] > span button svg:nth-child(2) {
+      display: inline; }
+    #tutorial nav.full-within-block li[aria-expanded="true"] > ul {
+      display: block; }
+    #tutorial nav.full-within-block li > span {
+      display: flex;
+      flex-direction: row; }
+      #tutorial nav.full-within-block li > span a {
+        flex: 1 1 auto; }
+        #tutorial nav.full-within-block li > span a[aria-current="true"] + button {
+          background: #002158; }
+          #tutorial nav.full-within-block li > span a[aria-current="true"] + button svg path {
+            fill: #fefefe; }
+      #tutorial nav.full-within-block li > span button {
+        flex: 0 0 auto; }
+        #tutorial nav.full-within-block li > span button svg:nth-child(2) {
+          display: none; }
+        #tutorial nav.full-within-block li > span button svg path {
+          fill: #0a0a0a; }
+  #tutorial #tutorial.scrolling nav.within-block {
+    background: #002158;
+    box-shadow: 0 0 0.71429rem #0a0a0a; }
+    #tutorial #tutorial.scrolling nav.within-block a {
+      color: #fefefe; }
+  #tutorial div.toctree-wrapper a {
+    display: block;
+    text-decoration: none; }
+  #tutorial div.toctree-wrapper ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+  #tutorial div.toctree-wrapper > ul > li > a {
+    background: #e6e6e6;
+    padding: 1rem;
+    font-size: 1.14286rem;
+    font-weight: bold; }
+  #tutorial div.toctree-wrapper > ul > li ul {
+    margin-left: 1rem;
+    margin-bottom: 2rem; }
+    #tutorial div.toctree-wrapper > ul > li ul a {
+      font-size: 1rem;
+      padding: 0.5rem 0; }
+  #tutorial article {
+    padding: 1rem 1rem 4rem 1rem; }
+    #tutorial article h1, #tutorial article h2, #tutorial article h3, #tutorial article h4, #tutorial article h5, #tutorial article h6 {
+      margin-top: 0;
+      color: #002158; }
+      #tutorial article h1 .headerlink, #tutorial article h2 .headerlink, #tutorial article h3 .headerlink, #tutorial article h4 .headerlink, #tutorial article h5 .headerlink, #tutorial article h6 .headerlink {
+        display: none; }
+    #tutorial article p {
+      margin-top: 0; }
+    #tutorial article mjx-container[jax="CHTML"][display="true"] {
+      text-align: left; }
+  #tutorial div.activity {
+    background: #e5f0f9;
+    border-left: 0.28571rem solid #1e4b9b; }
+    #tutorial div.activity h2 {
+      font-size: 1.14286rem;
+      padding: 0.25rem 0.5rem;
+      margin: 0; }
+    #tutorial div.activity .content {
+      padding: 0.5rem 0.5rem; }
+    #tutorial div.activity .answer.is-active .buttons button span:nth-child(1) {
+      display: none; }
+    #tutorial div.activity .answer.is-active .buttons button span:nth-child(2) {
+      display: inline; }
+    #tutorial div.activity .answer.is-active .content {
+      display: block; }
+    #tutorial div.activity .answer .buttons {
+      text-align: right;
+      padding: 0 0.5rem; }
+      #tutorial div.activity .answer .buttons button {
+        display: inline-block;
+        padding: 0.14286rem 0.57143rem 0.21429rem;
+        background: #fefefe;
+        color: #0a0a0a;
+        border: 1px solid #002158;
+        border-radius: 0.21429rem;
+        cursor: pointer;
+        transition: 0.3s background-color, 0.3s color; }
+        #tutorial div.activity .answer .buttons button:hover, #tutorial div.activity .answer .buttons button:focus {
+          background: #002158;
+          color: #fefefe; }
+        #tutorial div.activity .answer .buttons button span:nth-child(1) {
+          display: inline; }
+        #tutorial div.activity .answer .buttons button span:nth-child(2) {
+          display: none; }
+    #tutorial div.activity .answer .content {
+      display: none;
+      margin-top: 0.5rem;
+      border-top: 1px dotted #cacaca;
+      padding: 0.5rem 0 0 0; }
+    #tutorial div.activity .answer h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem; }
+  #tutorial .video.is-active .buttons button span:nth-child(1) {
+    display: none; }
+  #tutorial .video.is-active .buttons button span:nth-child(2) {
+    display: inline; }
+  #tutorial .video.is-active .content {
+    display: block; }
+  #tutorial .video .buttons {
+    text-align: right;
+    padding: 0 0.5rem; }
+    #tutorial .video .buttons button {
+      display: inline-block;
+      padding: 0.14286rem 0.57143rem 0.21429rem;
+      background: #fefefe;
+      color: #0a0a0a;
+      border: 1px solid #002158;
+      border-radius: 0.21429rem;
+      cursor: pointer;
+      transition: 0.3s background-color, 0.3s color; }
+      #tutorial .video .buttons button:hover, #tutorial .video .buttons button:focus {
+        background: #002158;
+        color: #fefefe; }
+      #tutorial .video .buttons button span:nth-child(1) {
+        display: inline; }
+      #tutorial .video .buttons button span:nth-child(2) {
+        display: none; }
+  #tutorial .video .content {
+    display: none;
+    max-height: 14.28571rem;
+    overflow: auto;
+    background: #fefefe;
+    border: 1px solid #002158;
+    margin-bottom: 0.5rem; }
+  #tutorial div.admonition {
+    background: #e5f0f9;
+    border-left: 0.28571rem solid #1e4b9b;
+    padding-bottom: 0.25rem; }
+    #tutorial div.admonition p {
+      padding: 0.25rem 0.5rem;
+      margin: 0; }
+    #tutorial div.admonition.note .admonition-title {
+      display: none; }
+  #tutorial ol.lowerroman {
+    list-style-type: lower-roman; }
+
+#editor {
+  display: flex;
+  flex-direction: column;
+  background: #4a4a4a;
+  color: #fefefe; }
+  #editor nav {
+    flex: 0 0 auto; }
+    #editor nav a[role="tab"] {
+      color: #cacaca; }
+      #editor nav a[role="tab"][aria-selected="true"] {
+        background: #0a0a0a; }
+  #editor .code-editor {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    background: #0a0a0a;
+    /* Comment */
+    /* Error */
+    /* Keyword */
+    /* Operator */
+    /* Comment.Hashbang */
+    /* Comment.Multiline */
+    /* Comment.Preproc */
+    /* Comment.PreprocFile */
+    /* Comment.Single */
+    /* Comment.Special */
+    /* Generic.Deleted */
+    /* Generic.Emph */
+    /* Generic.Error */
+    /* Generic.Heading */
+    /* Generic.Inserted */
+    /* Generic.Output */
+    /* Generic.Prompt */
+    /* Generic.Strong */
+    /* Generic.Subheading */
+    /* Generic.Traceback */
+    /* Keyword.Constant */
+    /* Keyword.Declaration */
+    /* Keyword.Namespace */
+    /* Keyword.Pseudo */
+    /* Keyword.Reserved */
+    /* Keyword.Type */
+    /* Literal.Number */
+    /* Literal.String */
+    /* Name.Attribute */
+    /* Name.Builtin */
+    /* Name.Class */
+    /* Name.Constant */
+    /* Name.Decorator */
+    /* Name.Entity */
+    /* Name.Exception */
+    /* Name.Function */
+    /* Name.Label */
+    /* Name.Namespace */
+    /* Name.Tag */
+    /* Name.Variable */
+    /* Operator.Word */
+    /* Text.Whitespace */
+    /* Literal.Number.Bin */
+    /* Literal.Number.Float */
+    /* Literal.Number.Hex */
+    /* Literal.Number.Integer */
+    /* Literal.Number.Oct */
+    /* Literal.String.Affix */
+    /* Literal.String.Backtick */
+    /* Literal.String.Char */
+    /* Literal.String.Delimiter */
+    /* Literal.String.Doc */
+    /* Literal.String.Double */
+    /* Literal.String.Escape */
+    /* Literal.String.Heredoc */
+    /* Literal.String.Interpol */
+    /* Literal.String.Other */
+    /* Literal.String.Regex */
+    /* Literal.String.Single */
+    /* Literal.String.Symbol */
+    /* Name.Builtin.Pseudo */
+    /* Name.Function.Magic */
+    /* Name.Variable.Class */
+    /* Name.Variable.Global */
+    /* Name.Variable.Instance */
+    /* Name.Variable.Magic */
+    /* Literal.Number.Integer.Long */ }
+    #editor .code-editor div.line-numbers {
+      flex: 0 0 auto;
+      padding: 0 2rem;
+      text-align: right;
+      color: #cacaca; }
+    #editor .code-editor div.code {
+      flex: 1 1 auto; }
+    #editor .code-editor pre {
+      margin: 0; }
+    #editor .code-editor .c {
+      color: #408080;
+      font-style: italic; }
+    #editor .code-editor .err {
+      border: 1px solid #FF0000; }
+    #editor .code-editor .k {
+      color: #008000;
+      font-weight: bold; }
+    #editor .code-editor .o {
+      color: #666666; }
+    #editor .code-editor .ch {
+      color: #408080;
+      font-style: italic; }
+    #editor .code-editor .cm {
+      color: #408080;
+      font-style: italic; }
+    #editor .code-editor .cp {
+      color: #BC7A00; }
+    #editor .code-editor .cpf {
+      color: #408080;
+      font-style: italic; }
+    #editor .code-editor .c1 {
+      color: #408080;
+      font-style: italic; }
+    #editor .code-editor .cs {
+      color: #408080;
+      font-style: italic; }
+    #editor .code-editor .gd {
+      color: #A00000; }
+    #editor .code-editor .ge {
+      font-style: italic; }
+    #editor .code-editor .gr {
+      color: #FF0000; }
+    #editor .code-editor .gh {
+      color: #000080;
+      font-weight: bold; }
+    #editor .code-editor .gi {
+      color: #00A000; }
+    #editor .code-editor .go {
+      color: #888888; }
+    #editor .code-editor .gp {
+      color: #000080;
+      font-weight: bold; }
+    #editor .code-editor .gs {
+      font-weight: bold; }
+    #editor .code-editor .gu {
+      color: #800080;
+      font-weight: bold; }
+    #editor .code-editor .gt {
+      color: #0044DD; }
+    #editor .code-editor .kc {
+      color: #008000;
+      font-weight: bold; }
+    #editor .code-editor .kd {
+      color: #008000;
+      font-weight: bold; }
+    #editor .code-editor .kn {
+      color: #008000;
+      font-weight: bold; }
+    #editor .code-editor .kp {
+      color: #008000; }
+    #editor .code-editor .kr {
+      color: #008000;
+      font-weight: bold; }
+    #editor .code-editor .kt {
+      color: #B00040; }
+    #editor .code-editor .m {
+      color: #666666; }
+    #editor .code-editor .s {
+      color: #BA2121; }
+    #editor .code-editor .na {
+      color: #7D9029; }
+    #editor .code-editor .nb {
+      color: #008000; }
+    #editor .code-editor .nc {
+      color: #0000FF;
+      font-weight: bold; }
+    #editor .code-editor .no {
+      color: #880000; }
+    #editor .code-editor .nd {
+      color: #AA22FF; }
+    #editor .code-editor .ni {
+      color: #999999;
+      font-weight: bold; }
+    #editor .code-editor .ne {
+      color: #D2413A;
+      font-weight: bold; }
+    #editor .code-editor .nf {
+      color: #0000FF; }
+    #editor .code-editor .nl {
+      color: #A0A000; }
+    #editor .code-editor .nn {
+      color: #0000FF;
+      font-weight: bold; }
+    #editor .code-editor .nt {
+      color: #008000;
+      font-weight: bold; }
+    #editor .code-editor .nv {
+      color: #19177C; }
+    #editor .code-editor .ow {
+      color: #AA22FF;
+      font-weight: bold; }
+    #editor .code-editor .w {
+      color: #bbbbbb; }
+    #editor .code-editor .mb {
+      color: #666666; }
+    #editor .code-editor .mf {
+      color: #666666; }
+    #editor .code-editor .mh {
+      color: #666666; }
+    #editor .code-editor .mi {
+      color: #666666; }
+    #editor .code-editor .mo {
+      color: #666666; }
+    #editor .code-editor .sa {
+      color: #BA2121; }
+    #editor .code-editor .sb {
+      color: #BA2121; }
+    #editor .code-editor .sc {
+      color: #BA2121; }
+    #editor .code-editor .dl {
+      color: #BA2121; }
+    #editor .code-editor .sd {
+      color: #BA2121;
+      font-style: italic; }
+    #editor .code-editor .s2 {
+      color: #BA2121; }
+    #editor .code-editor .se {
+      color: #BB6622;
+      font-weight: bold; }
+    #editor .code-editor .sh {
+      color: #BA2121; }
+    #editor .code-editor .si {
+      color: #BB6688;
+      font-weight: bold; }
+    #editor .code-editor .sx {
+      color: #008000; }
+    #editor .code-editor .sr {
+      color: #BB6688; }
+    #editor .code-editor .s1 {
+      color: #BA2121; }
+    #editor .code-editor .ss {
+      color: #19177C; }
+    #editor .code-editor .bp {
+      color: #008000; }
+    #editor .code-editor .fm {
+      color: #0000FF; }
+    #editor .code-editor .vc {
+      color: #19177C; }
+    #editor .code-editor .vg {
+      color: #19177C; }
+    #editor .code-editor .vi {
+      color: #19177C; }
+    #editor .code-editor .vm {
+      color: #19177C; }
+    #editor .code-editor .il {
+      color: #666666; }
+
+#viewer {
+  box-shadow: 0 0 5px #8a8a8a inset; }

@@ -1,0 +1,13 @@
+{
+  "name": "ou-sphinx-theme",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Mark Hall <mark.hall@open.ac.uk>",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.1.0",
+    "pump": "^3.0.0",
+    "sanitize.css": "^11.0.1"
+  }
+}

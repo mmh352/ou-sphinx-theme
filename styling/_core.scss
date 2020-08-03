@@ -1,0 +1,13 @@
+html {
+    font-family: $global-font-family;
+    font-size: $global-font-size;
+    color: $black;
+}
+
+a {
+    color: $colour-primary;
+
+    &:hover {
+        color: $colour-primary-dark;
+    }
+}

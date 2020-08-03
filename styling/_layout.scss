@@ -1,0 +1,26 @@
+div#app {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    overflow: hidden;
+
+    &.layout-tutorial {
+        max-width: 50rem;
+        margin: 0 auto;
+    }
+
+    &.layout-tutorial-iframe {
+        grid-template-columns: 50rem 1fr;
+        grid-template-rows: 1fr;
+
+        #tutorial {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        #iframe {
+            grid-column: 2;
+            grid-row: 1;
+        }
+    }
+}
