@@ -83,7 +83,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import TutorialNav from './TutorialNav.vue';
-import { ScrollPosition } from '@/interfaces';
+
+interface ScrollPosition {
+    scrollTop: number;
+}
 
 @Component({
     components: {
