@@ -143,6 +143,7 @@ div.admonition {
     background: $colour-primary-light;
     border-left: rem-calc(4px) solid $colour-primary;
     padding-bottom: $global-padding/4;
+    margin-bottom: $global-margin;
 
     p {
         padding: $global-padding/4 $global-padding/2;

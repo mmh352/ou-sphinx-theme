@@ -317,7 +317,8 @@ svg.icon {
   #tutorial div.admonition {
     background: #e5f0f9;
     border-left: 0.28571rem solid #1e4b9b;
-    padding-bottom: 0.25rem; }
+    padding-bottom: 0.25rem;
+    margin-bottom: 1rem; }
     #tutorial div.admonition p {
       padding: 0.25rem 0.5rem;
       margin: 0; }
