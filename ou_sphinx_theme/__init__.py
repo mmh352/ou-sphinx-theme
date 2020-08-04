@@ -60,11 +60,13 @@ def get_within_block_nav(self, pagename):
 def update_page_context(self, pagename, templatename, context, event_arg):
     """Update the page context with the data needed for the OU Sphinx Theme."""
     if 'body' in context:
-        print(context.keys())
         data = {
             'metadata': {},
             'project': context['project'],
-            'staticBase': context['pathto']('_static', 1),
+            'urls': {
+                'root': context['pathto'](context['master_doc']),
+                'static': context['pathto']('_static', 1),
+            },
             'tutorial': {
                 'blocks': [{'title': 'Home', 'url': context['pathto'](context['master_doc'])}] + get_block_nav(self, pagename),
                 'body': context['body'],

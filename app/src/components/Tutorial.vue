@@ -2,7 +2,7 @@
     <div id="tutorial" ref="tutorial" :class="{ 'full-within-block-active': isWithinBlockNavActive, 'scrolling': isScrolling }" v-scroll="scrolling">
         <header ref="header">
             <div>
-                <a :href="tutorial.rootUrl" @click="navigateTo(tutorial.rootUrl, $event)">{{ project }}</a>
+                <a :href="urls.root" @click="navigateTo(urls.root, $event)" :title="project">{{ project }}</a>
             </div>
           <form>
             <label><span class="show-for-sr">Search within {{ project }}</span>
@@ -14,7 +14,7 @@
               </svg>
             </button>
           </form>
-          <div><a href="http://open.ac.uk" target="_blank" rel="noopener"><img :src="$store.state.staticBase + '/ou_logo.png'" alt="The Open University"/></a></div>
+          <div><a href="http://open.ac.uk" target="_blank" rel="noopener"><img :src="urls.static + '/ou_logo.png'" alt="The Open University"/></a></div>
         </header>
         <nav ref="blockNav" class="block">
             <ul>
@@ -99,6 +99,11 @@ export default class Tutorial extends Vue {
     public isWithinBlockNavActive = false;
     public withinBlockNavHeight = 0;
     public withinBlockNavTop = 0;
+
+    public get urls() {
+        console.log(this.$store.state.urls);
+        return this.$store.state.urls;
+    }
 
     public get project() {
         return this.$store.state.project;

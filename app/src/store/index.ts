@@ -7,8 +7,13 @@ Vue.use(Vuex)
 interface State {
     metadata: {[x: string]: string};
     project: string;
-    staticBase: string;
+    urls: UrlState;
     tutorial: TutorialState;
+}
+
+interface UrlState {
+    root: string;
+    static: string;
 }
 
 interface TutorialState {
@@ -32,7 +37,10 @@ export default new Vuex.Store({
     state: {
         metadata: {},
         project: '',
-        staticBase: '',
+        urls: {
+            root: '',
+            static: '',
+        },
         tutorial: {
             blocks: [],
             body: '',
@@ -51,8 +59,8 @@ export default new Vuex.Store({
             if (state.project !== payload.project) {
                 state.project = payload.project;
             }
-            if (state.staticBase !== payload.staticBase) {
-                state.staticBase = payload.staticBase;
+            if (!deepEqual(state.urls, payload.urls)) {
+                state.urls = payload.urls;
             }
             if (!deepEqual(state.tutorial, payload.tutorial)) {
                 state.tutorial = payload.tutorial;
