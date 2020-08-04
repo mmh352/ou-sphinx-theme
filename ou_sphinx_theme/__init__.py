@@ -57,11 +57,59 @@ def get_within_block_nav(self, pagename):
     return None
 
 
+def find_node(self, node, pagename):
+    """Find the node for the ``pagename``."""
+    if isinstance(node, list_item):
+        entry = get_nav_entry(node)
+        if self.env.relfn2path(entry['url'], pagename)[0].split('/')[-1] == '':
+            return node
+        for child in node.children:
+            tmp = find_node(self, child, pagename)
+            if tmp:
+                return tmp
+    elif isinstance(node, bullet_list):
+        for child in node.children:
+            tmp = find_node(self, child, pagename)
+            if tmp:
+                return tmp
+    return None
+
+
+def get_ancestor_pagenames(self, pagename):
+    """Get a list of all ancestor pagenames."""
+    toctree = TocTree(self.env).get_toctree_for(pagename, self, collapse=False, maxdepth=-1)
+    for top_level in toctree.children[0].children:
+        tmp = find_node(self, top_level, pagename)
+        if tmp:
+            result = []
+            parent = tmp.parent.parent
+            while parent:
+                if isinstance(parent, list_item):
+                    parent_pagename = self.env.relfn2path(get_nav_entry(parent)['url'], pagename)[0]
+                    if parent_pagename.endswith('.html'):
+                        parent_pagename = parent_pagename[:-5]
+                    result.append(parent_pagename)
+                if parent.parent:
+                    parent = parent.parent.parent
+                else:
+                    parent = None
+            result.reverse()
+            return result
+    return []
+
+
 def update_page_context(self, pagename, templatename, context, event_arg):
     """Update the page context with the data needed for the OU Sphinx Theme."""
     if 'body' in context:
+        #print(self.env.metadata)
+        metadata = {}
+        for ancestor in get_ancestor_pagenames(self, pagename):
+            if ancestor in self.env.metadata:
+                metadata.update(self.env.metadata[ancestor])
+        if 'meta' in context and context['meta']:
+            metadata.update(context['meta'])
         data = {
-            'metadata': {},
+            'metadata': metadata,
             'project': context['project'],
             'urls': {
                 'root': context['pathto'](context['master_doc']),
@@ -76,8 +124,6 @@ def update_page_context(self, pagename, templatename, context, event_arg):
                 'withinBlockNav': get_within_block_nav(self, pagename),
             }
         }
-        if 'meta' in context and context['meta']:
-            data['metadata'] = context['meta']
         context['json_blob'] = b64encode(json.dumps(data).encode('utf-8')).decode('utf-8')
         outfilename = self.get_outfilename(pagename)
         if outfilename.endswith('.html'):
