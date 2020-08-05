@@ -114,7 +114,6 @@ def update_page_context(self, pagename, templatename, context, event_arg):
     if 'body' in context:
         metadata = {}
         for ancestor in get_ancestor_pagenames(self, pagename):
-            print(ancestor)
             if ancestor in self.env.metadata:
                 metadata.update(self.env.metadata[ancestor])
         if 'meta' in context and context['meta']:
