@@ -173,7 +173,8 @@ svg.icon {
       #tutorial nav.full-within-block button svg path {
         fill: #0a0a0a; }
     #tutorial nav.full-within-block ul {
-      margin-left: 1rem; }
+      margin-left: 1rem;
+      margin-right: 1rem; }
     #tutorial nav.full-within-block a {
       display: block;
       padding: 0.5rem 1rem;
@@ -206,10 +207,10 @@ svg.icon {
           display: none; }
         #tutorial nav.full-within-block li > span button svg path {
           fill: #0a0a0a; }
-  #tutorial #tutorial.scrolling nav.within-block {
+  #tutorial.scrolling nav.within-block {
     background: #002158;
     box-shadow: 0 0 0.71429rem #0a0a0a; }
-    #tutorial #tutorial.scrolling nav.within-block a {
+    #tutorial.scrolling nav.within-block a {
       color: #fefefe; }
   #tutorial div.toctree-wrapper a {
     display: block;

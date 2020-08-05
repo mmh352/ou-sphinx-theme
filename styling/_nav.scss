@@ -99,6 +99,7 @@ nav {
 
         ul {
             margin-left: $global-margin;
+            margin-right: $global-margin;
         }
 
         a {
@@ -186,7 +187,7 @@ nav {
     }
 }
 
-#tutorial.scrolling {
+&.scrolling {
     nav {
         &.within-block {
             background: $colour-primary-dark;
