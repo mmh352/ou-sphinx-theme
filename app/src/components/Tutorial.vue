@@ -136,10 +136,17 @@ export default class Tutorial extends Vue {
     }
 
     public articleClick(ev: MouseEvent) {
-        if ((ev.target as HTMLElement).classList.contains('reference') && (ev.target as HTMLElement).classList.contains('internal')) {
-            const url = (ev.target as HTMLElement).getAttribute('href');
-            if (url) {
-                this.navigateTo(url, ev);
+        const target = (ev.target as HTMLElement);
+        const classList = target.classList;
+        if (classList.contains('reference')) {
+            if (classList.contains('internal')) {
+                const url = (ev.target as HTMLElement).getAttribute('href');
+                if (url) {
+                    this.navigateTo(url, ev);
+                }
+            } else if (classList.contains('external')) {
+                target.setAttribute('rel', 'noopener');
+                target.setAttribute('target', '_blank');
             }
         }
     }
