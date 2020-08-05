@@ -75,6 +75,17 @@ def find_node(self, node, pagename):
     return None
 
 
+def resolve_pagename(pagename):
+    """Resolve a pagename, removing all ``..``."""
+    resolved = []
+    for part in pagename.split('/'):
+        if part == '..':
+            resolved.pop()
+        else:
+            resolved.append(part)
+    return '/'.join(resolved)
+
+
 def get_ancestor_pagenames(self, pagename):
     """Get a list of all ancestor pagenames."""
     toctree = TocTree(self.env).get_toctree_for(pagename, self, collapse=False, maxdepth=-1)
@@ -88,7 +99,7 @@ def get_ancestor_pagenames(self, pagename):
                     parent_pagename = self.env.relfn2path(get_nav_entry(parent)['url'], pagename)[0]
                     if parent_pagename.endswith('.html'):
                         parent_pagename = parent_pagename[:-5]
-                    result.append(parent_pagename)
+                    result.append(resolve_pagename(parent_pagename))
                 if parent.parent:
                     parent = parent.parent.parent
                 else:
@@ -101,9 +112,9 @@ def get_ancestor_pagenames(self, pagename):
 def update_page_context(self, pagename, templatename, context, event_arg):
     """Update the page context with the data needed for the OU Sphinx Theme."""
     if 'body' in context:
-        #print(self.env.metadata)
         metadata = {}
         for ancestor in get_ancestor_pagenames(self, pagename):
+            print(ancestor)
             if ancestor in self.env.metadata:
                 metadata.update(self.env.metadata[ancestor])
         if 'meta' in context and context['meta']:
