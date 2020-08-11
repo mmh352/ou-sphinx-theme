@@ -101,7 +101,6 @@ export default class Tutorial extends Vue {
     public withinBlockNavTop = 0;
 
     public get urls() {
-        console.log(this.$store.state.urls);
         return this.$store.state.urls;
     }
 
@@ -136,17 +135,23 @@ export default class Tutorial extends Vue {
     }
 
     public articleClick(ev: MouseEvent) {
-        const target = (ev.target as HTMLElement);
-        const classList = target.classList;
-        if (classList.contains('reference')) {
-            if (classList.contains('internal')) {
-                const url = (ev.target as HTMLElement).getAttribute('href');
-                if (url) {
-                    this.navigateTo(url, ev);
+        let target = (ev.target as HTMLElement);
+        while (target && target.localName !== 'a') {
+            target = target.parentElement as HTMLElement;
+        }
+        if (target) {
+            const classList = target.classList;
+            if (classList.contains('reference')) {
+                if (classList.contains('internal')) {
+                    ev.preventDefault();
+                    const url = target.getAttribute('href');
+                    if (url) {
+                        this.navigateTo(url, ev);
+                    }
+                } else if (classList.contains('external')) {
+                    target.setAttribute('rel', 'noopener');
+                    target.setAttribute('target', '_blank');
                 }
-            } else if (classList.contains('external')) {
-                target.setAttribute('rel', 'noopener');
-                target.setAttribute('target', '_blank');
             }
         }
     }
