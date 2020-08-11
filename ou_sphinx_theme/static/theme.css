@@ -333,27 +333,20 @@ svg.icon {
     width: 0.85714rem;
     height: 0.85714rem;
     margin-left: 0.14286rem; }
-
-#editor {
-  display: flex;
-  flex-direction: column;
-  background: #4a4a4a;
-  color: #fefefe; }
-  #editor nav {
-    flex: 0 0 auto; }
-    #editor nav a[role="tab"] {
-      color: #cacaca; }
-      #editor nav a[role="tab"][aria-selected="true"] {
-        background: #0a0a0a; }
-  #editor .code-editor {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: row;
+  #tutorial table.highlighttable {
+    border-spacing: 0;
+    width: 100%; }
+  #tutorial div.linenodiv pre {
     background: #0a0a0a;
-    /* Comment */
+    color: #858585;
+    padding: 0.5rem; }
+  #tutorial div.highlight pre {
+    overflow: auto;
+    background: #0a0a0a;
+    color: #e9e9e9;
+    padding: 0.5rem;
     /* Error */
-    /* Keyword */
-    /* Operator */
+    /* Comment */
     /* Comment.Hashbang */
     /* Comment.Multiline */
     /* Comment.Preproc */
@@ -370,33 +363,41 @@ svg.icon {
     /* Generic.Strong */
     /* Generic.Subheading */
     /* Generic.Traceback */
+    /* Keyword */
     /* Keyword.Constant */
     /* Keyword.Declaration */
     /* Keyword.Namespace */
     /* Keyword.Pseudo */
     /* Keyword.Reserved */
     /* Keyword.Type */
-    /* Literal.Number */
-    /* Literal.String */
     /* Name.Attribute */
     /* Name.Builtin */
+    /* Name.Builtin.Pseudo */
     /* Name.Class */
     /* Name.Constant */
     /* Name.Decorator */
     /* Name.Entity */
     /* Name.Exception */
     /* Name.Function */
+    /* Name.Function.Magic */
     /* Name.Label */
     /* Name.Namespace */
     /* Name.Tag */
     /* Name.Variable */
+    /* Name.Variable.Class */
+    /* Name.Variable.Global */
+    /* Name.Variable.Instance */
+    /* Name.Variable.Magic */
+    /* Operator */
     /* Operator.Word */
-    /* Text.Whitespace */
+    /* Literal.Number */
     /* Literal.Number.Bin */
     /* Literal.Number.Float */
     /* Literal.Number.Hex */
     /* Literal.Number.Integer */
     /* Literal.Number.Oct */
+    /* Literal.Number.Integer.Long */
+    /* Literal.String */
     /* Literal.String.Affix */
     /* Literal.String.Backtick */
     /* Literal.String.Char */
@@ -410,13 +411,167 @@ svg.icon {
     /* Literal.String.Regex */
     /* Literal.String.Single */
     /* Literal.String.Symbol */
-    /* Name.Builtin.Pseudo */
-    /* Name.Function.Magic */
-    /* Name.Variable.Class */
-    /* Name.Variable.Global */
-    /* Name.Variable.Instance */
-    /* Name.Variable.Magic */
-    /* Literal.Number.Integer.Long */ }
+    /* Text.Whitespace */ }
+    #tutorial div.highlight pre .err {
+      text-decoration: underline;
+      text-decoration-color: #bc3f3c; }
+    #tutorial div.highlight pre .c {
+      color: #6a9955; }
+    #tutorial div.highlight pre .ch {
+      color: #6a9955; }
+    #tutorial div.highlight pre .cm {
+      color: #6a9955; }
+    #tutorial div.highlight pre .cp {
+      color: #6a9955; }
+    #tutorial div.highlight pre .cpf {
+      color: #6a9955; }
+    #tutorial div.highlight pre .c1 {
+      color: #6a9955; }
+    #tutorial div.highlight pre .cs {
+      color: #6a9955; }
+    #tutorial div.highlight pre .gd {
+      text-decoration: line-through; }
+    #tutorial div.highlight pre .ge {
+      font-style: italic; }
+    #tutorial div.highlight pre .gr {
+      color: #bc3f3c; }
+    #tutorial div.highlight pre .gh {
+      font-weight: bold; }
+    #tutorial div.highlight pre .gi {
+      color: inherit; }
+    #tutorial div.highlight pre .go {
+      color: inherit; }
+    #tutorial div.highlight pre .gp {
+      color: inherit; }
+    #tutorial div.highlight pre .gs {
+      font-weight: bold; }
+    #tutorial div.highlight pre .gu {
+      font-weight: italic; }
+    #tutorial div.highlight pre .gt {
+      color: inherit; }
+    #tutorial div.highlight pre .k {
+      font-weight: bold;
+      color: #569cd6; }
+    #tutorial div.highlight pre .kc {
+      font-weight: bold;
+      color: #569cd6; }
+    #tutorial div.highlight pre .kd {
+      font-weight: bold;
+      color: #569cd6; }
+    #tutorial div.highlight pre .kn {
+      font-weight: bold;
+      color: #569cd6; }
+    #tutorial div.highlight pre .kp {
+      font-weight: bold;
+      color: #569cd6; }
+    #tutorial div.highlight pre .kr {
+      font-weight: bold;
+      color: #569cd6; }
+    #tutorial div.highlight pre .kt {
+      font-weight: bold;
+      color: #569cd6; }
+    #tutorial div.highlight pre .na {
+      color: #9cdcfe; }
+    #tutorial div.highlight pre .nb {
+      color: #4ec9b0; }
+    #tutorial div.highlight pre .bp {
+      color: #4ec9b0; }
+    #tutorial div.highlight pre .nc {
+      color: #a9b7c6; }
+    #tutorial div.highlight pre .no {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .nd {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .ni {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .ne {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .nf {
+      color: #dcdcaa;
+      font-weight: bold; }
+    #tutorial div.highlight pre .fm {
+      color: #dcdcaa; }
+    #tutorial div.highlight pre .nl {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .nn {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .nt {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .nv {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .vc {
+      color: #a9b7c6; }
+    #tutorial div.highlight pre .vg {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .vi {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .vm {
+      color: #ddd6a3; }
+    #tutorial div.highlight pre .o {
+      color: #d4d4d4; }
+    #tutorial div.highlight pre .ow {
+      color: #d4d4d4; }
+    #tutorial div.highlight pre .m {
+      color: #b5cea8; }
+    #tutorial div.highlight pre .mb {
+      color: #b5cea8; }
+    #tutorial div.highlight pre .mf {
+      color: #b5cea8; }
+    #tutorial div.highlight pre .mh {
+      color: #b5cea8; }
+    #tutorial div.highlight pre .mi {
+      color: #b5cea8; }
+    #tutorial div.highlight pre .mo {
+      color: #b5cea8; }
+    #tutorial div.highlight pre .il {
+      color: #b5cea8; }
+    #tutorial div.highlight pre .s {
+      color: #ce9178; }
+    #tutorial div.highlight pre .sa {
+      color: #ce9178; }
+    #tutorial div.highlight pre .sb {
+      color: #ce9178; }
+    #tutorial div.highlight pre .sc {
+      color: #ce9178; }
+    #tutorial div.highlight pre .dl {
+      color: #ce9178; }
+    #tutorial div.highlight pre .sd {
+      color: #ce9178; }
+    #tutorial div.highlight pre .s2 {
+      color: #ce9178; }
+    #tutorial div.highlight pre .se {
+      color: #ce9178; }
+    #tutorial div.highlight pre .sh {
+      color: #ce9178; }
+    #tutorial div.highlight pre .si {
+      color: #ce9178; }
+    #tutorial div.highlight pre .sx {
+      color: #ce9178; }
+    #tutorial div.highlight pre .sr {
+      color: #ce9178; }
+    #tutorial div.highlight pre .s1 {
+      color: #ce9178; }
+    #tutorial div.highlight pre .ss {
+      color: #ce9178; }
+    #tutorial div.highlight pre .w {
+      color: #bbbbbb; }
+
+#editor {
+  display: flex;
+  flex-direction: column;
+  background: #4a4a4a;
+  color: #fefefe; }
+  #editor nav {
+    flex: 0 0 auto; }
+    #editor nav a[role="tab"] {
+      color: #cacaca; }
+      #editor nav a[role="tab"][aria-selected="true"] {
+        background: #0a0a0a; }
+  #editor .code-editor {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    background: #4a4a4a; }
     #editor .code-editor div.line-numbers {
       flex: 0 0 auto;
       padding: 0 2rem;
@@ -426,163 +581,6 @@ svg.icon {
       flex: 1 1 auto; }
     #editor .code-editor pre {
       margin: 0; }
-    #editor .code-editor .c {
-      color: #408080;
-      font-style: italic; }
-    #editor .code-editor .err {
-      border: 1px solid #FF0000; }
-    #editor .code-editor .k {
-      color: #008000;
-      font-weight: bold; }
-    #editor .code-editor .o {
-      color: #666666; }
-    #editor .code-editor .ch {
-      color: #408080;
-      font-style: italic; }
-    #editor .code-editor .cm {
-      color: #408080;
-      font-style: italic; }
-    #editor .code-editor .cp {
-      color: #BC7A00; }
-    #editor .code-editor .cpf {
-      color: #408080;
-      font-style: italic; }
-    #editor .code-editor .c1 {
-      color: #408080;
-      font-style: italic; }
-    #editor .code-editor .cs {
-      color: #408080;
-      font-style: italic; }
-    #editor .code-editor .gd {
-      color: #A00000; }
-    #editor .code-editor .ge {
-      font-style: italic; }
-    #editor .code-editor .gr {
-      color: #FF0000; }
-    #editor .code-editor .gh {
-      color: #000080;
-      font-weight: bold; }
-    #editor .code-editor .gi {
-      color: #00A000; }
-    #editor .code-editor .go {
-      color: #888888; }
-    #editor .code-editor .gp {
-      color: #000080;
-      font-weight: bold; }
-    #editor .code-editor .gs {
-      font-weight: bold; }
-    #editor .code-editor .gu {
-      color: #800080;
-      font-weight: bold; }
-    #editor .code-editor .gt {
-      color: #0044DD; }
-    #editor .code-editor .kc {
-      color: #008000;
-      font-weight: bold; }
-    #editor .code-editor .kd {
-      color: #008000;
-      font-weight: bold; }
-    #editor .code-editor .kn {
-      color: #008000;
-      font-weight: bold; }
-    #editor .code-editor .kp {
-      color: #008000; }
-    #editor .code-editor .kr {
-      color: #008000;
-      font-weight: bold; }
-    #editor .code-editor .kt {
-      color: #B00040; }
-    #editor .code-editor .m {
-      color: #666666; }
-    #editor .code-editor .s {
-      color: #BA2121; }
-    #editor .code-editor .na {
-      color: #7D9029; }
-    #editor .code-editor .nb {
-      color: #008000; }
-    #editor .code-editor .nc {
-      color: #0000FF;
-      font-weight: bold; }
-    #editor .code-editor .no {
-      color: #880000; }
-    #editor .code-editor .nd {
-      color: #AA22FF; }
-    #editor .code-editor .ni {
-      color: #999999;
-      font-weight: bold; }
-    #editor .code-editor .ne {
-      color: #D2413A;
-      font-weight: bold; }
-    #editor .code-editor .nf {
-      color: #0000FF; }
-    #editor .code-editor .nl {
-      color: #A0A000; }
-    #editor .code-editor .nn {
-      color: #0000FF;
-      font-weight: bold; }
-    #editor .code-editor .nt {
-      color: #008000;
-      font-weight: bold; }
-    #editor .code-editor .nv {
-      color: #19177C; }
-    #editor .code-editor .ow {
-      color: #AA22FF;
-      font-weight: bold; }
-    #editor .code-editor .w {
-      color: #bbbbbb; }
-    #editor .code-editor .mb {
-      color: #666666; }
-    #editor .code-editor .mf {
-      color: #666666; }
-    #editor .code-editor .mh {
-      color: #666666; }
-    #editor .code-editor .mi {
-      color: #666666; }
-    #editor .code-editor .mo {
-      color: #666666; }
-    #editor .code-editor .sa {
-      color: #BA2121; }
-    #editor .code-editor .sb {
-      color: #BA2121; }
-    #editor .code-editor .sc {
-      color: #BA2121; }
-    #editor .code-editor .dl {
-      color: #BA2121; }
-    #editor .code-editor .sd {
-      color: #BA2121;
-      font-style: italic; }
-    #editor .code-editor .s2 {
-      color: #BA2121; }
-    #editor .code-editor .se {
-      color: #BB6622;
-      font-weight: bold; }
-    #editor .code-editor .sh {
-      color: #BA2121; }
-    #editor .code-editor .si {
-      color: #BB6688;
-      font-weight: bold; }
-    #editor .code-editor .sx {
-      color: #008000; }
-    #editor .code-editor .sr {
-      color: #BB6688; }
-    #editor .code-editor .s1 {
-      color: #BA2121; }
-    #editor .code-editor .ss {
-      color: #19177C; }
-    #editor .code-editor .bp {
-      color: #008000; }
-    #editor .code-editor .fm {
-      color: #0000FF; }
-    #editor .code-editor .vc {
-      color: #19177C; }
-    #editor .code-editor .vg {
-      color: #19177C; }
-    #editor .code-editor .vi {
-      color: #19177C; }
-    #editor .code-editor .vm {
-      color: #19177C; }
-    #editor .code-editor .il {
-      color: #666666; }
 
 #viewer {
   box-shadow: 0 0 5px #8a8a8a inset; }
