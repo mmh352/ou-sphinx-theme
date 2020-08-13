@@ -25,7 +25,7 @@ export default class App extends Vue {
         if (this.$store.state.metadata && this.$store.state.metadata.layout) {
             return this.$store.state.metadata.layout;
         } else {
-            return 'tutorial';
+            return 'tutorial-only-center';
         }
     }
 
@@ -34,7 +34,7 @@ export default class App extends Vue {
     }
 
     public get hasTutorial() {
-        return ['tutorial', 'tutorial-iframe'].indexOf(this.layout) >= 0;
+        return ['tutorial-only', 'tutorial-only-left', 'tutorial-only-center', 'tutorial-only-right', 'tutorial-iframe'].indexOf(this.layout) >= 0;
     }
 
     public get hasIFrame() {
@@ -45,7 +45,7 @@ export default class App extends Vue {
         const pageData = document.querySelector('script#json-blob');
         if (pageData) {
             this.$store.commit('setPage', JSON.parse(atob(pageData.innerHTML)));
-            window.addEventListener('popstate', (ev: PopStateEvent) => {
+            window.addEventListener('popstate', () => {
                 this.$store.dispatch('fetch', window.location.href);
             });
         }

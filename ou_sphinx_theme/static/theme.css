@@ -13,9 +13,14 @@ div#app {
   height: 100vh;
   display: grid;
   overflow: hidden; }
-  div#app.layout-tutorial {
+  div#app.layout-tutorial-only, div#app.layout-tutorial-only-center {
     max-width: 50rem;
     margin: 0 auto; }
+  div#app.layout-tutorial-only-left {
+    max-width: 50rem; }
+  div#app.layout-tutorial-only-right {
+    max-width: 50rem;
+    margin-left: auto; }
   div#app.layout-tutorial-iframe {
     grid-template-columns: 50rem 1fr;
     grid-template-rows: 1fr; }
