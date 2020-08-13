@@ -5,14 +5,14 @@
                 <a :href="urls.root" @click="navigateTo(urls.root, $event)" :title="project">{{ project }}</a>
             </div>
           <form>
-            <label><span class="show-for-sr">Search within {{ project }}</span>
+            <!--<label><span class="show-for-sr">Search within {{ project }}</span>
               <input type="search" :placeholder="'Search within ' + project"/>
             </label>
             <button aria-label="Search">
               <svg viewBox="0 0 24 24" class="icon">
                 <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
               </svg>
-            </button>
+            </button>-->
           </form>
           <div><a href="http://open.ac.uk" target="_blank" rel="noopener"><img :src="urls.static + '/ou_logo.png'" alt="The Open University"/></a></div>
         </header>
@@ -27,19 +27,19 @@
             <nav class="within-block">
                 <ul>
                     <li>
-                        <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)">&laquo; Previous</a>
+                        <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)"><span>&laquo; Previous</span></a>
                         <span v-else>&laquo; Previous</span>
                     </li>
                     <li>
                         <a @click="showWithinBlockNav">
-                            {{ tutorial.title }}
+                            <span v-html="tutorial.title"></span>
                             <svg viewBox="0 0 24 24" class="icon small">
                                 <path d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
                             </svg>
                         </a>
                     </li>
                     <li>
-                        <a v-if="tutorial.next" :href="tutorial.next.url" :title="tutorial.next.title" @click="navigateTo(tutorial.next.url, $event)">Next &raquo;</a>
+                        <a v-if="tutorial.next" :href="tutorial.next.url" :title="tutorial.next.title" @click="navigateTo(tutorial.next.url, $event)"><span>Next &raquo;</span></a>
                         <span v-else>Next &raquo;</span>
                     </li>
                 </ul>
@@ -58,19 +58,19 @@
             <nav class="within-block">
                 <ul>
                     <li>
-                        <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)">&laquo; Previous</a>
+                        <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)"><span>&laquo; Previous</span></a>
                         <span v-else>&laquo; Previous</span>
                     </li>
                     <li>
                         <a @click="showWithinBlockNav">
-                            {{ tutorial.title }}
+                            <span v-html="tutorial.title"></span>
                             <svg viewBox="0 0 24 24" class="icon small">
                                 <path d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
                             </svg>
                         </a>
                     </li>
                     <li>
-                        <a v-if="tutorial.next" :href="tutorial.next.url" :title="tutorial.next.title" @click="navigateTo(tutorial.next.url, $event)">Next &raquo;</a>
+                        <a v-if="tutorial.next" :href="tutorial.next.url" :title="tutorial.next.title" @click="navigateTo(tutorial.next.url, $event)"><span>Next &raquo;</span></a>
                         <span v-else>Next &raquo;</span>
                     </li>
                 </ul>

@@ -45,8 +45,10 @@ export default class App extends Vue {
         const pageData = document.querySelector('script#json-blob');
         if (pageData) {
             this.$store.commit('setPage', JSON.parse(atob(pageData.innerHTML)));
-            window.addEventListener('popstate', () => {
-                this.$store.dispatch('fetch', window.location.href);
+            window.addEventListener('popstate', async () => {
+                const page = await this.$store.dispatch('fetch', window.location.href);
+                this.$store.commit('setPage', page);
+                document.title = page.tutorial.title.replace('&amp;', '&');
             });
         }
     }

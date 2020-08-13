@@ -48,21 +48,33 @@ nav {
             }
         }
 
-        a {
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            padding: $global-padding;
-            transition: 0.3s color;
-            cursor: pointer;
-        }
+        li {
+            > a {
+                display: block;
+                text-align: center;
+                text-decoration: none;
+                padding: $global-padding;
+                transition: 0.3s color;
+                cursor: pointer;
 
-        span {
-            display: block;
-            text-align: center;
-            padding: $global-padding;
-            cursor: not-allowed;
-            color: $very-dark-gray;
+                > span {
+                    padding-right: rem-calc(8px);
+                    vertical-align: middle;
+                }
+
+                > svg {
+                    vertical-align: middle;
+                }
+            }
+
+            > span {
+                display: block;
+                text-align: center;
+                padding: $global-padding;
+                cursor: not-allowed;
+                color: $very-dark-gray;
+            }
+
         }
     }
 

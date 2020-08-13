@@ -4,7 +4,7 @@ import deepEqual from 'fast-deep-equal';
 
 Vue.use(Vuex)
 
-interface State {
+export interface State {
     metadata: {[x: string]: string};
     project: string;
     urls: UrlState;
@@ -69,18 +69,19 @@ export default new Vuex.Store({
     },
 
     actions: {
-        async fetch({ commit, state }, url: string) {
+        async fetch(_, url: string) {
             url = (new URL(url, document.baseURI)).href;
             url = url.replace('.html', '.json');
-            commit('setPage', await (await fetch(url)).json());
-            document.title = state.tutorial.title;
+            return await (await fetch(url)).json();
         },
 
-        async load({ dispatch, state }, url: string) {
+        async load({ dispatch, commit }, url: string) {
             url = (new URL(url, document.baseURI)).href;
             try {
-                await dispatch('fetch', url);
-                history.pushState(null, state.tutorial.title, url);
+                const page = await dispatch('fetch', url);
+                history.pushState(null, page.tutorial.title, url);
+                commit('setPage', page);
+                document.title = page.tutorial.title.replace('&amp;', '&');
             } catch(error) {
                 window.location.href = url;
             }
