@@ -3,6 +3,13 @@ const gulp = require('gulp'),
       { spawn } = require('child_process'),
       sass = require('gulp-sass');
 
+gulp.task('js.mathjax', function(cb) {
+    pump([
+        gulp.src('node_modules/mathjax/es5/**/*.*'),
+        gulp.dest('ou_sphinx_theme/static/mathjax')
+    ], cb);
+});
+
 gulp.task('js.build.production', function(cb) {
     const builder = spawn('yarn', ['build', '--mode', 'production'], {
         cwd: 'app',
@@ -26,7 +33,7 @@ gulp.task('js.deploy', function(cb) {
     ], cb);
 });
 
-gulp.task('js.production', gulp.series('js.build.production', 'js.deploy'));
+gulp.task('js.production', gulp.series('js.build.production', 'js.deploy', 'js.mathjax'));
 
 gulp.task('js.development', gulp.parallel('js.build.development'));
 

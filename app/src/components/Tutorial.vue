@@ -109,6 +109,15 @@ export default class Tutorial extends Vue {
     }
 
     public get tutorial() {
+        this.$nextTick(() => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            if (window.MathJax) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                window.MathJax.typeset();
+            }
+        });
         return this.$store.state.tutorial;
     }
 
