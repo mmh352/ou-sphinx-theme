@@ -2,7 +2,6 @@
     <div id="app" :class="appClasses">
         <tutorial v-if="hasTutorial"></tutorial>
         <iframe id="iframe" v-if="hasIFrame" :src="iFrameSrc"></iframe>
-        <div style="position: fixed;left:0;top:0;z-index:2000;background:#ffffff;">{{ iFrameSrc }}</div>
     </div>
 </template>
 
