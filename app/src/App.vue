@@ -1,7 +1,8 @@
 <template>
     <div id="app" :class="appClasses">
         <tutorial v-if="hasTutorial"></tutorial>
-        <iframe id="iframe" v-if="hasIFrame" :src="$store.state.metadata['iframe-src']"></iframe>
+        <iframe id="iframe" v-if="hasIFrame" :src="iFrameSrc"></iframe>
+        <div style="position: fixed;left:0;top:0;z-index:2000;background:#ffffff;">{{ iFrameSrc }}</div>
     </div>
 </template>
 
@@ -41,9 +42,22 @@ export default class App extends Vue {
         return this.layout === 'tutorial-iframe';
     }
 
+    public get iFrameSrc() {
+        if (this.hasIFrame) {
+            if (this.$store.state.urls.prefix) {
+                return this.$store.state.urls.prefix + this.$store.state.metadata['iframe-src'];
+            } else {
+                return this.$store.state.metadata['iframe-src'];
+            }
+        } else {
+            return '';
+        }
+    }
+
     public created() {
         const pageData = document.querySelector('script#json-blob');
         if (pageData) {
+            this.$store.dispatch('fetch', window.location.href);
             this.$store.commit('setPage', JSON.parse(atob(pageData.innerHTML)));
             window.addEventListener('popstate', async () => {
                 const page = await this.$store.dispatch('fetch', window.location.href);

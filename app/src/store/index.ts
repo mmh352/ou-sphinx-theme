@@ -14,6 +14,7 @@ export interface State {
 interface UrlState {
     root: string;
     static: string;
+    prefix?: string;
 }
 
 interface TutorialState {
@@ -60,19 +61,30 @@ export default new Vuex.Store({
                 state.project = payload.project;
             }
             if (!deepEqual(state.urls, payload.urls)) {
-                state.urls = payload.urls;
+                state.urls.root = payload.urls.root;
+                state.urls.static = payload.urls.static;
             }
             if (!deepEqual(state.tutorial, payload.tutorial)) {
                 state.tutorial = payload.tutorial;
             }
         },
+
+        setURLPrefix(state, payload: string) {
+            if (state.urls.prefix !== payload) {
+                Vue.set(state.urls, 'prefix', payload);
+            }
+        }
     },
 
     actions: {
-        async fetch(_, url: string) {
+        async fetch({ commit }, url: string) {
             url = (new URL(url, document.baseURI)).href;
             url = url.replace('.html', '.json');
-            return await (await fetch(url)).json();
+            const response = await fetch(url);
+            if (response.headers.get('X-URL-Prefix') || response.headers.get('x-url-prefix')) {
+                commit('setURLPrefix', response.headers.get('X-URL-Prefix') || response.headers.get('x-url-prefix'));
+            }
+            return await response.json();
         },
 
         async load({ dispatch, commit }, url: string) {
