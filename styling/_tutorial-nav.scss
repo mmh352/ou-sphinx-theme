@@ -198,7 +198,7 @@ nav {
     }
 }
 
-&.scrolling {
+.scrolling {
     nav {
         &.within-block {
             background: $colour-primary-dark;

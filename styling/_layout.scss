@@ -20,7 +20,7 @@ div#app {
 
     &.layout-tutorial-iframe {
         grid-template-columns: 50rem 1fr;
-        grid-template-rows: 1fr;
+        grid-template-rows: 100%;
 
         #tutorial {
             grid-column: 1;

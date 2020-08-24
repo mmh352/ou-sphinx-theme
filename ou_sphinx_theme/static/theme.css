@@ -23,7 +23,7 @@ div#app {
     margin-left: auto; }
   div#app.layout-tutorial-iframe {
     grid-template-columns: 50rem 1fr;
-    grid-template-rows: 1fr; }
+    grid-template-rows: 100%; }
     div#app.layout-tutorial-iframe #tutorial {
       grid-column: 1;
       grid-row: 1; }
@@ -71,8 +71,7 @@ svg.icon {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow-x: auto;
-    overflow-y: scroll; }
+    overflow: auto; }
   #tutorial header {
     display: flex;
     flex-direction: row;
@@ -221,10 +220,10 @@ svg.icon {
           display: none; }
         #tutorial nav.within-block-overlay li > span button svg path {
           fill: #0a0a0a; }
-  #tutorial.scrolling nav.within-block {
+  #tutorial .scrolling nav.within-block {
     background: #002158;
     box-shadow: 0 0 0.71429rem #0a0a0a; }
-    #tutorial.scrolling nav.within-block a {
+    #tutorial .scrolling nav.within-block a {
       color: #fefefe; }
   #tutorial div.toctree-wrapper a {
     display: block;
