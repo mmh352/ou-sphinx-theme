@@ -7,15 +7,21 @@ div#app {
     &.layout-tutorial-only, &.layout-tutorial-only-center {
         max-width: 50rem;
         margin: 0 auto;
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
     }
 
     &.layout-tutorial-only-left {
         max-width: 50rem;
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
     }
 
     &.layout-tutorial-only-right {
         max-width: 50rem;
         margin-left: auto;
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
     }
 
     &.layout-tutorial-iframe {
