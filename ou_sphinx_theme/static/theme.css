@@ -66,10 +66,13 @@ svg.icon {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow-x: auto;
-  overflow-y: scroll; }
-  #tutorial.full-within-block-active {
-    overflow: hidden; }
+  overflow: hidden; }
+  #tutorial > .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: scroll; }
   #tutorial header {
     display: flex;
     flex-direction: row;
@@ -162,7 +165,7 @@ svg.icon {
       padding: 1rem;
       cursor: not-allowed;
       color: #4a4a4a; }
-  #tutorial nav.full-within-block {
+  #tutorial nav.within-block-overlay {
     position: absolute;
     left: 0;
     top: 0;
@@ -170,54 +173,53 @@ svg.icon {
     height: 0;
     background: #e5f0f9;
     z-index: 2;
-    overflow-x: auto;
-    overflow-y: scroll;
+    overflow: auto;
     transition: 0.3s height; }
-    #tutorial nav.full-within-block button {
+    #tutorial nav.within-block-overlay button {
       background: #e5f0f9;
       border: 0;
       cursor: pointer;
       padding: 0.5rem 1rem; }
-      #tutorial nav.full-within-block button.close-full-within-block {
+      #tutorial nav.within-block-overlay button.close-full-within-block {
         position: absolute;
         right: 0;
         top: 0; }
-      #tutorial nav.full-within-block button svg path {
+      #tutorial nav.within-block-overlay button svg path {
         fill: #0a0a0a; }
-    #tutorial nav.full-within-block ul {
+    #tutorial nav.within-block-overlay ul {
       margin-left: 1rem;
       margin-right: 1rem; }
-    #tutorial nav.full-within-block a {
+    #tutorial nav.within-block-overlay a {
       display: block;
       padding: 0.5rem 1rem;
       text-decoration: none; }
-      #tutorial nav.full-within-block a[aria-current="true"] {
+      #tutorial nav.within-block-overlay a[aria-current="true"] {
         background: #002158;
         color: #fefefe; }
-    #tutorial nav.full-within-block > ul > li > span button {
+    #tutorial nav.within-block-overlay > ul > li > span button {
       display: none; }
-    #tutorial nav.full-within-block li > ul {
+    #tutorial nav.within-block-overlay li > ul {
       display: none; }
-    #tutorial nav.full-within-block li[aria-expanded="true"] > span button svg:nth-child(1) {
+    #tutorial nav.within-block-overlay li[aria-expanded="true"] > span button svg:nth-child(1) {
       display: none; }
-    #tutorial nav.full-within-block li[aria-expanded="true"] > span button svg:nth-child(2) {
+    #tutorial nav.within-block-overlay li[aria-expanded="true"] > span button svg:nth-child(2) {
       display: inline; }
-    #tutorial nav.full-within-block li[aria-expanded="true"] > ul {
+    #tutorial nav.within-block-overlay li[aria-expanded="true"] > ul {
       display: block; }
-    #tutorial nav.full-within-block li > span {
+    #tutorial nav.within-block-overlay li > span {
       display: flex;
       flex-direction: row; }
-      #tutorial nav.full-within-block li > span a {
+      #tutorial nav.within-block-overlay li > span a {
         flex: 1 1 auto; }
-        #tutorial nav.full-within-block li > span a[aria-current="true"] + button {
+        #tutorial nav.within-block-overlay li > span a[aria-current="true"] + button {
           background: #002158; }
-          #tutorial nav.full-within-block li > span a[aria-current="true"] + button svg path {
+          #tutorial nav.within-block-overlay li > span a[aria-current="true"] + button svg path {
             fill: #fefefe; }
-      #tutorial nav.full-within-block li > span button {
+      #tutorial nav.within-block-overlay li > span button {
         flex: 0 0 auto; }
-        #tutorial nav.full-within-block li > span button svg:nth-child(2) {
+        #tutorial nav.within-block-overlay li > span button svg:nth-child(2) {
           display: none; }
-        #tutorial nav.full-within-block li > span button svg path {
+        #tutorial nav.within-block-overlay li > span button svg path {
           fill: #0a0a0a; }
   #tutorial.scrolling nav.within-block {
     background: #002158;
@@ -335,8 +337,12 @@ svg.icon {
     #tutorial div.admonition p {
       padding: 0.25rem 0.5rem;
       margin: 0; }
-    #tutorial div.admonition.note .admonition-title {
-      display: none; }
+    #tutorial div.admonition .admonition-title {
+      background: #1e4b9b;
+      color: #fefefe;
+      font-weight: bold; }
+    #tutorial div.admonition.warning .admonition-title {
+      background: #8a0000; }
   #tutorial ol.lowerroman {
     list-style-type: lower-roman; }
   #tutorial a.reference.external:after {
@@ -567,6 +573,10 @@ svg.icon {
       color: #ce9178; }
     #tutorial div.highlight pre .w {
       color: #bbbbbb; }
+  #tutorial code {
+    background: #e6e6e6;
+    border-radius: 0.21429rem;
+    padding: 0.14286rem 0.21429rem; }
 
 #editor {
   display: flex;

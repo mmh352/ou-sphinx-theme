@@ -2,15 +2,19 @@
     position: relative;
     width: 100%;
     height: 100%;
-    overflow-x: auto;
-    overflow-y: scroll;
+    overflow: hidden;
 
-    &.full-within-block-active {
-        overflow: hidden;
+    > .content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow-x: auto;
+        overflow-y: scroll;
+
     }
 
-    @import 'header';
-    @import 'nav';
-    @import 'article';
-    @import 'rest';
+    @import 'tutorial-header';
+    @import 'tutorial-nav';
+    @import 'tutorial-article';
+    @import 'tutorial-rest';
 }

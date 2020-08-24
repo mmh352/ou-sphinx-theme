@@ -150,9 +150,15 @@ div.admonition {
         margin: 0;
     }
 
-    &.note {
+    .admonition-title {
+        background: $colour-primary;
+        color: $white;
+        font-weight: bold;
+    }
+
+    &.warning {
         .admonition-title {
-            display: none;
+            background: $dark-red;
         }
     }
 }
@@ -271,4 +277,10 @@ div.highlight {
 
         .w { color: #bbbbbb } /* Text.Whitespace */
     }
+}
+
+code {
+    background: $light-gray;
+    border-radius: rem-calc(3px);
+    padding: rem-calc(2px) rem-calc(3px);
 }

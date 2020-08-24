@@ -78,7 +78,7 @@ nav {
         }
     }
 
-    &.full-within-block {
+    &.within-block-overlay {
         position: absolute;
         left: 0;
         top: 0;
@@ -86,8 +86,7 @@ nav {
         height: 0;
         background: $colour-primary-light;
         z-index: 2;
-        overflow-x: auto;
-        overflow-y: scroll;
+        overflow: auto;
         transition: 0.3s height;
 
         button {
