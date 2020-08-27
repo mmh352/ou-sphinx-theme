@@ -249,16 +249,16 @@ svg.icon {
     #tutorial div.toctree-wrapper > ul > li ul a {
       font-size: 1rem;
       padding: 0.5rem 0; }
-  #tutorial article {
+  #tutorial main {
     padding: 1rem 1rem 4rem 1rem; }
-    #tutorial article h1, #tutorial article h2, #tutorial article h3, #tutorial article h4, #tutorial article h5, #tutorial article h6 {
+    #tutorial main h1, #tutorial main h2, #tutorial main h3, #tutorial main h4, #tutorial main h5, #tutorial main h6 {
       margin-top: 0;
       color: #002158; }
-      #tutorial article h1 .headerlink, #tutorial article h2 .headerlink, #tutorial article h3 .headerlink, #tutorial article h4 .headerlink, #tutorial article h5 .headerlink, #tutorial article h6 .headerlink {
+      #tutorial main h1 .headerlink, #tutorial main h2 .headerlink, #tutorial main h3 .headerlink, #tutorial main h4 .headerlink, #tutorial main h5 .headerlink, #tutorial main h6 .headerlink {
         display: none; }
-    #tutorial article p {
+    #tutorial main p {
       margin-top: 0; }
-    #tutorial article mjx-container[jax="CHTML"][display="true"] {
+    #tutorial main mjx-container[jax="CHTML"][display="true"] {
       text-align: left; }
   #tutorial div.activity {
     background: #e5f0f9;

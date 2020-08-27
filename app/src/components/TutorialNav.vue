@@ -1,7 +1,7 @@
 <template>
     <ul>
         <template v-for="(item, idx) in items" >
-            <li v-if="item.children.length > 0" :key="idx" :aria-expanded="item.expanded ? 'true': 'false'">
+            <li v-if="item.children.length > 0" :key="idx" :aria-expanded="item.expanded ? 'true': 'false'" role="presentation">
                 <span>
                     <a :href="item.url" :aria-current="item.current ? 'true' : 'false'" @click="click(item.url, $event)">{{ item.title }}</a>
                     <button aria-label="Show or hide this section" @click="toggleShowHide(item)">
@@ -15,7 +15,7 @@
                 </span>
                 <tutorial-nav :items="item.children" @click="click"></tutorial-nav>
             </li>
-            <li v-else :key="idx">
+            <li v-else :key="idx" role="presentation">
                 <a :href="item.url" :aria-current="item.current ? 'true' : 'false'" @click="click(item.url, $event)">{{ item.title }}</a>
             </li>
         </template>

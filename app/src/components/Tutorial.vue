@@ -1,5 +1,6 @@
 <template>
     <div id="tutorial" ref="tutorial" @keyup="keyUp">
+        <a href="#tutorial-content" class="show-for-sr">Jump to the main content</a>
         <div :class="{ 'scrolling': isScrolling, 'content': true }" ref="content" v-scroll="scrolling">
             <header ref="header">
                 <div>
@@ -19,18 +20,18 @@
             </header>
             <nav ref="blockNav" class="block" aria-label="Block">
                 <ul>
-                    <li v-for="item in tutorial.blocks" :key="item.url">
+                    <li v-for="item in tutorial.blocks" :key="item.url" role="presentation">
                         <a :href="item.url" @click="navigateTo(item.url, $event)" :aria-current="(item.current || item.expanded) ? 'true' : 'false'">{{ item.title }}</a>
                     </li>
                 </ul>
             </nav>
             <nav v-if="tutorial.withinBlockNav" class="within-block" aria-label="Within Block">
                 <ul>
-                    <li>
+                    <li role="presentation">
                         <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)"><span>&laquo; Previous</span></a>
                         <span v-else>&laquo; Previous</span>
                     </li>
-                    <li>
+                    <li role="presentation">
                         <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the within block navigation">
                             <span v-html="tutorial.title"></span>
                             <svg viewBox="0 0 24 24" class="icon small">
@@ -38,20 +39,20 @@
                             </svg>
                         </a>
                     </li>
-                    <li>
+                    <li role="presentation">
                         <a v-if="tutorial.next" :href="tutorial.next.url" :title="tutorial.next.title" @click="navigateTo(tutorial.next.url, $event)"><span>Next &raquo;</span></a>
                         <span v-else>Next &raquo;</span>
                     </li>
                 </ul>
             </nav>
-            <article v-html="tutorial.body" @click="articleClick" aria-live="polite" aria-atomic="true"></article>
+            <main id="tutorial-content" v-html="tutorial.body" @click="articleClick" aria-live="polite" aria-atomic="true"></main>
             <nav v-if="tutorial.withinBlockNav" class="within-block" aria-label="Within Block">
                 <ul>
-                    <li>
+                    <li role="presentation">
                         <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)"><span>&laquo; Previous</span></a>
                         <span v-else>&laquo; Previous</span>
                     </li>
-                    <li>
+                    <li role="presentation">
                         <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the within block navigation">
                             <span v-html="tutorial.title"></span>
                             <svg viewBox="0 0 24 24" class="icon small">
@@ -59,7 +60,7 @@
                             </svg>
                         </a>
                     </li>
-                    <li>
+                    <li role="presentation">
                         <a v-if="tutorial.next" :href="tutorial.next.url" :title="tutorial.next.title" @click="navigateTo(tutorial.next.url, $event)"><span>Next &raquo;</span></a>
                         <span v-else>Next &raquo;</span>
                     </li>
