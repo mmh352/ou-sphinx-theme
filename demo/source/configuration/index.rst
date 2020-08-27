@@ -8,3 +8,4 @@ Configuration settings for the OU Sphinx Theme can be set on each page. They the
    :includehidden:
 
    layout/index
+   app-menu

@@ -9,12 +9,40 @@ div#app {
         margin: 0 auto;
         grid-template-columns: 100%;
         grid-template-rows: 100%;
+
+        &.layout-has-app-menu {
+            grid-template-rows: auto 1fr;
+
+            #app-menu {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            #tutorial {
+                grid-column: 1;
+                grid-row: 2;
+            }
+        }
     }
 
     &.layout-tutorial-only-left {
         max-width: 50rem;
         grid-template-columns: 100%;
         grid-template-rows: 100%;
+
+        &.layout-has-app-menu {
+            grid-template-rows: auto 1fr;
+
+            #app-menu {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            #tutorial {
+                grid-column: 1;
+                grid-row: 2;
+            }
+        }
     }
 
     &.layout-tutorial-only-right {
@@ -22,6 +50,20 @@ div#app {
         margin-left: auto;
         grid-template-columns: 100%;
         grid-template-rows: 100%;
+
+        &.layout-has-app-menu {
+            grid-template-rows: auto 1fr;
+
+            #app-menu {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            #tutorial {
+                grid-column: 1;
+                grid-row: 2;
+            }
+        }
     }
 
     &.layout-tutorial-iframe {
@@ -38,6 +80,26 @@ div#app {
             grid-row: 1;
             width: 100%;
             height: 100%;
+        }
+
+
+        &.layout-has-app-menu {
+            grid-template-rows: auto 1fr;
+
+            #app-menu {
+                grid-column: 1/3;
+                grid-row: 1;
+            }
+
+            #tutorial {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            #iframe {
+                grid-column: 2;
+                grid-row: 2;
+            }
         }
     }
 }

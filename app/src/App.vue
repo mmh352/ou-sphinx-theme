@@ -1,5 +1,12 @@
 <template>
     <div id="app" :class="appClasses">
+        <nav v-if="hasAppMenu" id="app-menu" aria-label="JupyterHub Menu">
+            <ul>
+                <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuDownloadUrl">Download</a></li>
+                <li v-if="hasAppMenuJupyterHub" role="presentation"><a :href="appMenuJupyterHubUrl">JupyterHub</a></li>
+                <li v-if="hasAppMenuJupyterHub" role="presentation"><a :href="appMenuLogoutUrl">Logout</a></li>
+            </ul>
+        </nav>
         <tutorial v-if="hasTutorial"></tutorial>
         <iframe id="iframe" v-if="hasIFrame" :src="iFrameSrc"></iframe>
     </div>
@@ -30,7 +37,47 @@ export default class App extends Vue {
     }
 
     public get appClasses() {
-        return ['layout-' + this.layout];
+        const classes = ['layout-' + this.layout];
+        if (this.hasAppMenu) {
+            classes.push('layout-has-app-menu');
+        }
+        return classes;
+    }
+
+    public get hasAppMenu() {
+        return this.hasAppMenuDownload || this.hasAppMenuJupyterHub;
+    }
+
+    public get hasAppMenuDownload() {
+        return this.$store.state.metadata['app-menu-download'] && this.$store.state.metadata['app-menu-download'].toLowerCase() === 'true';
+    }
+
+    public get appMenuDownloadUrl() {
+        if (this.$store.state.urls.prefix) {
+            return this.$store.state.urls.prefix + '/tutorial/download';
+        } else {
+            return '/tutorial/download';
+        }
+    }
+
+    public get appMenuLogoutUrl() {
+        if (this.$store.state.urls.prefix) {
+            return this.$store.state.urls.prefix + '/hub/logout';
+        } else {
+            return '/hub/logout';
+        }
+    }
+
+    public get appMenuJupyterHubUrl() {
+        if (this.$store.state.urls.prefix) {
+            return this.$store.state.urls.prefix + '/hub/home';
+        } else {
+            return '/hub/home';
+        }
+    }
+
+    public get hasAppMenuJupyterHub() {
+        return this.$store.state.metadata['app-menu-jupyterhub'] && this.$store.state.metadata['app-menu-jupyterhub'].toLowerCase() === 'true';
     }
 
     public get hasTutorial() {

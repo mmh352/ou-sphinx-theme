@@ -1,0 +1,31 @@
+#app-menu {
+    background: $colour-primary;
+    color: $white;
+
+    ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        justify-content: flex-end;
+
+        > li {
+            flex: 0 0 auto;
+        }
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        padding: $global-padding/3 $global-padding;
+        border: 2px solid transparent;
+        color: $white;
+        background: transparent;
+        cursor: pointer;
+        font-size: rem-calc(12px);
+        text-decoration: none;
+
+        &[aria-current="true"], &:hover, &:focus {
+            border-bottom-color: $colour-highlight;
+        }
+    }
+}
