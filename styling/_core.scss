@@ -7,7 +7,7 @@ html {
 a {
     color: $colour-primary;
 
-    &:hover {
+    &:hover, &:focus {
         color: $colour-primary-dark;
     }
 }

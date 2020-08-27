@@ -21,7 +21,7 @@ nav {
             color: $white;
             text-decoration: none;
 
-            &[aria-current="true"], &:hover {
+            &[aria-current="true"], &:hover, &:focus {
                 border-bottom-color: $colour-highlight;
             }
         }

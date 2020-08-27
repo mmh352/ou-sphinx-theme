@@ -5,7 +5,7 @@ html {
 
 a {
   color: #1e4b9b; }
-  a:hover {
+  a:hover, a:focus {
     color: #002158; }
 
 div#app {
@@ -136,7 +136,7 @@ svg.icon {
       border-bottom: 0.14286rem solid #002158;
       color: #fefefe;
       text-decoration: none; }
-      #tutorial nav.block a[aria-current="true"], #tutorial nav.block a:hover {
+      #tutorial nav.block a[aria-current="true"], #tutorial nav.block a:hover, #tutorial nav.block a:focus {
         border-bottom-color: #ffc23d; }
   #tutorial nav.within-block {
     background: #e5f0f9;

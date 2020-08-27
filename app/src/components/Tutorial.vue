@@ -1,5 +1,5 @@
 <template>
-    <div id="tutorial" ref="tutorial">
+    <div id="tutorial" ref="tutorial" @keyup="keyUp">
         <div :class="{ 'scrolling': isScrolling, 'content': true }" ref="content" v-scroll="scrolling">
             <header ref="header">
                 <div>
@@ -17,21 +17,21 @@
                 </form>
                 <div><a href="http://open.ac.uk" target="_blank" rel="noopener"><img :src="urls.static + '/ou_logo.png'" alt="The Open University"/></a></div>
             </header>
-            <nav ref="blockNav" class="block">
+            <nav ref="blockNav" class="block" aria-label="Block">
                 <ul>
                     <li v-for="item in tutorial.blocks" :key="item.url">
                         <a :href="item.url" @click="navigateTo(item.url, $event)" :aria-current="(item.current || item.expanded) ? 'true' : 'false'">{{ item.title }}</a>
                     </li>
                 </ul>
             </nav>
-            <nav v-if="tutorial.withinBlockNav" class="within-block">
+            <nav v-if="tutorial.withinBlockNav" class="within-block" aria-label="Within Block">
                 <ul>
                     <li>
                         <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)"><span>&laquo; Previous</span></a>
                         <span v-else>&laquo; Previous</span>
                     </li>
                     <li>
-                        <a @click="showWithinBlockNav">
+                        <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the within block navigation">
                             <span v-html="tutorial.title"></span>
                             <svg viewBox="0 0 24 24" class="icon small">
                                 <path d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
@@ -44,15 +44,15 @@
                     </li>
                 </ul>
             </nav>
-            <article v-html="tutorial.body" @click="articleClick"></article>
-            <nav v-if="tutorial.withinBlockNav" class="within-block">
+            <article v-html="tutorial.body" @click="articleClick" aria-live="polite" aria-atomic="true"></article>
+            <nav v-if="tutorial.withinBlockNav" class="within-block" aria-label="Within Block">
                 <ul>
                     <li>
                         <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)"><span>&laquo; Previous</span></a>
                         <span v-else>&laquo; Previous</span>
                     </li>
                     <li>
-                        <a @click="showWithinBlockNav">
+                        <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the within block navigation">
                             <span v-html="tutorial.title"></span>
                             <svg viewBox="0 0 24 24" class="icon small">
                                 <path d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
@@ -66,7 +66,7 @@
                 </ul>
             </nav>
         </div>
-        <nav v-if="tutorial.withinBlockNav" class="within-block-overlay" :style="{ height: withinBlockNavHeight + 'px' }">
+        <nav v-if="tutorial.withinBlockNav" ref="withinBlockNavDialog" class="within-block-overlay" :style="{ height: withinBlockNavHeight + 'px' }" :aria-hidden="isWithinBlockNavActive ? 'false' : 'true'" role="dialog" aria-label="Within Block Navigation">
             <button class="close-full-within-block" aria-label="Close" @click="hideWithinBlockNav">
                 <svg viewBox="0 0 24 24" class="icon">
                     <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
@@ -96,6 +96,7 @@ export default class Tutorial extends Vue {
     public isScrolling = false;
     public isWithinBlockNavActive = false;
     public withinBlockNavHeight = 0;
+    private withinBlockNavOpener: HTMLElement | null = null;
 
     public get urls() {
         return this.$store.state.urls;
@@ -120,19 +121,30 @@ export default class Tutorial extends Vue {
 
     public async navigateTo(url: string, ev: MouseEvent) {
         ev.preventDefault();
-        this.hideWithinBlockNav();
+        this.hideWithinBlockNav(true);
         await this.$store.dispatch('load', url);
         (this.$refs.content as Element).scrollTop = 0;
     }
 
-    public showWithinBlockNav() {
+    public showWithinBlockNav(ev: Event) {
         this.isWithinBlockNavActive = true;
         this.withinBlockNavHeight = (this.$refs.tutorial as Element).clientHeight;
+        const currentLink = (this.$refs.withinBlockNavDialog as HTMLElement).querySelector('[aria-current="true"]');
+        if (currentLink) {
+            (currentLink as HTMLElement).focus();
+        }
+        this.withinBlockNavOpener = (ev.target as HTMLElement);
+        while (this.withinBlockNavOpener.localName.toLowerCase() !== 'a') {
+            this.withinBlockNavOpener = this.withinBlockNavOpener.parentElement as HTMLElement;
+        }
     }
 
-    public hideWithinBlockNav() {
+    public hideWithinBlockNav(noRefocus: boolean) {
         setTimeout(() => { this.isWithinBlockNavActive = false; }, 300);
         this.withinBlockNavHeight = 0;
+        if (!noRefocus && this.withinBlockNavOpener) {
+            this.withinBlockNavOpener.focus();
+        }
     }
 
     public scrolling(ev: Event, position: ScrollPosition) {
@@ -158,6 +170,12 @@ export default class Tutorial extends Vue {
                     target.setAttribute('target', '_blank');
                 }
             }
+        }
+    }
+
+    public keyUp(ev: KeyboardEvent) {
+        if (ev.keyCode === 27 && this.isWithinBlockNavActive) {
+            this.hideWithinBlockNav(false);
         }
     }
 }

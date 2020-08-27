@@ -1,5 +1,6 @@
 const gulp = require('gulp'),
       pump = require('pump'),
+      connect = require('gulp-connect'),
       { spawn } = require('child_process'),
       sass = require('gulp-sass');
 
@@ -59,5 +60,41 @@ gulp.task('default', gulp.parallel('css', 'js.production'));
 gulp.task('watch', gulp.series('default', gulp.parallel('js.development', (cb) => {
     gulp.watch('styling/**/*.*', gulp.parallel('css'));
     gulp.watch('app/dist/js/*.*', {delay: 1000, events: ['add', 'change']}, gulp.parallel('js.deploy'));
+    cb();
+})));
+
+gulp.task('demo.clean', function(cb) {
+    const builder = spawn('make', ['clean'], {
+        cwd: 'demo',
+        stdio: 'inherit'
+    });
+    builder.on('exit', cb);
+});
+
+gulp.task('demo.build', gulp.series('demo.clean', function(cb) {
+    const builder = spawn('make', ['html'], {
+        cwd: 'demo',
+        stdio: 'inherit'
+    });
+    builder.on('exit', cb);
+}));
+
+gulp.task('demo.reload', function(cb) {
+    pump([
+        gulp.src('demo/build/html/**/*.*'),
+        connect.reload(),
+    ], cb);
+});
+
+gulp.task('serve', gulp.series('default', 'demo.build', gulp.parallel('js.development', (cb) => {
+    gulp.watch('styling/**/*.*', gulp.parallel('css'));
+    gulp.watch('app/dist/js/*.*', {delay: 1000, events: ['add', 'change']}, gulp.parallel('js.deploy'));
+    gulp.watch(['ou_sphinx_theme/**/*.*', 'demo/**/*.*'], {delay: 1000, events: ['add', 'change']}, gulp.series('demo.build', 'demo.reload'));
+    connect.server({
+        root: 'demo/build/html',
+        host: '0.0.0.0',
+        port: '8080',
+        livereload: true,
+    });
     cb();
 })));
