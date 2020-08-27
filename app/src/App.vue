@@ -3,7 +3,7 @@
         <nav v-if="hasAppMenu" id="app-menu" aria-label="JupyterHub Menu">
             <ul>
                 <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuDownloadUrl">Download</a></li>
-                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/logout">JupyterHub</a></li>
+                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/home">JupyterHub</a></li>
                 <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/logout">Logout</a></li>
             </ul>
         </nav>
