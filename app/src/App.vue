@@ -3,8 +3,8 @@
         <nav v-if="hasAppMenu" id="app-menu" aria-label="JupyterHub Menu">
             <ul>
                 <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuDownloadUrl">Download</a></li>
-                <li v-if="hasAppMenuJupyterHub" role="presentation"><a :href="appMenuJupyterHubUrl">JupyterHub</a></li>
-                <li v-if="hasAppMenuJupyterHub" role="presentation"><a :href="appMenuLogoutUrl">Logout</a></li>
+                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/logout">JupyterHub</a></li>
+                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/logout">Logout</a></li>
             </ul>
         </nav>
         <tutorial v-if="hasTutorial"></tutorial>
@@ -57,22 +57,6 @@ export default class App extends Vue {
             return this.$store.state.urls.prefix + '/tutorial/download';
         } else {
             return '/tutorial/download';
-        }
-    }
-
-    public get appMenuLogoutUrl() {
-        if (this.$store.state.urls.prefix) {
-            return this.$store.state.urls.prefix + '/hub/logout';
-        } else {
-            return '/hub/logout';
-        }
-    }
-
-    public get appMenuJupyterHubUrl() {
-        if (this.$store.state.urls.prefix) {
-            return this.$store.state.urls.prefix + '/hub/home';
-        } else {
-            return '/hub/home';
         }
     }
 
