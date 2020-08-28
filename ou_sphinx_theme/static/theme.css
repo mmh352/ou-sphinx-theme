@@ -648,6 +648,8 @@ svg.icon {
     background: #e6e6e6;
     border-radius: 0.21429rem;
     padding: 0.14286rem 0.21429rem; }
+  #tutorial .toctree-wrapper {
+    margin-bottom: 2rem; }
 
 .layout-tutorial-iframe.layout-has-app-menu #tutorial header {
   padding-top: 0; }

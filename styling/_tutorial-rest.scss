@@ -284,3 +284,7 @@ code {
     border-radius: rem-calc(3px);
     padding: rem-calc(2px) rem-calc(3px);
 }
+
+.toctree-wrapper {
+    margin-bottom: $global-margin * 2;
+}
