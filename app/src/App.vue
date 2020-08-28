@@ -2,9 +2,12 @@
     <div id="app" :class="appClasses">
         <nav v-if="hasAppMenu" id="app-menu" aria-label="JupyterHub Menu">
             <ul>
+                <li v-if="scrolling" role="presentation"><a :href="urls.root" @click="navigateTo(urls.root, $event)" :title="project">{{ project }}</a></li>
+                <li role="presentation" class="separator"></li>
                 <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuDownloadUrl">Download</a></li>
                 <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/home">JupyterHub</a></li>
                 <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/logout">Logout</a></li>
+                <li><a href="http://open.ac.uk" target="_blank" rel="noopener"><img :src="urls.static + '/ou_logo.png'" alt="The Open University"/></a></li>
             </ul>
         </nav>
         <tutorial v-if="hasTutorial"></tutorial>
@@ -27,6 +30,10 @@ import Viewer from './components/Viewer.vue';
     }
 })
 export default class App extends Vue {
+
+    public get scrolling() {
+        return this.$store.state.ui.scrolling;
+    }
 
     public get layout() {
         if (this.$store.state.metadata && this.$store.state.metadata.layout) {
@@ -84,6 +91,14 @@ export default class App extends Vue {
         }
     }
 
+    public get urls() {
+        return this.$store.state.urls;
+    }
+
+    public get project() {
+        return this.$store.state.project;
+    }
+
     public created() {
         const pageData = document.querySelector('script#json-blob');
         if (pageData) {
@@ -95,6 +110,11 @@ export default class App extends Vue {
                 document.title = page.tutorial.title.replace('&amp;', '&');
             });
         }
+    }
+
+    public async navigateTo(url: string, ev: MouseEvent) {
+        ev.preventDefault();
+        await this.$store.dispatch('load', url);
     }
 }
 </script>

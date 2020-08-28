@@ -9,6 +9,7 @@ export interface State {
     project: string;
     urls: UrlState;
     tutorial: TutorialState;
+    ui: UIState;
 }
 
 interface UrlState {
@@ -34,6 +35,10 @@ export interface LinkState {
     children?: LinkState[];
 }
 
+export interface UIState {
+    scrolling: boolean;
+}
+
 export default new Vuex.Store({
     state: {
         metadata: {},
@@ -50,6 +55,9 @@ export default new Vuex.Store({
             title: '',
             withinBlockNav: null,
         },
+        ui: {
+            scrolling: false,
+        }
     } as State,
 
     mutations: {
@@ -73,7 +81,11 @@ export default new Vuex.Store({
             if (state.urls.prefix !== payload) {
                 Vue.set(state.urls, 'prefix', payload);
             }
-        }
+        },
+
+        setScrolling(state, payload: boolean) {
+            state.ui.scrolling = payload;
+        },
     },
 
     actions: {

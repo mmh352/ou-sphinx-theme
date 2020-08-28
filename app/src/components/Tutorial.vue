@@ -150,6 +150,7 @@ export default class Tutorial extends Vue {
 
     public scrolling(ev: Event, position: ScrollPosition) {
         this.isScrolling = (position.scrollTop > (this.$refs.header as Element).clientHeight + (this.$refs.blockNav as Element).clientHeight);
+        this.$store.commit('setScrolling', position.scrollTop > (this.$refs.header as Element).clientHeight);
     }
 
     public articleClick(ev: MouseEvent) {

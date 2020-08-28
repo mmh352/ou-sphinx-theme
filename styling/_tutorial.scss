@@ -16,3 +16,22 @@
     @import 'tutorial-main';
     @import 'tutorial-rest';
 }
+
+
+.layout-tutorial-iframe.layout-has-app-menu {
+    #tutorial {
+        header {
+            padding-top: 0;
+
+            div {
+                &:first-child {
+                    max-width: 100%;
+                }
+
+                &:last-child {
+                    display: none;
+                }
+            }
+        }
+    }
+}
