@@ -4,6 +4,7 @@
             <ul>
                 <li v-if="scrolling" role="presentation"><a :href="urls.root" @click="navigateTo(urls.root, $event)" :title="project">{{ project }}</a></li>
                 <li role="presentation" class="separator"></li>
+                <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuFilesUrl">Files</a></li>
                 <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuDownloadUrl">Download</a></li>
                 <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/home">JupyterHub</a></li>
                 <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/logout">Logout</a></li>
@@ -64,6 +65,14 @@ export default class App extends Vue {
             return this.$store.state.urls.prefix + '/tutorial/download';
         } else {
             return '/tutorial/download';
+        }
+    }
+
+    public get appMenuFilesUrl() {
+        if (this.$store.state.urls.prefix) {
+            return this.$store.state.urls.prefix + '/tree';
+        } else {
+            return '/tree';
         }
     }
 
