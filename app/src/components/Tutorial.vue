@@ -81,6 +81,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
+import { UrlState, TutorialState } from '../store/index';
 import TutorialNav from './TutorialNav.vue';
 
 interface ScrollPosition {
@@ -88,6 +89,7 @@ interface ScrollPosition {
 }
 
 declare global {
+    // eslint-disable-next-line
     interface Window { MathJax: any; }
 }
 
@@ -103,15 +105,15 @@ export default class Tutorial extends Vue {
     public withinBlockNavHeight = 0;
     private withinBlockNavOpener: HTMLElement | null = null;
 
-    public get urls() {
+    public get urls(): UrlState {
         return this.$store.state.urls;
     }
 
-    public get project() {
+    public get project(): string {
         return this.$store.state.project;
     }
 
-    public get tutorial() {
+    public get tutorial(): TutorialState {
         this.$nextTick(() => {
             if (window.MathJax) {
                 window.MathJax.typeset();
@@ -120,14 +122,14 @@ export default class Tutorial extends Vue {
         return this.$store.state.tutorial;
     }
 
-    public async navigateTo(url: string, ev: MouseEvent) {
+    public async navigateTo(url: string, ev: MouseEvent): Promise<void> {
         ev.preventDefault();
         this.hideWithinBlockNav(true);
         await this.$store.dispatch('load', url);
         (this.$refs.content as Element).scrollTop = 0;
     }
 
-    public showWithinBlockNav(ev: Event) {
+    public showWithinBlockNav(ev: Event): void {
         this.isWithinBlockNavActive = true;
         this.withinBlockNavHeight = (this.$refs.tutorial as Element).clientHeight;
         const currentLink = (this.$refs.withinBlockNavDialog as HTMLElement).querySelector('[aria-current="true"]');
@@ -140,7 +142,7 @@ export default class Tutorial extends Vue {
         }
     }
 
-    public hideWithinBlockNav(noRefocus: boolean) {
+    public hideWithinBlockNav(noRefocus: boolean): void {
         setTimeout(() => { this.isWithinBlockNavActive = false; }, 300);
         this.withinBlockNavHeight = 0;
         if (!noRefocus && this.withinBlockNavOpener) {
@@ -148,12 +150,12 @@ export default class Tutorial extends Vue {
         }
     }
 
-    public scrolling(ev: Event, position: ScrollPosition) {
+    public scrolling(ev: Event, position: ScrollPosition): void {
         this.isScrolling = (position.scrollTop > (this.$refs.header as Element).clientHeight + (this.$refs.blockNav as Element).clientHeight);
         this.$store.commit('setScrolling', position.scrollTop > (this.$refs.header as Element).clientHeight);
     }
 
-    public articleClick(ev: MouseEvent) {
+    public articleClick(ev: MouseEvent): void {
         let target = (ev.target as HTMLElement);
         while (target && target.localName !== 'a') {
             target = target.parentElement as HTMLElement;
@@ -175,7 +177,7 @@ export default class Tutorial extends Vue {
         }
     }
 
-    public keyUp(ev: KeyboardEvent) {
+    public keyUp(ev: KeyboardEvent): void {
         if (ev.keyCode === 27 && this.isWithinBlockNavActive) {
             this.hideWithinBlockNav(false);
         }

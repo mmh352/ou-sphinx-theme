@@ -35,11 +35,11 @@ export default class TutorialNav extends Vue {
 
     public expanded = [];
 
-    public click(url: string, ev: MouseEvent) {
+    public click(url: string, ev: MouseEvent): void {
         this.$emit('click', url, ev);
     }
 
-    public toggleShowHide(item: LinkState) {
+    public toggleShowHide(item: LinkState): void {
         item.expanded = !item.expanded;
     }
 }

@@ -12,13 +12,13 @@ export interface State {
     ui: UIState;
 }
 
-interface UrlState {
+export interface UrlState {
     root: string;
     static: string;
     prefix?: string;
 }
 
-interface TutorialState {
+export interface TutorialState {
     blocks: LinkState[];
     body: string;
     next: LinkState | null;

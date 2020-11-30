@@ -19,6 +19,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
+import { UrlState } from './store/index';
 import Tutorial from './components/Tutorial.vue';
 import Editor from './components/Editor.vue';
 import Viewer from './components/Viewer.vue';
@@ -32,11 +33,11 @@ import Viewer from './components/Viewer.vue';
 })
 export default class App extends Vue {
 
-    public get scrolling() {
+    public get scrolling(): boolean {
         return this.$store.state.ui.scrolling;
     }
 
-    public get layout() {
+    public get layout(): string {
         if (this.$store.state.metadata && this.$store.state.metadata.layout) {
             return this.$store.state.metadata.layout;
         } else {
@@ -44,7 +45,7 @@ export default class App extends Vue {
         }
     }
 
-    public get appClasses() {
+    public get appClasses(): string[] {
         const classes = ['layout-' + this.layout];
         if (this.hasAppMenu) {
             classes.push('layout-has-app-menu');
@@ -52,15 +53,15 @@ export default class App extends Vue {
         return classes;
     }
 
-    public get hasAppMenu() {
+    public get hasAppMenu(): boolean {
         return this.hasAppMenuDownload || this.hasAppMenuJupyterHub;
     }
 
-    public get hasAppMenuDownload() {
+    public get hasAppMenuDownload(): boolean {
         return this.$store.state.metadata['app-menu-download'] && this.$store.state.metadata['app-menu-download'].toLowerCase() === 'true';
     }
 
-    public get appMenuDownloadUrl() {
+    public get appMenuDownloadUrl(): string {
         if (this.$store.state.urls.prefix) {
             return this.$store.state.urls.prefix + '/tutorial/download';
         } else {
@@ -68,7 +69,7 @@ export default class App extends Vue {
         }
     }
 
-    public get appMenuFilesUrl() {
+    public get appMenuFilesUrl(): string {
         if (this.$store.state.urls.prefix) {
             return this.$store.state.urls.prefix + '/tree';
         } else {
@@ -76,19 +77,19 @@ export default class App extends Vue {
         }
     }
 
-    public get hasAppMenuJupyterHub() {
+    public get hasAppMenuJupyterHub(): boolean {
         return this.$store.state.metadata['app-menu-jupyterhub'] && this.$store.state.metadata['app-menu-jupyterhub'].toLowerCase() === 'true';
     }
 
-    public get hasTutorial() {
+    public get hasTutorial(): boolean {
         return ['tutorial-only', 'tutorial-only-left', 'tutorial-only-center', 'tutorial-only-right', 'tutorial-iframe'].indexOf(this.layout) >= 0;
     }
 
-    public get hasIFrame() {
+    public get hasIFrame(): boolean {
         return this.layout === 'tutorial-iframe';
     }
 
-    public get iFrameSrc() {
+    public get iFrameSrc(): string {
         if (this.hasIFrame) {
             if (this.$store.state.urls.prefix) {
                 return this.$store.state.urls.prefix + this.$store.state.metadata['iframe-src'];
@@ -100,15 +101,15 @@ export default class App extends Vue {
         }
     }
 
-    public get urls() {
+    public get urls(): UrlState {
         return this.$store.state.urls;
     }
 
-    public get project() {
+    public get project(): string {
         return this.$store.state.project;
     }
 
-    public created() {
+    public created(): void {
         const pageData = document.querySelector('script#json-blob');
         if (pageData) {
             this.$store.dispatch('fetch', window.location.href);
@@ -121,7 +122,7 @@ export default class App extends Vue {
         }
     }
 
-    public async navigateTo(url: string, ev: MouseEvent) {
+    public async navigateTo(url: string, ev: MouseEvent): Promise<void> {
         ev.preventDefault();
         await this.$store.dispatch('load', url);
     }
