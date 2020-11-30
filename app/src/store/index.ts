@@ -92,6 +92,9 @@ export default new Vuex.Store({
         async fetch({ commit }, url: string) {
             url = (new URL(url, document.baseURI)).href;
             url = url.replace('.html', '.json');
+            if (url.substr(url.length - 1) === '/') {
+                url = url + 'index.json';
+            }
             const response = await fetch(url);
             if (response.headers.get('X-URL-Prefix') || response.headers.get('x-url-prefix')) {
                 commit('setURLPrefix', response.headers.get('X-URL-Prefix') || response.headers.get('x-url-prefix'));
