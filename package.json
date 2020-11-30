@@ -11,5 +11,9 @@
     "mathjax": "^3.0.5",
     "pump": "^3.0.0",
     "sanitize.css": "^11.0.1"
+  },
+  "scripts": {
+    "serve": "gulp serve",
+    "build": "gulp"
   }
 }
