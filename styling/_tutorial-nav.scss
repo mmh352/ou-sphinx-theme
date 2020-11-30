@@ -228,7 +228,7 @@ div.toctree-wrapper {
             > a {
                 background: $light-gray;
                 padding: $global-padding;
-                font-size: rem-calc(16px);
+                font-size: rem-calc(18px);
                 font-weight: bold;
             }
 
@@ -237,7 +237,7 @@ div.toctree-wrapper {
                 margin-bottom: $global-margin*2;
 
                 a {
-                    font-size: rem-calc(14px);
+                    font-size: rem-calc(16px);
                     padding: $global-padding/2 0;
                 }
             }
