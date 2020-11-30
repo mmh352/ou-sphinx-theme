@@ -87,6 +87,10 @@ interface ScrollPosition {
     scrollTop: number;
 }
 
+declare global {
+    interface Window { MathJax: any; }
+}
+
 @Component({
     components: {
         TutorialNav,
@@ -109,11 +113,7 @@ export default class Tutorial extends Vue {
 
     public get tutorial() {
         this.$nextTick(() => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
             if (window.MathJax) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-                // @ts-ignore
                 window.MathJax.typeset();
             }
         });
