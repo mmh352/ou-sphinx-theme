@@ -34,7 +34,7 @@
                     <li role="presentation">
                         <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the within block navigation">
                             <span v-html="tutorial.title"></span>
-                            <svg viewBox="0 0 24 24" class="icon small">
+                            <svg viewBox="0 0 24 24" class="icon small" alt="" role="presentation">
                                 <path d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
                             </svg>
                         </a>
@@ -55,7 +55,7 @@
                     <li role="presentation">
                         <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the within block navigation">
                             <span v-html="tutorial.title"></span>
-                            <svg viewBox="0 0 24 24" class="icon small">
+                            <svg viewBox="0 0 24 24" class="icon small" alt="" role="presentation">
                                 <path d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
                             </svg>
                         </a>
