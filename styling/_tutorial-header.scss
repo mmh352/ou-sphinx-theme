@@ -11,8 +11,8 @@ header {
         padding: 0 $global-padding;
 
         &:first-child {
+            flex: 1 1 auto;
             font-size: rem-calc(32px);
-            max-width: 50%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
