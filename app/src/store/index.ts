@@ -1,8 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex';
 import deepEqual from 'fast-deep-equal';
-
-Vue.use(Vuex)
 
 export interface State {
     metadata: {[x: string]: string};
@@ -39,7 +36,7 @@ export interface UIState {
     scrolling: boolean;
 }
 
-export default new Vuex.Store({
+export default createStore({
     state: {
         metadata: {},
         project: '',
@@ -79,7 +76,7 @@ export default new Vuex.Store({
 
         setURLPrefix(state, payload: string) {
             if (state.urls.prefix !== payload) {
-                Vue.set(state.urls, 'prefix', payload);
+                state.urls.prefix = payload;
             }
         },
 
@@ -116,5 +113,5 @@ export default new Vuex.Store({
     },
 
     modules: {
-    }
+    },
 });

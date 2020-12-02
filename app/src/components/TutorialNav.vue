@@ -1,7 +1,7 @@
 <template>
     <ul>
         <template v-for="(item, idx) in items" >
-            <li v-if="item.children.length > 0" :key="idx" :aria-expanded="item.expanded ? 'true': 'false'" role="presentation">
+            <li v-if="item.children.length > 0" :key="idx + '-true'" :aria-expanded="item.expanded ? 'true': 'false'" role="presentation">
                 <span>
                     <a :href="item.url" :aria-current="item.current ? 'true' : 'false'" @click="click(item.url, $event)">{{ item.title }}</a>
                     <button aria-label="Show or hide this section" @click="toggleShowHide(item)">
@@ -15,7 +15,7 @@
                 </span>
                 <tutorial-nav :items="item.children" @click="click"></tutorial-nav>
             </li>
-            <li v-else :key="idx" role="presentation">
+            <li v-else :key="idx + '-false'" role="presentation">
                 <a :href="item.url" :aria-current="item.current ? 'true' : 'false'" @click="click(item.url, $event)">{{ item.title }}</a>
             </li>
         </template>
@@ -23,15 +23,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
 
 import { LinkState } from '../store/index';
 
-@Component({
+@Options({
     name: 'tutorial-nav',
+    props: {
+        items: Array,
+    },
+    emits: {
+        click: null,
+    }
 })
 export default class TutorialNav extends Vue {
-    @Prop() public items!: LinkState[];
+    public items!: LinkState[];
 
     public expanded = [];
 

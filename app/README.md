@@ -1,4 +1,4 @@
-# ou-web-tutorial
+# app
 
 ## Project setup
 ```

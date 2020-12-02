@@ -1,7 +1,7 @@
 <template>
     <div id="tutorial" ref="tutorial" @keyup="keyUp">
         <a href="#tutorial-content" class="show-for-sr">Jump to the main content</a>
-        <div :class="{ 'scrolling': isScrolling, 'content': true }" ref="content" v-scroll="scrolling">
+        <div :class="{ 'scrolling': isScrolling, 'content': true }" ref="content" v-on:scroll.passive="scrolling">
             <header ref="header">
                 <div>
                     <a :href="urls.root" @click="navigateTo(urls.root, $event)" :title="project">{{ project }}</a>
@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
 
 import { UrlState, TutorialState } from '../store/index';
 import TutorialNav from './TutorialNav.vue';
@@ -83,7 +83,7 @@ declare global {
     interface Window { MathJax: any; }
 }
 
-@Component({
+@Options({
     components: {
         TutorialNav,
     }
@@ -140,9 +140,10 @@ export default class Tutorial extends Vue {
         }
     }
 
-    public scrolling(ev: Event, position: ScrollPosition): void {
-        this.isScrolling = (position.scrollTop > (this.$refs.header as Element).clientHeight + (this.$refs.blockNav as Element).clientHeight);
-        this.$store.commit('setScrolling', position.scrollTop > (this.$refs.header as Element).clientHeight);
+    public scrolling(): void {
+        const scrollTop = (this.$refs.content as Element).scrollTop;
+        this.isScrolling = (scrollTop > (this.$refs.header as Element).clientHeight + (this.$refs.blockNav as Element).clientHeight);
+        this.$store.commit('setScrolling', scrollTop > (this.$refs.header as Element).clientHeight);
     }
 
     public articleClick(ev: MouseEvent): void {

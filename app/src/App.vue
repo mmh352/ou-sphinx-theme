@@ -16,14 +16,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
 
 import { UrlState } from './store/index';
 import Tutorial from './components/Tutorial.vue';
 import Editor from './components/Editor.vue';
 import Viewer from './components/Viewer.vue';
 
-@Component({
+@Options({
     components: {
         Tutorial,
         Editor,
