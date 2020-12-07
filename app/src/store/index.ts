@@ -34,6 +34,7 @@ export interface LinkState {
 
 export interface UIState {
     scrolling: boolean;
+    scrollWidth: number;
 }
 
 export default createStore({
@@ -54,6 +55,7 @@ export default createStore({
         },
         ui: {
             scrolling: false,
+            scrollWidth: 0,
         }
     } as State,
 
@@ -82,6 +84,10 @@ export default createStore({
 
         setScrolling(state, payload: boolean) {
             state.ui.scrolling = payload;
+        },
+
+        setScrollWidth(state, payload: number) {
+            state.ui.scrollWidth = payload;
         },
     },
 

@@ -2,7 +2,7 @@
     background: $colour-primary;
     color: $white;
 
-    ul {
+    > ul {
         display: flex;
         padding: 0;
         margin: 0;
@@ -12,29 +12,72 @@
         > li {
             flex: 0 0 auto;
 
-            &.separator {
+            &:nth-child(2) {
                 flex: 1 1 auto;
+                padding: 0 $global-padding;
+            }
+
+            &:last-child {
+                a {
+                    padding: 0 $global-padding/2 0 0;
+                }
+            }
+        }
+    }
+
+    button {
+        background: transparent;
+        border: 0;
+
+        svg.icon {
+            path {
+                fill: $white;
             }
         }
     }
 
     a {
-        display: block;
-        text-align: center;
-        padding: $global-padding/3 $global-padding;
-        border: 2px solid transparent;
         color: $white;
-        background: transparent;
-        cursor: pointer;
-        font-size: rem-calc(12px);
-        text-decoration: none;
+    }
 
-        &[aria-current="true"], &:hover, &:focus {
-            border-bottom-color: $colour-highlight;
+    img {
+        max-height: rem-calc(22px);
+        padding: rem-calc(1px);
+    }
+
+    form {
+        flex: 1 1 auto;
+        padding: rem-calc(4px) $global-padding;
+        display: flex;
+
+        label {
+            flex: 1 1 auto;
+
+            input {
+                width: 100%;
+                border: rem-calc(2px) solid $white;
+                padding: rem-calc(2px);
+
+                &:focus {
+                    outline: none;
+                    border: rem-calc(2px) solid $colour-highlight;
+                }
+            }
         }
 
-        img {
-            max-height: rem-calc(18px);
+        button {
+            flex: 0 0 auto;
+            border: 0;
+            background: #577f00;
+            padding: 0;
+            width: rem-calc(48px);
+            cursor: pointer;
+
+            svg {
+                path, g {
+                    fill: $white;
+                }
+            }
         }
     }
 }

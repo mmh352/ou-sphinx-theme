@@ -3,10 +3,7 @@
         <a href="#tutorial-content" class="show-for-sr">Jump to the main content</a>
         <div :class="{ 'scrolling': isScrolling, 'content': true }" ref="content" v-on:scroll.passive="scrolling">
             <header ref="header">
-                <div>
-                    <a :href="urls.root" @click="navigateTo(urls.root, $event)" :title="project">{{ project }}</a>
-                </div>
-                <div><a href="http://open.ac.uk" target="_blank" rel="noopener"><img :src="urls.static + '/ou_logo.png'" alt="The Open University"/></a></div>
+                <a :href="urls.root" @click="navigateTo(urls.root, $event)" :title="project">{{ project }}</a>
             </header>
             <nav ref="blockNav" class="block" aria-label="Block">
                 <ul>
@@ -108,8 +105,13 @@ export default class Tutorial extends Vue {
             if (window.MathJax) {
                 window.MathJax.typeset();
             }
+            this.$store.commit('setScrollWidth', (this.$refs.content as HTMLElement).offsetWidth - (this.$refs.content as Element).clientWidth);
         });
         return this.$store.state.tutorial;
+    }
+
+    public mounted() {
+        this.$store.commit('setScrollWidth', (this.$refs.content as HTMLElement).offsetWidth - (this.$refs.content as Element).clientWidth);
     }
 
     public async navigateTo(url: string, ev: MouseEvent): Promise<void> {
@@ -144,6 +146,7 @@ export default class Tutorial extends Vue {
         const scrollTop = (this.$refs.content as Element).scrollTop;
         this.isScrolling = (scrollTop > (this.$refs.header as Element).clientHeight + (this.$refs.blockNav as Element).clientHeight);
         this.$store.commit('setScrolling', scrollTop > (this.$refs.header as Element).clientHeight);
+        this.$store.commit('setScrollWidth', (this.$refs.content as HTMLElement).offsetWidth - (this.$refs.content as Element).clientWidth);
     }
 
     public articleClick(ev: MouseEvent): void {

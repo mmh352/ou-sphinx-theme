@@ -1,70 +1,23 @@
 header {
-    display: flex;
-    flex-direction: row;
     background: $colour-primary;
     color: $white;
-    padding: $global-padding 0;
-    align-items: center;
 
-    > div {
-        flex: 0 0 auto;
-        padding: 0 $global-padding;
+    a {
+        display: block;
+        padding: $global-padding;
+        font-size: rem-calc(32px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: $white;
+        text-decoration: none;
 
-        &:first-child {
-            flex: 1 1 auto;
-            font-size: rem-calc(32px);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        a {
-            color: $white;
-            text-decoration: none;
-
-            &:hover {
+        &:hover {
                 color: $white;
-            }
-
-            img {
-                max-height: rem-calc(32px);
-            }
-        }
-    }
-
-    > form {
-        flex: 1 1 auto;
-        padding: 0 $global-padding;
-        display: flex;
-
-        label {
-            flex: 1 1 auto;
-
-            input {
-                width: 100%;
-                border: rem-calc(2px) solid $white;
-                padding: $global-padding/4;
-
-                &:focus {
-                    outline: none;
-                    border: rem-calc(2px) solid $colour-highlight;
-                }
-            }
         }
 
-        button {
-            flex: 0 0 auto;
-            border: 0;
-            background: #577f00;
-            padding: 0;
-            width: rem-calc(48px);
-            cursor: pointer;
-
-            svg {
-                path, g {
-                    fill: $white;
-                }
-            }
+        img {
+            max-height: rem-calc(32px);
         }
     }
 }

@@ -8,71 +8,60 @@ a {
   a:hover, a:focus {
     color: #002158; }
 
-div#app {
+#app {
   width: 100vw;
-  height: 100vh;
-  display: grid;
-  overflow: hidden; }
-  div#app.layout-tutorial-only, div#app.layout-tutorial-only-center {
-    max-width: 50rem;
-    margin: 0 auto;
-    grid-template-columns: 100%;
-    grid-template-rows: 100%; }
-    div#app.layout-tutorial-only.layout-has-app-menu, div#app.layout-tutorial-only-center.layout-has-app-menu {
+  height: 100vh; }
+  #app > div {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    overflow: hidden; }
+    #app > div.layout-tutorial-only, #app > div.layout-tutorial-only-center {
+      max-width: 50rem;
+      margin: 0 auto;
+      grid-template-columns: 100%;
       grid-template-rows: auto 1fr; }
-      div#app.layout-tutorial-only.layout-has-app-menu #app-menu, div#app.layout-tutorial-only-center.layout-has-app-menu #app-menu {
+      #app > div.layout-tutorial-only #app-menu, #app > div.layout-tutorial-only-center #app-menu {
         grid-column: 1;
         grid-row: 1; }
-      div#app.layout-tutorial-only.layout-has-app-menu #tutorial, div#app.layout-tutorial-only-center.layout-has-app-menu #tutorial {
+      #app > div.layout-tutorial-only #tutorial, #app > div.layout-tutorial-only-center #tutorial {
         grid-column: 1;
         grid-row: 2; }
-  div#app.layout-tutorial-only-left {
-    max-width: 50rem;
-    grid-template-columns: 100%;
-    grid-template-rows: 100%; }
-    div#app.layout-tutorial-only-left.layout-has-app-menu {
+    #app > div.layout-tutorial-only-left {
+      max-width: 50rem;
+      grid-template-columns: 100%;
       grid-template-rows: auto 1fr; }
-      div#app.layout-tutorial-only-left.layout-has-app-menu #app-menu {
+      #app > div.layout-tutorial-only-left #app-menu {
         grid-column: 1;
         grid-row: 1; }
-      div#app.layout-tutorial-only-left.layout-has-app-menu #tutorial {
+      #app > div.layout-tutorial-only-left #tutorial {
         grid-column: 1;
         grid-row: 2; }
-  div#app.layout-tutorial-only-right {
-    max-width: 50rem;
-    margin-left: auto;
-    grid-template-columns: 100%;
-    grid-template-rows: 100%; }
-    div#app.layout-tutorial-only-right.layout-has-app-menu {
+    #app > div.layout-tutorial-only-right {
+      max-width: 50rem;
+      margin-left: auto;
+      grid-template-columns: 100%;
       grid-template-rows: auto 1fr; }
-      div#app.layout-tutorial-only-right.layout-has-app-menu #app-menu {
+      #app > div.layout-tutorial-only-right #app-menu {
         grid-column: 1;
         grid-row: 1; }
-      div#app.layout-tutorial-only-right.layout-has-app-menu #tutorial {
+      #app > div.layout-tutorial-only-right #tutorial {
         grid-column: 1;
         grid-row: 2; }
-  div#app.layout-tutorial-iframe {
-    grid-template-columns: min(40%, 50rem) 1fr;
-    grid-template-rows: 100%; }
-    div#app.layout-tutorial-iframe #tutorial {
-      grid-column: 1;
-      grid-row: 1; }
-    div#app.layout-tutorial-iframe #iframe {
-      grid-column: 2;
-      grid-row: 1;
-      width: 100%;
-      height: 100%; }
-    div#app.layout-tutorial-iframe.layout-has-app-menu {
+    #app > div.layout-tutorial-iframe {
+      grid-template-columns: min(40%, 50rem) 1fr;
       grid-template-rows: auto 1fr; }
-      div#app.layout-tutorial-iframe.layout-has-app-menu #app-menu {
-        grid-column: 1/3;
+      #app > div.layout-tutorial-iframe #app-menu {
+        grid-column: 1;
         grid-row: 1; }
-      div#app.layout-tutorial-iframe.layout-has-app-menu #tutorial {
+      #app > div.layout-tutorial-iframe #tutorial {
         grid-column: 1;
         grid-row: 2; }
-      div#app.layout-tutorial-iframe.layout-has-app-menu #iframe {
+      #app > div.layout-tutorial-iframe #iframe {
         grid-column: 2;
-        grid-row: 2; }
+        grid-row: 1/3;
+        width: 100%;
+        height: 100%; }
 
 .show-for-sr {
   position: absolute;
@@ -106,30 +95,51 @@ svg.icon {
 #app-menu {
   background: #1e4b9b;
   color: #fefefe; }
-  #app-menu ul {
+  #app-menu > ul {
     display: flex;
     padding: 0;
     margin: 0;
     justify-content: flex-start;
     align-items: center; }
-    #app-menu ul > li {
+    #app-menu > ul > li {
       flex: 0 0 auto; }
-      #app-menu ul > li.separator {
-        flex: 1 1 auto; }
-  #app-menu a {
-    display: block;
-    text-align: center;
-    padding: 0.33333rem 1rem;
-    border: 2px solid transparent;
-    color: #fefefe;
+      #app-menu > ul > li:nth-child(2) {
+        flex: 1 1 auto;
+        padding: 0 1rem; }
+      #app-menu > ul > li:last-child a {
+        padding: 0 0.5rem 0 0; }
+  #app-menu button {
     background: transparent;
-    cursor: pointer;
-    font-size: 0.75rem;
-    text-decoration: none; }
-    #app-menu a[aria-current="true"], #app-menu a:hover, #app-menu a:focus {
-      border-bottom-color: #ffc23d; }
-    #app-menu a img {
-      max-height: 1.125rem; }
+    border: 0; }
+    #app-menu button svg.icon path {
+      fill: #fefefe; }
+  #app-menu a {
+    color: #fefefe; }
+  #app-menu img {
+    max-height: 1.375rem;
+    padding: 0.0625rem; }
+  #app-menu form {
+    flex: 1 1 auto;
+    padding: 0.25rem 1rem;
+    display: flex; }
+    #app-menu form label {
+      flex: 1 1 auto; }
+      #app-menu form label input {
+        width: 100%;
+        border: 0.125rem solid #fefefe;
+        padding: 0.125rem; }
+        #app-menu form label input:focus {
+          outline: none;
+          border: 0.125rem solid #ffc23d; }
+    #app-menu form button {
+      flex: 0 0 auto;
+      border: 0;
+      background: #577f00;
+      padding: 0;
+      width: 3rem;
+      cursor: pointer; }
+      #app-menu form button svg path, #app-menu form button svg g {
+        fill: #fefefe; }
 
 #tutorial {
   position: relative;
@@ -142,50 +152,21 @@ svg.icon {
     height: 100%;
     overflow: auto; }
   #tutorial header {
-    display: flex;
-    flex-direction: row;
     background: #1e4b9b;
-    color: #fefefe;
-    padding: 1rem 0;
-    align-items: center; }
-    #tutorial header > div {
-      flex: 0 0 auto;
-      padding: 0 1rem; }
-      #tutorial header > div:first-child {
-        flex: 1 1 auto;
-        font-size: 2rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap; }
-      #tutorial header > div a {
-        color: #fefefe;
-        text-decoration: none; }
-        #tutorial header > div a:hover {
-          color: #fefefe; }
-        #tutorial header > div a img {
-          max-height: 2rem; }
-    #tutorial header > form {
-      flex: 1 1 auto;
-      padding: 0 1rem;
-      display: flex; }
-      #tutorial header > form label {
-        flex: 1 1 auto; }
-        #tutorial header > form label input {
-          width: 100%;
-          border: 0.125rem solid #fefefe;
-          padding: 0.25rem; }
-          #tutorial header > form label input:focus {
-            outline: none;
-            border: 0.125rem solid #ffc23d; }
-      #tutorial header > form button {
-        flex: 0 0 auto;
-        border: 0;
-        background: #577f00;
-        padding: 0;
-        width: 3rem;
-        cursor: pointer; }
-        #tutorial header > form button svg path, #tutorial header > form button svg g {
-          fill: #fefefe; }
+    color: #fefefe; }
+    #tutorial header a {
+      display: block;
+      padding: 1rem;
+      font-size: 2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #fefefe;
+      text-decoration: none; }
+      #tutorial header a:hover {
+        color: #fefefe; }
+      #tutorial header a img {
+        max-height: 2rem; }
   #tutorial nav.block {
     background: #002158;
     font-size: 1rem; }
