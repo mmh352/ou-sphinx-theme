@@ -64,6 +64,9 @@ const ariaPopupMenuMixin = {
                     controller.click();
                     controller.focus();
                     break;
+                case 'Tab':
+                    controller.click();
+                    break;
             }
         }
     }
