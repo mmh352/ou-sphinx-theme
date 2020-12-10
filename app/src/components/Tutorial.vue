@@ -5,14 +5,14 @@
             <header ref="header">
                 {{ project }}
             </header>
-            <nav ref="blockNav" class="block" aria-label="Block">
+            <nav ref="blockNav" class="block">
                 <ul>
                     <li v-for="item in tutorial.blocks" :key="item.url" role="presentation">
                         <a :href="item.url" @click="navigateTo(item.url, $event)" :aria-current="(item.current || item.expanded) ? 'true' : 'false'">{{ item.title }}</a>
                     </li>
                 </ul>
             </nav>
-            <nav v-if="tutorial.withinBlockNav" class="within-block" aria-label="Within Block">
+            <nav v-if="tutorial.withinBlockNav" class="within-block">
                 <ul>
                     <li role="presentation">
                         <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)"><span>&laquo; Previous</span></a>
@@ -33,7 +33,7 @@
                 </ul>
             </nav>
             <main id="tutorial-content" v-html="tutorial.body" @click="articleClick" aria-live="polite" aria-atomic="true"></main>
-            <nav v-if="tutorial.withinBlockNav" class="within-block" aria-label="Within Block">
+            <nav v-if="tutorial.withinBlockNav" class="within-block">
                 <ul>
                     <li role="presentation">
                         <a v-if="tutorial.prev" :href="tutorial.prev.url" :title="tutorial.prev.title" @click="navigateTo(tutorial.prev.url, $event)"><span>&laquo; Previous</span></a>

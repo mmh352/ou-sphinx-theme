@@ -3,7 +3,7 @@
         <nav id="app-menu" :style="{'margin-right': scrollWidth}">
             <ul>
                 <li>
-                    <button v-if="hasAppMenu" id="main-menu-button" tabindex="0" aria-has-popup="true" aria-controls="main-menu" :aria-expanded="mainMenuShowing ? 'true' : 'false'" aria-label="Show the main menu" @click="toggleMainMenu">
+                    <button v-if="hasAppMenu" id="main-menu-button" tabindex="0" aria-has-popup="menu" aria-controls="main-menu" :aria-expanded="mainMenuShowing ? 'true' : 'false'" aria-label="Show the main menu" @click="toggleMainMenu">
                         <svg viewBox="0 0 24 24" class="icon large" aria-hidden="true">
                             <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
                         </svg>
@@ -25,9 +25,9 @@
                 <li><a href="http://open.ac.uk" target="_blank" rel="noopener"><img :src="urls.static + '/ou_logo.png'" alt="The Open University"/></a></li>
             </ul>
             <ul v-if="hasAppMenu" id="main-menu" role="menu" aria-labelledby="main-menu-button" :style="{display: mainMenuShowing ? 'block' : 'none'}" ref="mainMenu" @keydown="ariaPopupMenuKbd">
-                <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuDownloadUrl" role="menuitem" tabindex="-1">Download</a></li>
-                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/home" role="menuitem" tabindex="-1">JupyterHub</a></li>
-                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/logout" role="menuitem" tabindex="-1">Logout</a></li>
+                <li v-if="hasAppMenuDownload" role="none"><a :href="appMenuDownloadUrl" role="menuitem" tabindex="-1">Download</a></li>
+                <li v-if="hasAppMenuJupyterHub" role="none"><a href="/hub/home" role="menuitem" tabindex="-1">JupyterHub</a></li>
+                <li v-if="hasAppMenuJupyterHub" role="none"><a href="/hub/logout" role="menuitem" tabindex="-1">Logout</a></li>
             </ul>
         </nav>
         <tutorial v-if="hasTutorial"></tutorial>
