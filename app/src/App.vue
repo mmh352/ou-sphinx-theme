@@ -3,16 +3,16 @@
         <nav id="app-menu" :style="{'margin-right': scrollWidth}">
             <ul>
                 <li>
-                    <button aria-label="Show the main menu">
+                    <button v-if="hasAppMenu" id="main-menu-button" tabindex="0" aria-has-popup="true" aria-controls="main-menu" :aria-expanded="mainMenuShowing ? 'true' : 'false'" aria-label="Show the main menu" @click="toggleMainMenu">
                         <svg viewBox="0 0 24 24" class="icon large" aria-hidden="true">
                             <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
                         </svg>
                     </button>
                 </li>
-                <li><a v-if="scrolling">{{ project }}</a></li>
+                <li><span v-if="scrolling">{{ project }}</span></li>
                 <li>
-                    <form>
-                        <label>
+                    <!--<form>
+                        <label><span class="show-for-sr">Search {{ project }}</span>
                             <input type="search" />
                         </label>
                         <button aria-label="search">
@@ -20,19 +20,14 @@
                                 <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
                             </svg>
                         </button>
-                    </form>
+                    </form>-->
                 </li>
                 <li><a href="http://open.ac.uk" target="_blank" rel="noopener"><img :src="urls.static + '/ou_logo.png'" alt="The Open University"/></a></li>
             </ul>
-        </nav>
-        <nav v-if="hasAppMenu" id="app-menu" aria-label="JupyterHub Menu">
-            <ul>
-                <li v-if="scrolling" role="presentation"><a :href="urls.root" @click="navigateTo(urls.root, $event)" :title="project">{{ project }}</a></li>
-                <li role="presentation" class="separator"></li>
-                <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuFilesUrl">Files</a></li>
-                <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuDownloadUrl">Download</a></li>
-                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/home">JupyterHub</a></li>
-                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/logout">Logout</a></li>
+            <ul v-if="hasAppMenu" id="main-menu" role="menu" aria-labelledby="main-menu-button" :style="{display: mainMenuShowing ? 'block' : 'none'}" ref="mainMenu" @keydown="ariaPopupMenuKbd">
+                <li v-if="hasAppMenuDownload" role="presentation"><a :href="appMenuDownloadUrl" role="menuitem" tabindex="-1">Download</a></li>
+                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/home" role="menuitem" tabindex="-1">JupyterHub</a></li>
+                <li v-if="hasAppMenuJupyterHub" role="presentation"><a href="/hub/logout" role="menuitem" tabindex="-1">Logout</a></li>
             </ul>
         </nav>
         <tutorial v-if="hasTutorial"></tutorial>
@@ -47,15 +42,21 @@ import { UrlState } from './store/index';
 import Tutorial from './components/Tutorial.vue';
 import Editor from './components/Editor.vue';
 import Viewer from './components/Viewer.vue';
+import { ariaPopupMenuMixin } from './a11y/aria-popup-menu';
 
 @Options({
     components: {
         Tutorial,
         Editor,
         Viewer,
-    }
+    },
+    mixins: [
+        ariaPopupMenuMixin,
+    ]
 })
 export default class App extends Vue {
+
+    mainMenuShowing = false;
 
     public get scrolling(): boolean {
         return this.$store.state.ui.scrolling;
@@ -157,6 +158,18 @@ export default class App extends Vue {
     public async navigateTo(url: string, ev: MouseEvent): Promise<void> {
         ev.preventDefault();
         await this.$store.dispatch('load', url);
+    }
+
+    public toggleMainMenu() {
+        this.mainMenuShowing = !this.mainMenuShowing;
+        if (this.mainMenuShowing) {
+            this.$nextTick(() => {
+                const link = (this.$refs.mainMenu as HTMLElement).querySelector('a');
+                if (link) {
+                    link.focus();
+                }
+            });
+        }
     }
 }
 </script>

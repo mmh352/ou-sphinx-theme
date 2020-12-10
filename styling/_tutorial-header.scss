@@ -1,23 +1,9 @@
 header {
     background: $colour-primary;
     color: $white;
-
-    a {
-        display: block;
-        padding: $global-padding;
-        font-size: rem-calc(32px);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        color: $white;
-        text-decoration: none;
-
-        &:hover {
-                color: $white;
-        }
-
-        img {
-            max-height: rem-calc(32px);
-        }
-    }
+    padding: $global-padding;
+    font-size: rem-calc(32px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

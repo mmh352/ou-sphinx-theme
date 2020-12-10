@@ -3,7 +3,7 @@
         <a href="#tutorial-content" class="show-for-sr">Jump to the main content</a>
         <div :class="{ 'scrolling': isScrolling, 'content': true }" ref="content" v-on:scroll.passive="scrolling">
             <header ref="header">
-                <a :href="urls.root" @click="navigateTo(urls.root, $event)" :title="project">{{ project }}</a>
+                {{ project }}
             </header>
             <nav ref="blockNav" class="block" aria-label="Block">
                 <ul>
@@ -112,6 +112,9 @@ export default class Tutorial extends Vue {
 
     public mounted() {
         this.$store.commit('setScrollWidth', (this.$refs.content as HTMLElement).offsetWidth - (this.$refs.content as Element).clientWidth);
+        window.addEventListener('resize', () => {
+            this.$store.commit('setScrollWidth', (this.$refs.content as HTMLElement).offsetWidth - (this.$refs.content as Element).clientWidth);
+        });
     }
 
     public async navigateTo(url: string, ev: MouseEvent): Promise<void> {

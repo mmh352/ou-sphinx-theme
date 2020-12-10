@@ -2,7 +2,7 @@
     background: $colour-primary;
     color: $white;
 
-    > ul {
+    > ul:first-child {
         display: flex;
         padding: 0;
         margin: 0;
@@ -28,6 +28,7 @@
     button {
         background: transparent;
         border: 0;
+        cursor: pointer;
 
         svg.icon {
             path {
@@ -40,9 +41,15 @@
         color: $white;
     }
 
+    span {
+        display: block;
+        padding: rem-calc(5px);
+    }
+
     img {
-        max-height: rem-calc(22px);
-        padding: rem-calc(1px);
+        display: inline-block;
+        max-height: rem-calc(35px);
+        padding: rem-calc(5px);
     }
 
     form {
@@ -78,6 +85,18 @@
                     fill: $white;
                 }
             }
+        }
+    }
+
+    #main-menu {
+        display: block;
+        background: $colour-primary-light;
+        margin: 0;
+
+        a {
+            display: block;
+            padding: $global-padding/2;
+            color: $colour-primary;
         }
     }
 }

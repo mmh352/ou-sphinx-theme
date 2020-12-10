@@ -95,29 +95,34 @@ svg.icon {
 #app-menu {
   background: #1e4b9b;
   color: #fefefe; }
-  #app-menu > ul {
+  #app-menu > ul:first-child {
     display: flex;
     padding: 0;
     margin: 0;
     justify-content: flex-start;
     align-items: center; }
-    #app-menu > ul > li {
+    #app-menu > ul:first-child > li {
       flex: 0 0 auto; }
-      #app-menu > ul > li:nth-child(2) {
+      #app-menu > ul:first-child > li:nth-child(2) {
         flex: 1 1 auto;
         padding: 0 1rem; }
-      #app-menu > ul > li:last-child a {
+      #app-menu > ul:first-child > li:last-child a {
         padding: 0 0.5rem 0 0; }
   #app-menu button {
     background: transparent;
-    border: 0; }
+    border: 0;
+    cursor: pointer; }
     #app-menu button svg.icon path {
       fill: #fefefe; }
   #app-menu a {
     color: #fefefe; }
+  #app-menu span {
+    display: block;
+    padding: 0.3125rem; }
   #app-menu img {
-    max-height: 1.375rem;
-    padding: 0.0625rem; }
+    display: inline-block;
+    max-height: 2.1875rem;
+    padding: 0.3125rem; }
   #app-menu form {
     flex: 1 1 auto;
     padding: 0.25rem 1rem;
@@ -140,6 +145,14 @@ svg.icon {
       cursor: pointer; }
       #app-menu form button svg path, #app-menu form button svg g {
         fill: #fefefe; }
+  #app-menu #main-menu {
+    display: block;
+    background: #e5f0f9;
+    margin: 0; }
+    #app-menu #main-menu a {
+      display: block;
+      padding: 0.5rem;
+      color: #1e4b9b; }
 
 #tutorial {
   position: relative;
@@ -153,20 +166,12 @@ svg.icon {
     overflow: auto; }
   #tutorial header {
     background: #1e4b9b;
-    color: #fefefe; }
-    #tutorial header a {
-      display: block;
-      padding: 1rem;
-      font-size: 2rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: #fefefe;
-      text-decoration: none; }
-      #tutorial header a:hover {
-        color: #fefefe; }
-      #tutorial header a img {
-        max-height: 2rem; }
+    color: #fefefe;
+    padding: 1rem;
+    font-size: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
   #tutorial nav.block {
     background: #002158;
     font-size: 1rem; }
@@ -180,7 +185,7 @@ svg.icon {
       display: block;
       text-align: center;
       padding: 1rem;
-      border-bottom: 0.125rem solid #002158;
+      border-bottom: 0.25rem solid #002158;
       color: #fefefe;
       text-decoration: none; }
       #tutorial nav.block a[aria-current="true"], #tutorial nav.block a:hover, #tutorial nav.block a:focus {
