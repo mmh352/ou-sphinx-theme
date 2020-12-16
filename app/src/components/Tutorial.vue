@@ -54,15 +54,15 @@
                 </ul>
             </nav>
         </div>
-        <nav v-if="tutorial.withinBlockNav" ref="withinBlockNavDialog" class="within-block-overlay" :style="{ height: withinBlockNavHeight + 'px' }" :aria-hidden="isWithinBlockNavActive ? 'false' : 'true'" role="dialog" aria-label="Within Block Navigation">
-            <button class="close-full-within-block" aria-label="Close" @click="hideWithinBlockNav">
-                <svg viewBox="0 0 24 24" class="icon">
-                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                </svg>
-            </button>
-            <tutorial-nav :items="[tutorial.withinBlockNav]" @click="navigateTo"></tutorial-nav>
-        </nav>
     </div>
+    <nav v-if="tutorial.withinBlockNav" ref="withinBlockNavDialog" class="within-block-overlay" :style="{ height: withinBlockNavHeight + 'px', 'grid-row': '1/3', 'grid-column': '1', 'z-index': '1000'}" :aria-hidden="isWithinBlockNavActive ? 'false' : 'true'" role="dialog" aria-label="Within Block Navigation">
+        <button class="close-full-within-block" aria-label="Close" @click="hideWithinBlockNav">
+            <svg viewBox="0 0 24 24" class="icon">
+                <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+            </svg>
+        </button>
+        <tutorial-nav :items="[tutorial.withinBlockNav]" @click="navigateTo"></tutorial-nav>
+    </nav>
 </template>
 
 <script lang="ts">
