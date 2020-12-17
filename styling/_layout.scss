@@ -23,6 +23,12 @@
                 grid-column: 1;
                 grid-row: 2;
             }
+
+            #popup-nav-dialog {
+                grid-column: 1;
+                grid-row: 1/3;
+                z-index: 10;
+            }
         }
 
         &.layout-tutorial-only-left {

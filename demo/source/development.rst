@@ -1,4 +1,7 @@
 Development
 ###########
 
-Here we go. BlaBla
+.. toctree::
+   :includehidden:
+
+   development/example

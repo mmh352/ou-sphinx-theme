@@ -27,6 +27,10 @@ a {
       #app > div.layout-tutorial-only #tutorial, #app > div.layout-tutorial-only-center #tutorial {
         grid-column: 1;
         grid-row: 2; }
+      #app > div.layout-tutorial-only #popup-nav-dialog, #app > div.layout-tutorial-only-center #popup-nav-dialog {
+        grid-column: 1;
+        grid-row: 1/3;
+        z-index: 10; }
     #app > div.layout-tutorial-only-left {
       max-width: 50rem;
       grid-template-columns: 100%;
@@ -70,6 +74,9 @@ a {
   width: 1px;
   height: 1px;
   overflow: hidden; }
+
+.text-right {
+  text-align: right; }
 
 svg.icon {
   width: 1.125rem;
@@ -223,62 +230,6 @@ svg.icon {
       padding: 1rem;
       cursor: not-allowed;
       color: #4a4a4a; }
-  #tutorial nav.within-block-overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 0;
-    background: #e5f0f9;
-    z-index: 2;
-    overflow: auto;
-    transition: 0.3s height; }
-    #tutorial nav.within-block-overlay button {
-      background: #e5f0f9;
-      border: 0;
-      cursor: pointer;
-      padding: 0.5rem 1rem; }
-      #tutorial nav.within-block-overlay button.close-full-within-block {
-        position: absolute;
-        right: 0;
-        top: 0; }
-      #tutorial nav.within-block-overlay button svg path {
-        fill: #0a0a0a; }
-    #tutorial nav.within-block-overlay ul {
-      margin-left: 1rem;
-      margin-right: 1rem; }
-    #tutorial nav.within-block-overlay a {
-      display: block;
-      padding: 0.5rem 1rem;
-      text-decoration: none; }
-      #tutorial nav.within-block-overlay a[aria-current="true"] {
-        background: #002158;
-        color: #fefefe; }
-    #tutorial nav.within-block-overlay > ul > li > span button {
-      display: none; }
-    #tutorial nav.within-block-overlay li > ul {
-      display: none; }
-    #tutorial nav.within-block-overlay li[aria-expanded="true"] > span button svg:nth-child(1) {
-      display: none; }
-    #tutorial nav.within-block-overlay li[aria-expanded="true"] > span button svg:nth-child(2) {
-      display: inline; }
-    #tutorial nav.within-block-overlay li[aria-expanded="true"] > ul {
-      display: block; }
-    #tutorial nav.within-block-overlay li > span {
-      display: flex;
-      flex-direction: row; }
-      #tutorial nav.within-block-overlay li > span a {
-        flex: 1 1 auto; }
-        #tutorial nav.within-block-overlay li > span a[aria-current="true"] + button {
-          background: #002158; }
-          #tutorial nav.within-block-overlay li > span a[aria-current="true"] + button svg path {
-            fill: #fefefe; }
-      #tutorial nav.within-block-overlay li > span button {
-        flex: 0 0 auto; }
-        #tutorial nav.within-block-overlay li > span button svg:nth-child(2) {
-          display: none; }
-        #tutorial nav.within-block-overlay li > span button svg path {
-          fill: #0a0a0a; }
   #tutorial .scrolling nav.within-block {
     background: #002158;
     box-shadow: 0 0 0.625rem #0a0a0a; }
@@ -644,6 +595,54 @@ svg.icon {
     max-width: 100%; }
   .layout-tutorial-iframe.layout-has-app-menu #tutorial header div:last-child {
     display: none; }
+
+#popup-nav-dialog {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #e5f0f9;
+  overflow: auto;
+  padding-right: 1rem; }
+  #popup-nav-dialog button {
+    background: transparent;
+    border: 0;
+    padding: 0.5rem;
+    cursor: pointer; }
+  #popup-nav-dialog a {
+    text-decoration: none; }
+  #popup-nav-dialog ul {
+    padding: 0 0 0 1rem;
+    margin: 0; }
+    #popup-nav-dialog ul li {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap; }
+      #popup-nav-dialog ul li a {
+        display: block;
+        padding: 0.25rem 1rem;
+        flex: 1 1 auto; }
+        #popup-nav-dialog ul li a[aria-current="page"], #popup-nav-dialog ul li a:hover, #popup-nav-dialog ul li a:focus {
+          background: #1e4b9b;
+          color: #fefefe; }
+      #popup-nav-dialog ul li button {
+        flex: 0 0 auto;
+        padding: 0.25rem; }
+        #popup-nav-dialog ul li button svg:last-child {
+          display: none; }
+      #popup-nav-dialog ul li ul {
+        width: 100%; }
+  #popup-nav-dialog a ~ ul {
+    display: none; }
+  #popup-nav-dialog a[aria-expanded="true"] ~ ul {
+    display: block; }
+  #popup-nav-dialog a[aria-expanded="true"] + button svg:first-child {
+    display: none; }
+  #popup-nav-dialog a[aria-expanded="true"] + button svg:last-child {
+    display: block; }
+  #popup-nav-dialog a[aria-current="page"] + button, #popup-nav-dialog a:hover + button, #popup-nav-dialog a:focus + button {
+    background: #1e4b9b; }
+    #popup-nav-dialog a[aria-current="page"] + button svg path, #popup-nav-dialog a:hover + button svg path, #popup-nav-dialog a:focus + button svg path {
+      fill: #fefefe; }
 
 #editor {
   display: flex;

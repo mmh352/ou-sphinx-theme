@@ -1,5 +1,5 @@
 <template>
-    <div id="tutorial" ref="tutorial" @keyup="keyUp">
+    <div id="tutorial" ref="tutorial">
         <a href="#tutorial-content" class="show-for-sr">Jump to the main content</a>
         <div :class="{ 'scrolling': isScrolling, 'content': true }" ref="content" v-on:scroll.passive="scrolling">
             <header ref="header">
@@ -19,7 +19,7 @@
                         <span v-else>&laquo; Previous</span>
                     </li>
                     <li role="presentation">
-                        <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the within block navigation">
+                        <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the navigation menu">
                             <span v-html="tutorial.title"></span>
                             <svg viewBox="0 0 24 24" class="icon small" alt="" role="presentation">
                                 <path d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
@@ -32,7 +32,7 @@
                     </li>
                 </ul>
             </nav>
-            <main id="tutorial-content" v-html="tutorial.body" @click="articleClick" aria-live="polite" aria-atomic="true"></main>
+            <main id="tutorial-content" v-html="tutorial.body" @click="contentClick" aria-live="polite" aria-atomic="true" @keyup="contentKbd"></main>
             <nav v-if="tutorial.withinBlockNav" class="within-block">
                 <ul>
                     <li role="presentation">
@@ -40,7 +40,7 @@
                         <span v-else>&laquo; Previous</span>
                     </li>
                     <li role="presentation">
-                        <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the within block navigation">
+                        <a tabindex="0" @click="showWithinBlockNav" @keyup.enter="showWithinBlockNav" @keyup.space="showWithinBlockNav" aria-label="Show the navigation menu">
                             <span v-html="tutorial.title"></span>
                             <svg viewBox="0 0 24 24" class="icon small" alt="" role="presentation">
                                 <path d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
@@ -55,13 +55,15 @@
             </nav>
         </div>
     </div>
-    <nav v-if="tutorial.withinBlockNav" ref="withinBlockNavDialog" class="within-block-overlay" :style="{ height: withinBlockNavHeight + 'px', 'grid-row': '1/3', 'grid-column': '1', 'z-index': '1000'}" :aria-hidden="isWithinBlockNavActive ? 'false' : 'true'" role="dialog" aria-label="Within Block Navigation">
-        <button class="close-full-within-block" aria-label="Close" @click="hideWithinBlockNav">
-            <svg viewBox="0 0 24 24" class="icon">
-                <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-            </svg>
-        </button>
-        <tutorial-nav :items="[tutorial.withinBlockNav]" @click="navigateTo"></tutorial-nav>
+    <nav v-if="tutorial.withinBlockNav && isWithinBlockNavActive" ref="withinBlockNavDialog" id="popup-nav-dialog" :aria-hidden="isWithinBlockNavActive ? 'false' : 'true'" @keyUp="popupNavKbd">
+        <div class="text-right">
+            <button aria-label="Close" @click="hideWithinBlockNav">
+                <svg viewBox="0 0 24 24" class="icon">
+                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                </svg>
+            </button>
+        </div>
+        <tutorial-nav :items="[tutorial.withinBlockNav]" @click="navigateTo" @keyUp="ariaPopupMenuKbd"></tutorial-nav>
     </nav>
 </template>
 
@@ -70,6 +72,7 @@ import { Options, Vue } from 'vue-class-component';
 
 import { UrlState, TutorialState } from '../store/index';
 import TutorialNav from './TutorialNav.vue';
+import { ariaMenuMixin } from '../a11y/aria-menu';
 
 interface ScrollPosition {
     scrollTop: number;
@@ -83,7 +86,10 @@ declare global {
 @Options({
     components: {
         TutorialNav,
-    }
+    },
+    mixins: [
+        ariaMenuMixin,
+    ],
 })
 export default class Tutorial extends Vue {
 
@@ -126,11 +132,12 @@ export default class Tutorial extends Vue {
 
     public showWithinBlockNav(ev: Event): void {
         this.isWithinBlockNavActive = true;
-        this.withinBlockNavHeight = (this.$refs.tutorial as Element).clientHeight;
-        const currentLink = (this.$refs.withinBlockNavDialog as HTMLElement).querySelector('[aria-current="true"]');
-        if (currentLink) {
-            (currentLink as HTMLElement).focus();
-        }
+        this.$nextTick(() => {
+            const currentLink = (this.$refs.withinBlockNavDialog as HTMLElement).querySelector('[aria-current="page"]');
+            if (currentLink) {
+                (currentLink as HTMLElement).focus();
+            }
+        });
         this.withinBlockNavOpener = (ev.target as HTMLElement);
         while (this.withinBlockNavOpener.localName.toLowerCase() !== 'a') {
             this.withinBlockNavOpener = this.withinBlockNavOpener.parentElement as HTMLElement;
@@ -138,8 +145,7 @@ export default class Tutorial extends Vue {
     }
 
     public hideWithinBlockNav(noRefocus: boolean): void {
-        setTimeout(() => { this.isWithinBlockNavActive = false; }, 300);
-        this.withinBlockNavHeight = 0;
+        this.isWithinBlockNavActive = false;
         if (!noRefocus && this.withinBlockNavOpener) {
             this.withinBlockNavOpener.focus();
         }
@@ -152,7 +158,7 @@ export default class Tutorial extends Vue {
         this.$store.commit('setScrollWidth', (this.$refs.content as HTMLElement).offsetWidth - (this.$refs.content as Element).clientWidth);
     }
 
-    public articleClick(ev: MouseEvent): void {
+    public contentClick(ev: MouseEvent): void {
         let target = (ev.target as HTMLElement);
         while (target && target.localName !== 'a') {
             target = target.parentElement as HTMLElement;
@@ -174,10 +180,14 @@ export default class Tutorial extends Vue {
         }
     }
 
-    public keyUp(ev: KeyboardEvent): void {
+    public popupNavKbd(ev: KeyboardEvent): void {
         if (ev.keyCode === 27 && this.isWithinBlockNavActive) {
             this.hideWithinBlockNav(false);
         }
+    }
+
+    public contentKbd(): void {
+        // Todo
     }
 }
 </script>

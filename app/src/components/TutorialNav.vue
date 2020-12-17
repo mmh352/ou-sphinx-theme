@@ -1,24 +1,20 @@
 <template>
-    <ul>
-        <template v-for="(item, idx) in items" >
-            <li v-if="item.children.length > 0" :key="idx + '-true'" :aria-expanded="item.expanded ? 'true': 'false'" role="presentation">
-                <span>
-                    <a :href="item.url" :aria-current="item.current ? 'true' : 'false'" @click="click(item.url, $event)">{{ item.title }}</a>
-                    <button aria-label="Show or hide this section" @click="toggleShowHide(item)">
-                        <svg viewBox="0 0 24 24" class="icon">
-                            <path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                        </svg>
-                        <svg viewBox="0 0 24 24" class="icon">
-                            <path fill="currentColor" d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" />
-                        </svg>
-                    </button>
-                </span>
+    <ul role="menu">
+        <li role="none" v-for="(item, idx) in items" :key="idx">
+            <a v-if="item.children.length === 0" tabindex="-1" role="menuitem" :href="item.url" :aria-current="item.current ? 'page' : 'false'" @click="click(item.url, $event)">{{ item.title }}</a>
+            <template v-else>
+                <a tabindex="-1" role="menuitem" aria-haspopup="menu" :href="item.url" :aria-current="item.current ? 'page' : 'false'" :aria-expanded="item.expanded ? 'true' : 'false'" @click="click(item.url, $event)">{{ item.title }}</a>
+                <button aria-hidden="true" tabindex="-1" @click="toggleShowHide(item)">
+                    <svg viewBox="0 0 24 24" class="icon">
+                        <path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                    </svg>
+                    <svg viewBox="0 0 24 24" class="icon">
+                        <path fill="currentColor" d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" />
+                    </svg>
+                </button>
                 <tutorial-nav :items="item.children" @click="click"></tutorial-nav>
-            </li>
-            <li v-else :key="idx + '-false'" role="presentation">
-                <a :href="item.url" :aria-current="item.current ? 'true' : 'false'" @click="click(item.url, $event)">{{ item.title }}</a>
-            </li>
-        </template>
+            </template>
+        </li>
     </ul>
 </template>
 
