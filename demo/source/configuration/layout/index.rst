@@ -15,3 +15,4 @@ The OU Sphinx Theme supports the following layouts:
    tutorial-left
    tutorial-right
    tutorial-iframe
+   tutorial-editor

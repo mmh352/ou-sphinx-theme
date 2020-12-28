@@ -9,3 +9,4 @@ Configuration settings for the OU Sphinx Theme can be set on each page. They the
 
    layout/index
    app-menu
+   editor

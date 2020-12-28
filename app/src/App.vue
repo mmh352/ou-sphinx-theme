@@ -32,6 +32,7 @@
         </nav>
         <tutorial v-if="hasTutorial"></tutorial>
         <iframe id="iframe" v-if="hasIFrame" :src="iFrameSrc"></iframe>
+        <editor v-if="hasEditor"></editor>
     </div>
 </template>
 
@@ -115,7 +116,7 @@ export default class App extends Vue {
     }
 
     public get hasTutorial(): boolean {
-        return ['tutorial-only', 'tutorial-only-left', 'tutorial-only-center', 'tutorial-only-right', 'tutorial-iframe'].indexOf(this.layout) >= 0;
+        return ['tutorial-only', 'tutorial-only-left', 'tutorial-only-center', 'tutorial-only-right', 'tutorial-iframe', 'tutorial-editor'].indexOf(this.layout) >= 0;
     }
 
     public get hasIFrame(): boolean {
@@ -132,6 +133,10 @@ export default class App extends Vue {
         } else {
             return '';
         }
+    }
+
+    public get hasEditor(): boolean {
+        return ['tutorial-editor'].indexOf(this.layout) >= 0;
     }
 
     public get urls(): UrlState {

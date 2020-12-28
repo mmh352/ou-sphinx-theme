@@ -1,0 +1,42 @@
+.cm-wrap {
+    height: 100%;
+}
+
+.cm-content {
+    cursor: text;
+}
+
+.ͼ1.cm-light {
+    .cm-gutters {
+        background: $colour-editor-bg;
+        border-right: 0;
+        padding: 0 $global-padding 0 0;
+    }
+
+    .cm-content {
+        .cm-activeLine {
+            background: transparent;
+            position: relative;
+            caret-color: #e9e9e9 !important;
+
+            &:before {
+                content: ' ';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-top: 2px solid #282828;
+                border-bottom: 2px solid #282828;
+                padding: 1px;
+                z-index: -1;
+            }
+        }
+
+        .cm-matchingBracket {
+            color: inherit;
+            outline: 1px dotted #999;
+        }
+    }
+}

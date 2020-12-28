@@ -4,39 +4,32 @@
     background: $very-dark-gray;
     color: $white;
 
-    nav {
+    > nav {
         flex: 0 0 auto;
 
-        a[role="tab"] {
-            color: $medium-gray;
+        button[role="tab"] {
+            display: block;
+            background: transparent;
+            color: #e9e9e9;
+            padding: $global-padding/2 $global-padding;
+            border: 0;
+            cursor: pointer;
 
             &[aria-selected="true"] {
-                background: $black;
+                background: $colour-editor-bg;
             }
         }
     }
 
-    .code-editor {
+    > div {
         flex: 1 1 auto;
-        display: flex;
-        flex-direction: row;
-        background: $very-dark-gray;
+        overflow: auto;
+        background: $colour-editor-bg;
+        color: #e9e9e9;
 
-        div {
-            &.line-numbers {
-                flex: 0 0 auto;
-                padding: 0 $global-padding*2;
-                text-align: right;
-                color: $medium-gray;
-            }
-
-            &.code {
-                flex: 1 1 auto;
-            }
-        }
-
-        pre {
-            margin: 0;
+        > div {
+            height: 100%;
+            font-size: rem-calc(14px);
         }
     }
 }
