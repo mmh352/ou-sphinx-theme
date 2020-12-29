@@ -1,5 +1,23 @@
 :layout: tutorial-editor
 :editor-files: index.html, default.css, a11y.js, sample.txt
+:editor-files-src: /_static/editor-sample/
 
 Built-in Editor
 ###############
+
+To show the editor, you must use one of the :doc:`layouts <layout/index>` that include the editor, then you must specify the following two keys:
+
+* :code:`:editor-files:` - a comma-separated list of files to show editor tabs for
+* :code:`:editor-files-src: URI-TO-RESOLVE-THE-FILES-FROM` - specify a relative or absolute URL. This URL will be prefixed to the filenames for loading and saving.
+
+The editor includes built-in syntax highlighting for the following programming languages. The language is guessed via the filename's extension:
+
+* .html - HTML files
+* .js - JavaScript files
+* .css - Cascading StyleSheet files
+* .java - Java files
+* .py - Python files
+* .json - JavaScript Object Notation files
+* .cpp - C++ Files
+* .sql - Standard SQL dialect files
+* .md - Markdown files

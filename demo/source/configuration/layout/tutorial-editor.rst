@@ -1,5 +1,6 @@
 :layout: tutorial-editor
-:editor-files: index.html, default.css, a11y.js, sample.txt
+:editor-files: index.html, default.css, a11y.js
+:editor-files-src: /_static/editor-sample/
 
 Tutorial & Editor
 #################
