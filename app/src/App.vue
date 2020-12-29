@@ -116,11 +116,11 @@ export default class App extends Vue {
     }
 
     public get hasTutorial(): boolean {
-        return ['tutorial-only', 'tutorial-only-left', 'tutorial-only-center', 'tutorial-only-right', 'tutorial-iframe', 'tutorial-editor'].indexOf(this.layout) >= 0;
+        return ['tutorial-only', 'tutorial-only-left', 'tutorial-only-center', 'tutorial-only-right', 'tutorial-iframe', 'tutorial-editor', 'tutorial-editor-iframe'].indexOf(this.layout) >= 0;
     }
 
     public get hasIFrame(): boolean {
-        return this.layout === 'tutorial-iframe';
+        return ['tutorial-iframe', 'tutorial-editor-iframe'].indexOf(this.layout) >= 0;
     }
 
     public get iFrameSrc(): string {
@@ -136,7 +136,7 @@ export default class App extends Vue {
     }
 
     public get hasEditor(): boolean {
-        return ['tutorial-editor'].indexOf(this.layout) >= 0;
+        return ['tutorial-editor', 'tutorial-editor-iframe'].indexOf(this.layout) >= 0;
     }
 
     public get urls(): UrlState {

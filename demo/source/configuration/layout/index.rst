@@ -8,6 +8,7 @@ The OU Sphinx Theme supports the following layouts:
 * :code:`:layout: tutorial-only-right`: Shows only the tutorial text, aligned to the right of the browser window. :doc:`Demo <tutorial-right>`.
 * :code:`:layout: tutorial-iframe`: Shows the tutorial text, together with an iframe. :doc:`Demo <tutorial-iframe>`.
 * :code:`:layout: tutorial-editor`: Shows the tutorial text, together with a tabbed file editor. :doc:`Demo <tutorial-editor>`.
+* :code:`:layout: tutorial-editor-iframe`: Shows the tutorial text, together with a tabbed file editor and an iframe. :doc:`Demo <tutorial-editor-iframe>`.
 
 .. toctree::
    :hidden:
@@ -17,3 +18,4 @@ The OU Sphinx Theme supports the following layouts:
    tutorial-right
    tutorial-iframe
    tutorial-editor
+   tutorial-editor-iframe

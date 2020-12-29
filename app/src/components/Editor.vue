@@ -221,6 +221,7 @@ export default class Editor extends Vue {
     }
 
     private async saveFile(file: File) {
+        clearTimeout(file.updateTimeout);
         file.busy = true;
         await fetch(this.$store.state.metadata['editor-files-src'] + file.filename, {
             method: 'PUT',
@@ -228,6 +229,10 @@ export default class Editor extends Vue {
         });
         file.busy = false;
         file.changed = false;
+        const iFrame = document.querySelector('#iframe') as HTMLIFrameElement;
+        if (iFrame && iFrame.contentWindow) {
+            iFrame.contentWindow.location.reload();
+        }
     }
 }
 </script>
