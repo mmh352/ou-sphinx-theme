@@ -201,8 +201,7 @@ export default class Editor extends Vue {
 
     public async editorKeydown(ev: KeyboardEvent): Promise<void> {
         if (ev.key === 's') {
-            const isMac = navigator.platform.toLowerCase().indexOf('mac') >= 0;
-            if ((isMac && ev.metaKey) || (!isMac && ev.ctrlKey)) {
+            if ((this.$store.state.ui.platform.isMac && ev.metaKey) || (!this.$store.state.ui.platform.isMac && ev.ctrlKey)) {
                 ev.preventDefault();
                 if (this.selected) {
                     this.saveFile(this.selected);

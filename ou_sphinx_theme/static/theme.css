@@ -120,6 +120,16 @@ a {
         grid-column: 1;
         grid-row: 1/4;
         z-index: 10; }
+    @media screen and (max-width: 800px) {
+      #app > div.layout-tutorial-only, #app > div.layout-tutorial-only-center, #app > div.layout-tutorial-only-left, #app > div.layout-tutorial-only-right, #app > div.layout-tutorial-iframe, #app > div.layout-tutorial-editor, #app > div.layout-tutorial-editor-iframe {
+        grid-template-columns: 100%;
+        grid-template-rows: auto 1fr; }
+        #app > div.layout-tutorial-only #app-menu, #app > div.layout-tutorial-only-center #app-menu, #app > div.layout-tutorial-only-left #app-menu, #app > div.layout-tutorial-only-right #app-menu, #app > div.layout-tutorial-iframe #app-menu, #app > div.layout-tutorial-editor #app-menu, #app > div.layout-tutorial-editor-iframe #app-menu {
+          grid-column: 1;
+          grid-row: 1; }
+        #app > div.layout-tutorial-only #tutorial, #app > div.layout-tutorial-only-center #tutorial, #app > div.layout-tutorial-only-left #tutorial, #app > div.layout-tutorial-only-right #tutorial, #app > div.layout-tutorial-iframe #tutorial, #app > div.layout-tutorial-editor #tutorial, #app > div.layout-tutorial-editor-iframe #tutorial {
+          grid-column: 1;
+          grid-row: 2; } }
 
 .show-for-sr {
   position: absolute;

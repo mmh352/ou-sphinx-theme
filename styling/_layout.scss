@@ -166,5 +166,22 @@
                 z-index: 10;
             }
         }
+
+        @media screen and (max-width: 800px) {
+            &.layout-tutorial-only, &.layout-tutorial-only-center, &.layout-tutorial-only-left, &.layout-tutorial-only-right, &.layout-tutorial-iframe, &.layout-tutorial-editor, &.layout-tutorial-editor-iframe {
+                grid-template-columns: 100%;
+                grid-template-rows: auto 1fr;
+
+                #app-menu {
+                    grid-column: 1;
+                    grid-row: 1;
+                }
+
+                #tutorial {
+                    grid-column: 1;
+                    grid-row: 2;
+                }
+            }
+        }
     }
 }

@@ -35,6 +35,12 @@ export interface LinkState {
 export interface UIState {
     scrolling: boolean;
     scrollWidth: number;
+    size: string;
+    platform: PlatformState;
+}
+
+export interface PlatformState {
+    isMac: boolean;
 }
 
 export default createStore({
@@ -56,7 +62,11 @@ export default createStore({
         ui: {
             scrolling: false,
             scrollWidth: 0,
-        }
+            size: 'large',
+            platform: {
+                isMac: false,
+            },
+        },
     } as State,
 
     mutations: {
@@ -89,9 +99,35 @@ export default createStore({
         setScrollWidth(state, payload: number) {
             state.ui.scrollWidth = payload;
         },
+
+        setPlatformFlag(state, payload: {attr: string; value: boolean}) {
+            if (payload.attr === 'isMac') {
+                state.ui.platform.isMac = payload.value;
+            }
+        },
+
+        setUISize(state, payload: string) {
+            state.ui.size = payload;
+        },
     },
 
     actions: {
+        async init({ commit }) {
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 800) {
+                    commit('setUISize', 'large');
+                } else {
+                    commit('setUISize', 'small');
+                }
+            });
+            if (window.innerWidth > 800) {
+                commit('setUISize', 'large');
+            } else {
+                commit('setUISize', 'small');
+            }
+            commit('setPlatformFlag', {attr: 'isMac', value: navigator.platform.toLowerCase().indexOf('mac') >= 0});
+        },
+
         async fetch({ commit }, url: string) {
             url = (new URL(url, document.baseURI)).href;
             url = url.replace('.html', '.json');

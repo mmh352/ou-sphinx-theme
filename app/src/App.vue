@@ -120,7 +120,7 @@ export default class App extends Vue {
     }
 
     public get hasIFrame(): boolean {
-        return ['tutorial-iframe', 'tutorial-editor-iframe'].indexOf(this.layout) >= 0;
+        return this.$store.state.ui.size === 'large' && ['tutorial-iframe', 'tutorial-editor-iframe'].indexOf(this.layout) >= 0;
     }
 
     public get iFrameSrc(): string {
@@ -136,7 +136,7 @@ export default class App extends Vue {
     }
 
     public get hasEditor(): boolean {
-        return ['tutorial-editor', 'tutorial-editor-iframe'].indexOf(this.layout) >= 0;
+        return this.$store.state.ui.size === 'large' && ['tutorial-editor', 'tutorial-editor-iframe'].indexOf(this.layout) >= 0;
     }
 
     public get urls(): UrlState {
