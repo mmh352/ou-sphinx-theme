@@ -97,9 +97,9 @@ export default class App extends Vue {
 
     public get appMenuDownloadUrl(): string {
         if (this.$store.state.urls.prefix) {
-            return this.$store.state.urls.prefix + '/tutorial/download';
+            return this.$store.state.urls.prefix + '/download';
         } else {
-            return '/tutorial/download';
+            return '/download';
         }
     }
 
