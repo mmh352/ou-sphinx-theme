@@ -87,6 +87,9 @@ export default createStore({
         },
 
         setURLPrefix(state, payload: string) {
+            if (payload.endsWith('/')) {
+                payload = payload.substring(0, payload.length - 1);
+            }
             if (state.urls.prefix !== payload) {
                 state.urls.prefix = payload;
             }
