@@ -78,7 +78,7 @@ div.activity {
 }
 
 .video {
-    &.is-active {
+    .transcript.is-active {
         .buttons {
             button {
                 span {
@@ -135,7 +135,8 @@ div.activity {
         overflow: auto;
         background: $white;
         border: 1px solid $colour-primary-dark;
-        margin-bottom: $global-margin/2;
+        margin: $global-margin/2 $global-margin/2 $global-margin/2 0;
+        padding: $global-padding/2;
     }
 }
 

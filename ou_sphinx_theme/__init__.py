@@ -8,6 +8,8 @@ from os import path
 from sphinx.environment.adapters.toctree import TocTree
 from sphinx.util.osutil import ensuredir
 
+from .ext import activity, iframe, youtube
+
 
 def get_nav_entry(list_item):
     """Convert a toctree list item into a nav-entry dict."""
@@ -147,4 +149,7 @@ def setup(app):
     """Setup the OU Sphinx theme and extensions."""
     app.add_html_theme('openuniversity', path.abspath(path.dirname(__file__)))
     sphinx.builders.html.StandaloneHTMLBuilder.update_page_context = update_page_context
+    activity.setup(app)
+    iframe.setup(app)
+    youtube.setup(app)
     return {'parallel_read_safe': True, 'parallel_write_safe': True}

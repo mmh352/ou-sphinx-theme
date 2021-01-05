@@ -8,4 +8,5 @@ The OU Sphinx Theme is designed for the delivery of teaching materials in an int
    :includehidden:
 
    configuration/index
+   extensions/index
    development

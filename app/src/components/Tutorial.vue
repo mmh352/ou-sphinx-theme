@@ -160,21 +160,34 @@ export default class Tutorial extends Vue {
 
     public contentClick(ev: MouseEvent): void {
         let target = (ev.target as HTMLElement);
-        while (target && target.localName !== 'a') {
+        while (target && target.localName.toLowerCase() !== 'a' && target.localName.toLowerCase() !== 'button') {
             target = target.parentElement as HTMLElement;
         }
         if (target) {
-            const classList = target.classList;
-            if (classList.contains('reference')) {
-                if (classList.contains('internal')) {
-                    ev.preventDefault();
-                    const url = target.getAttribute('href');
-                    if (url) {
-                        this.navigateTo(url, ev);
+            if (target.localName.toLowerCase() === 'a') {
+                const classList = target.classList;
+                if (classList.contains('reference')) {
+                    if (classList.contains('internal')) {
+                        ev.preventDefault();
+                        const url = target.getAttribute('href');
+                        if (url) {
+                            this.navigateTo(url, ev);
+                        }
+                    } else if (classList.contains('external')) {
+                        target.setAttribute('rel', 'noopener');
+                        target.setAttribute('target', '_blank');
                     }
-                } else if (classList.contains('external')) {
-                    target.setAttribute('rel', 'noopener');
-                    target.setAttribute('target', '_blank');
+                }
+            } else if (target.localName.toLowerCase() === 'button') {
+                console.log(target.parentElement);
+                if (target.parentElement) {
+                    if (target.parentElement.parentElement) {
+                        if (target.parentElement.parentElement.classList.contains('answer')) {
+                            target.parentElement.parentElement.classList.toggle('is-active');
+                        } else if (target.parentElement.parentElement.classList.contains('transcript')) {
+                            target.parentElement.parentElement.classList.toggle('is-active');
+                        }
+                    }
                 }
             }
         }
