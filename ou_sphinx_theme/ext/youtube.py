@@ -7,11 +7,14 @@ from .iframe import IFrameNode
 def setup(app):
     app.add_directive('youtube', Youtube)
     app.add_node(VideoNode,
-                 html=(visit_video_html, depart_video_html))
+                 html=(visit_video_html, depart_video_html),
+                 latex=(visit_video_latex, depart_video_latex),)
     app.add_node(PlayerNode,
-                 html=(visit_player_html, depart_player_html))
+                 html=(visit_player_html, depart_player_html),
+                 latex=(visit_player_latex, depart_player_latex),)
     app.add_node(TranscriptNode,
-                 html=(visit_transcript_html, depart_transcript_html))
+                 html=(visit_transcript_html, depart_transcript_html),
+                 latex=(visit_transcript_latex, depart_transcript_latex),)
 
 
 class VideoNode(Element):
@@ -30,6 +33,14 @@ def depart_video_html(self, node):
     self.body.append('</div>')
 
 
+def visit_video_latex(self, node):
+    pass
+
+
+def depart_video_latex(self, node):
+    pass
+
+
 class PlayerNode(Element):
     """The PlayerNode represents the video player."""
 
@@ -44,6 +55,14 @@ def visit_player_html(self, node):
 
 def depart_player_html(self, node):
     self.body.append('</div>')
+
+
+def visit_player_latex(self, node):
+    pass
+
+
+def depart_player_latex(self, node):
+    pass
 
 
 class TranscriptNode(Element):
@@ -65,6 +84,14 @@ def visit_transcript_html(self, node):
 def depart_transcript_html(self, node):
     self.body.append('</div>')
     self.body.append('</div>')
+
+
+def visit_transcript_latex(self, node):
+    self.body.append('\n')
+
+
+def depart_transcript_latex(self, node):
+    pass
 
 
 class Youtube(SphinxDirective):

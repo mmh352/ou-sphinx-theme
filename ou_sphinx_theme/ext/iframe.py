@@ -5,7 +5,8 @@ from sphinx.util.docutils import SphinxDirective
 def setup(app):
     app.add_directive('iframe', IFrame)
     app.add_node(IFrameNode,
-                 html=(visit_iframe_html, depart_iframe_html))
+                 html=(visit_iframe_html, depart_iframe_html),
+                 latex=(visit_iframe_latex, depart_iframe_latex),)
 
 
 class IFrameNode(Element):
@@ -27,6 +28,14 @@ def visit_iframe_html(self, node):
 
 def depart_iframe_html(self, node):
     self.body.append('</iframe>')
+
+
+def visit_iframe_latex(self, node):
+    self.body.append(f'The embedded content can be found at \\url{{{node["source"]}}}')
+
+
+def depart_iframe_latex(self, node):
+    pass
 
 
 class IFrame(SphinxDirective):

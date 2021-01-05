@@ -6,14 +6,18 @@ from sphinx.util.docutils import SphinxDirective
 def setup(app):
     app.add_directive('activity', Activity)
     app.add_node(ActivityNode,
-                 html=(visit_activity_html, depart_activity_html))
+                 html=(visit_activity_html, depart_activity_html),
+                 latex=(visit_activity_latex, depart_activity_latex),)
     app.add_node(ActivityTitleNode,
-                 html=(visit_activity_title_html, depart_activity_title_html))
+                 html=(visit_activity_title_html, depart_activity_title_html),
+                 latex=(visit_activity_title_latex, depart_activity_title_latex),)
     app.add_node(ActivityContentNode,
-                 html=(visit_activity_content_html, depart_activity_content_html))
+                 html=(visit_activity_content_html, depart_activity_content_html),
+                 latex=(visit_activity_content_latex, depart_activity_content_latex),)
     app.add_directive('activity-answer', ActivityAnswer)
     app.add_node(ActivityAnswerNode,
-                 html=(visit_activity_answer_html, depart_activity_answer_html))
+                 html=(visit_activity_answer_html, depart_activity_answer_html),
+                 latex=(visit_activity_answer_latex, depart_activity_answer_latex),)
 
 
 class ActivityNode(Element):
@@ -33,6 +37,14 @@ def depart_activity_html(self, node):
     self.body.append('</div>')
 
 
+def visit_activity_latex(self, node):
+    pass
+
+
+def depart_activity_latex(self, node):
+    pass
+
+
 class ActivityTitleNode(Element):
     """The ActivityTitleNode contains the title text for the ActivityNode."""
 
@@ -45,6 +57,14 @@ def visit_activity_title_html(self, node):
 
 def depart_activity_title_html(self, node):
     self.body.append('</h2>')
+
+
+def visit_activity_title_latex(self, node):
+    pass
+
+
+def depart_activity_title_latex(self, node):
+    self.body.append('\n')
 
 
 class ActivityContentNode(Element):
@@ -61,6 +81,14 @@ def visit_activity_content_html(self, node):
 
 def depart_activity_content_html(self, node):
     self.body.append('</div>')
+
+
+def visit_activity_content_latex(self, node):
+    pass
+
+
+def depart_activity_content_latex(self, node):
+    pass
 
 
 class ActivityAnswerNode(Element):
@@ -83,6 +111,14 @@ def visit_activity_answer_html(self, node):
 def depart_activity_answer_html(self, node):
     self.body.append('</div>')
     self.body.append('</div>')
+
+
+def visit_activity_answer_latex(self, node):
+    pass
+
+
+def depart_activity_answer_latex(self, node):
+    pass
 
 
 class Activity(SphinxDirective):
