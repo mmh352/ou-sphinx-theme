@@ -26,7 +26,7 @@ def get_nav_entry(list_item):
 def get_block_nav(self, pagename):
     """Get the navigation entries for the top-level TOC entries."""
     toctree = TocTree(self.env).get_toctree_for(pagename, self, collapse=False, maxdepth=-1)
-    return [get_nav_entry(item) for item in toctree.children[0].children]
+    return [get_nav_entry(item) for item in toctree.children[0].children if isinstance(item, list_item)]
 
 
 def get_prev_next_nav(prev_next):
@@ -53,9 +53,10 @@ def get_within_block_nav(self, pagename):
     """Build the within-the-block navigation."""
     toctree = TocTree(self.env).get_toctree_for(pagename, self, collapse=False, maxdepth=-1)
     for top_level in toctree.children[0].children:
-        entry = get_nav_entry(top_level)
-        if entry['current'] or entry['expanded']:
-            return build_nav_tree(self, top_level)
+        if isinstance(top_level, list_item):
+            entry = get_nav_entry(top_level)
+            if entry['current'] or entry['expanded']:
+                return build_nav_tree(self, top_level)
     return None
 
 
