@@ -138,6 +138,13 @@ div.activity {
         margin: $global-margin/2 $global-margin/2 $global-margin/2 0;
         padding: $global-padding/2;
     }
+
+    .description {
+        position: absolute;
+        font-size: 1px;
+        left: -10000px;
+        top: -10000px;
+    }
 }
 
 div.admonition {

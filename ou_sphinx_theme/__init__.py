@@ -8,7 +8,7 @@ from os import path
 from sphinx.environment.adapters.toctree import TocTree
 from sphinx.util.osutil import ensuredir
 
-from .ext import activity, iframe, youtube
+from .ext import a11y, activity, iframe, youtube
 
 
 def get_nav_entry(list_item):
@@ -150,6 +150,7 @@ def setup(app):
     """Setup the OU Sphinx theme and extensions."""
     app.add_html_theme('openuniversity', path.abspath(path.dirname(__file__)))
     sphinx.builders.html.StandaloneHTMLBuilder.update_page_context = update_page_context
+    a11y.setup(app)
     activity.setup(app)
     iframe.setup(app)
     youtube.setup(app)

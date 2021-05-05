@@ -12,9 +12,6 @@ def setup(app):
     app.add_node(PlayerNode,
                  html=(visit_player_html, depart_player_html),
                  latex=(visit_player_latex, depart_player_latex),)
-    app.add_node(TranscriptNode,
-                 html=(visit_transcript_html, depart_transcript_html),
-                 latex=(visit_transcript_latex, depart_transcript_latex),)
 
 
 class VideoNode(Element):
@@ -65,35 +62,6 @@ def depart_player_latex(self, node):
     pass
 
 
-class TranscriptNode(Element):
-    """The TranscriptNode represents the transcript of a video."""
-
-    def __init__(self, rawsource='', *children, **attributes):
-        super().__init__(rawsource=rawsource, *children, **attributes)
-        self.set_class('transcript')
-
-
-def visit_transcript_html(self, node):
-    self.body.append(self.starttag(node, 'div'))
-    self.body.append('<div class="buttons">')
-    self.body.append('<button><span>Show transcript</span><span>Hide transcript</span></button>')
-    self.body.append('</div>')
-    self.body.append('<div class="content">')
-
-
-def depart_transcript_html(self, node):
-    self.body.append('</div>')
-    self.body.append('</div>')
-
-
-def visit_transcript_latex(self, node):
-    self.body.append('\n')
-
-
-def depart_transcript_latex(self, node):
-    pass
-
-
 class Youtube(SphinxDirective):
     """The Youtube directive supports embedding of YouTube videos.
 
@@ -121,7 +89,5 @@ class Youtube(SphinxDirective):
         if 'height' in self.options:
             iframe['height'] = self.options['height']
         if self.content:
-            transcript = TranscriptNode()
-            video += transcript
-            self.state.nested_parse(self.content, self.content_offset, transcript)
+            self.state.nested_parse(self.content, self.content_offset, video)
         return [video]

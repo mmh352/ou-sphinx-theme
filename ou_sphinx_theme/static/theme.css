@@ -406,6 +406,11 @@ svg.icon {
     border: 1px solid #002158;
     margin: 0.5rem 0.5rem 0.5rem 0;
     padding: 0.5rem; }
+  #tutorial .video .description {
+    position: absolute;
+    font-size: 1px;
+    left: -10000px;
+    top: -10000px; }
   #tutorial div.admonition {
     background: #e5f0f9;
     border-left: 0.25rem solid #1e4b9b;
