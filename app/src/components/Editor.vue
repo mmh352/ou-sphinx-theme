@@ -211,7 +211,11 @@ export default class Editor extends Vue {
     }
 
     private async fetchFile(filename: string, idx: number) {
-        const response = await fetch(this.$store.state.metadata['editor-files-src'] + filename);
+        let url = this.$store.state.metadata['editor-files-src'] + filename;
+        if (this.$store.state.urls.prefix) {
+            url = this.$store.state.urls.prefix + url;
+        }
+        const response = await fetch(url);
         if (response.status == 200) {
             this.files[idx].content = await response.text();
             this.files[idx].busy = false;
@@ -221,8 +225,12 @@ export default class Editor extends Vue {
 
     private async saveFile(file: File) {
         clearTimeout(file.updateTimeout);
+        let url = this.$store.state.metadata['editor-files-src'] + file.filename;
+        if (this.$store.state.urls.prefix) {
+            url = this.$store.state.urls.prefix + url;
+        }
         file.busy = true;
-        await fetch(this.$store.state.metadata['editor-files-src'] + file.filename, {
+        await fetch(url, {
             method: 'PUT',
             body: file.content,
         });
