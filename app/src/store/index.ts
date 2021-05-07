@@ -138,8 +138,10 @@ export default createStore({
                 url = url + 'index.json';
             }
             const response = await fetch(url);
-            if (response.headers.get('X-URL-Prefix') || response.headers.get('x-url-prefix')) {
-                commit('setURLPrefix', response.headers.get('X-URL-Prefix') || response.headers.get('x-url-prefix'));
+            for (const entry of response.headers) {
+                if (entry[0].toLowerCase() === 'x-url-prefix') {
+                    commit('setURLPrefix', entry[1]);
+                }
             }
             return await response.json();
         },
