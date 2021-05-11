@@ -2,6 +2,7 @@ Code Styling
 ############
 
 .. sourcecode:: html
+    :caption: index.html
 
     <!DOCTYPE html>
     <html>
@@ -19,6 +20,7 @@ Code Styling
 
 
 .. sourcecode:: css
+    :caption: styles.css
 
     h1 {
         font-size: 12pt;
@@ -33,6 +35,7 @@ Code Styling
     }
 
 .. sourcecode:: javascript
+    :caption: ux.js
 
     function hello(name) {
         document.querySelector('h1').innerHTML = 'Hello ' + name;

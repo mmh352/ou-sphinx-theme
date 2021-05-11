@@ -63,6 +63,13 @@
         ul.simple {
             @apply list-disc ml-4;
         }
+        .literal-block-wrapper {
+            @apply relative;
+
+            .code-block-caption {
+                @apply absolute top-0 right-0 text-xs text-white bg-turquoise px-1;
+            }
+        }
         .highlight {
             @apply mb-3 overflow-auto font-mono bg-white-600 p-2 border-solid border-turquoise border-l-2;
         }
