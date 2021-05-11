@@ -3,7 +3,7 @@
     export let current = null;
     export let show = false;
 
-    import { navigate } from '../store';
+    import { navigate } from '../../../store';
 
     function handleNav(ev: MouseEvent) {
         ev.preventDefault();

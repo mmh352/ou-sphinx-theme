@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 
-    import { data, navigate } from './store';
+    import { data, navigate } from '../../store';
 
     let next = null;
     let prev = null;

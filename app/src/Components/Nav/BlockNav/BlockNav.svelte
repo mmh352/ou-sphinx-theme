@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 
-    import { data } from '../store';
+    import { data } from '../../../store';
     import BlockNavItem from './BlockNavItem.svelte';
 
     let navRoot = null;

@@ -1,8 +1,8 @@
 <script type="ts">
 	import { onDestroy } from 'svelte';
 
-    import { data, navigate } from './store';
-    import PageNav from './PageNav.svelte';
+    import { data, navigate } from '../store';
+    import PageNav from './Nav/PageNav.svelte';
 
     let tutorialContent = '';
 

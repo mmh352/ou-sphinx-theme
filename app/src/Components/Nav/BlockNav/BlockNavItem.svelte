@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { navigate } from '../store';
+    import { navigate } from '../../../store';
 
     export let item = null;
     let expanded = item.expanded || item.current;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 
-    import { data, busy, isInJupyterHub } from '../store';
+    import { data, busy, isInJupyterHub } from '../../../store';
     import MainNavItem from './MainNavItem.svelte';
 
     let moduleTitle = 'Loading...';

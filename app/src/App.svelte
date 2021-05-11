@@ -2,12 +2,12 @@
 	import { onDestroy } from 'svelte';
 
 	import { data } from './store';
-	import MainNav from './MainNav/MainNav.svelte';
-	import Tutorial from './Tutorial.svelte';
-	import SideNav from './SideNav.svelte';
-	import BlockNav from './BlockNav/BlockNav.svelte';
-	import Editor from './Editor.svelte';
-	import IFrame from './IFrame.svelte';
+	import MainNav from './Components/Nav/MainNav/MainNav.svelte';
+	import Tutorial from './Components/Tutorial.svelte';
+	import SideNav from './Components/Nav/SideNav.svelte';
+	import BlockNav from './Components/Nav/BlockNav/BlockNav.svelte';
+	import Editor from './Components/Editor.svelte';
+	import IFrame from './Components/IFrame.svelte';
 
 	let section = 'block-navigation';
 
