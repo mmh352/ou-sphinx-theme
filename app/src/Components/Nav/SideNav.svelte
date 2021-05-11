@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { hasEditor, hasIFrame, breakpoint } from '../../store';
     export let section = '';
 
     function setSection(newSection: string, ev: MouseEvent) {
@@ -19,6 +20,20 @@
                 <img src="/_static/icons/article_RGB.png" alt="Show the tutorial content" title="Tutorial Content" class="w-8 h-8"/>
             </button>
         </li>
+        {#if $hasEditor && $breakpoint < 3}
+            <li>
+                <button on:click={ev => setSection('editor', ev)} class="block px-3 py-3 border-r-2 border-solid {section === 'editor' ? 'border-blue' : 'border-gray-200'} hover:border-blue focus:border-blue">
+                    <img src="/_static/icons/edit_RGB.png" alt="Show the tutorial content" title="Tutorial Content" class="w-8 h-8"/>
+                </button>
+            </li>
+        {/if}
+        {#if $hasIFrame && $breakpoint < 3}
+            <li>
+                <button on:click={ev => setSection('iframe', ev)} class="block px-3 py-3 border-r-2 border-solid {section === 'iframe' ? 'border-blue' : 'border-gray-200'} hover:border-blue focus:border-blue">
+                    <img src="/_static/icons/online_doc_RGB.png" alt="Show the tutorial content" title="Tutorial Content" class="w-8 h-8"/>
+                </button>
+            </li>
+        {/if}
         <li>
             <button class="block px-3 py-3 border-r-2 border-solid border-gray-200 hover:border-blue focus:border-blue">
                 <img src="/_static/icons/download_RGB.png" alt="Download all of the module's content" title="Download Module Content" class="w-8 h-8"/>

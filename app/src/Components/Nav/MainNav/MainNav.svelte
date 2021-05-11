@@ -24,7 +24,7 @@
     });
 </script>
 
-<nav class="col-start-1 col-end-4 row-start-1 row-end-2">
+<nav class="col-start-1 col-end-4 row-start-1 row-end-2 border-b-2 border-solid boder-gray-200 lg:border-b-0">
     <ul class="flex flex-col lg:flex-row lg:items-end">
         <li class="flex items-end">
             <button on:click={e => showMenu = !showMenu} class="block lg:hidden px-3 py-2">

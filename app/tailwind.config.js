@@ -6,8 +6,8 @@ module.exports = {
     theme: {
         extend: {
             gridTemplateColumns: {
-                'three-pane': 'auto min(40%, 40rem) 1fr',
-                'single-pane': 'auto 1fr',
+                'three-pane': 'max-content min(40%, 40rem) 1fr',
+                'single-pane': 'max-content 1fr',
             },
             gridTemplateRows: {
                 'three-pane': 'auto 1fr 1fr',

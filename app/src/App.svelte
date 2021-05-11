@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 
-	import { data, hasIFrame, hasEditor } from './store';
+	import { data, hasIFrame, hasEditor, breakpoint } from './store';
 	import MainNav from './Components/Nav/MainNav/MainNav.svelte';
 	import Tutorial from './Components/Tutorial.svelte';
 	import SideNav from './Components/Nav/SideNav.svelte';
@@ -29,10 +29,10 @@
 	{:else if section === 'block-navigation'}
 		<BlockNav/>
 	{/if}
-	{#if $hasEditor}
+	{#if $hasEditor && (section === 'editor' || $breakpoint >= 3)}
 		<Editor/>
 	{/if}
-	{#if $hasIFrame}
+	{#if $hasIFrame && (section === 'iframe' || $breakpoint >= 3)}
 		<IFrame/>
 	{/if}
 </main>

@@ -1,4 +1,4 @@
-import { writable, derived } from 'svelte/store';
+import { writable, readable, derived } from 'svelte/store';
 import { decode } from 'he';
 
 export const url = writable('');
@@ -97,4 +97,30 @@ export function navigate(newUrl: string) {
 
 window.addEventListener('popstate', function(ev) {
     url.set(window.location.href);
+});
+
+function calculateBreakpoint() {
+    const width = window.innerWidth;
+    if (width >= 1536) {
+        return 5;
+    } else if (width >= 1280) {
+        return 4;
+    } else if (width >= 1024) {
+        return 3;
+    } else if (width >= 768) {
+        return 2;
+    } else if (width >= 640) {
+        return 1;
+    }
+    return 0;
+}
+
+export const breakpoint = readable(calculateBreakpoint(), function start(set) {
+    function listener() {
+        set(calculateBreakpoint());
+    }
+    window.addEventListener('resize', listener);
+    return function stop() {
+        window.removeEventListener('resize', listener);
+    };
 });
