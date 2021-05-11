@@ -71,7 +71,7 @@ gulp.task('demo', gulp.series('js.production', 'demo.build', function(cb) {
     cb();
 }));
 
-gulp.task('serve', gulp.series('demo.build', gulp.parallel('js.development', (cb) => {
+gulp.task('dev', gulp.series('demo.build', gulp.parallel('js.development', (cb) => {
     gulp.watch('app/public/build/*.*', {delay: 1000, events: ['add', 'change']}, gulp.parallel('js.deploy'));
     gulp.watch(['ou_sphinx_theme/**/*.*', 'demo/**/*.*'], {delay: 1000, events: ['add', 'change']}, gulp.series('demo.build', 'demo.reload'));
     connect.server({
