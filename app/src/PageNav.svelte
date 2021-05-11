@@ -41,14 +41,14 @@
                     </span>
                 </a>
             {:else}
-            <span class="flex w-full items-center overflow-hidden text-black-300">
-                <img src="/_static/icons/back_left_RGB.png" alt="" class="w-6 h-6 mr-2"/>
-                <span class="block flex-grow flex-shrink overflow-hidden">
-                    <span class="block text-left">Previous</span>
-                    <span class="block text-left text-sm truncate">You are at the beginning</span>
+                <span class="flex w-full items-center overflow-hidden text-black-300">
+                    <img src="/_static/icons/back_left_RGB.png" alt="" class="w-6 h-6 mr-2"/>
+                    <span class="block flex-grow flex-shrink overflow-hidden">
+                        <span class="block text-left">Previous</span>
+                        <span class="block text-left text-sm truncate">You are at the beginning</span>
+                    </span>
                 </span>
-            </span>
-        {/if}
+            {/if}
         </li>
         <li role="presentation" class="flex-grow flex-shrink min-w-1rem"></li>
         <li class="overflow-hidden">
@@ -68,7 +68,7 @@
                     </span>
                     <img src="/_static/icons/forward_right_RGB.png" alt="" class="w-6 h-6 ml-2"/>
                 </span>
-        {/if}
+            {/if}
         </li>
     </ul>
 </nav>
