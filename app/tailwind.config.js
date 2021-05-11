@@ -106,7 +106,10 @@ module.exports = {
             },
             minWidth: {
                 '1rem': '1rem',
-            }
+            },
+            borderWidth: {
+                1: '1px',
+            },
         },
     },
     variants: {
