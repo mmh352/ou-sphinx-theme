@@ -1,11 +1,23 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte';
+
+	import { data } from './store';
 	import MainNav from './MainNav/MainNav.svelte';
 	import Tutorial from './Tutorial.svelte';
 	import SideNav from './SideNav.svelte';
+	import BlockNav from './BlockNav/BlockNav.svelte';
 	import Editor from './Editor.svelte';
 	import IFrame from './IFrame.svelte';
 
-	let section = 'tutorial';
+	let section = 'block-navigation';
+
+    const unsubscribe = data.subscribe((value) => {
+        if (value) {
+            section = 'tutorial';
+        }
+    });
+
+    onDestroy(unsubscribe);
 </script>
 
 <main class="grid grid-cols-single-pane grid-rows-single-pane lg:grid-cols-three-pane lg:grid-rows-three-pane w-screen h-screen">
@@ -14,6 +26,8 @@
 	<SideNav bind:section={section}/>
 	{#if section === 'tutorial'}
 		<Tutorial/>
+	{:else if section === 'block-navigation'}
+		<BlockNav/>
 	{/if}
 	<Editor/>
 	<IFrame/>
