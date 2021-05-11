@@ -1,11 +1,11 @@
-:layout: tutorial-only-center
+:layout: tutorial
 
 Tutorial Only Centre-aligned
 ############################
 
-To set the page's layout to the tutorial only, centre-aligned layout set the following configuration settings in the page:
+To set the page's layout to the tutorial only, set the following configuration settings in the page:
 
-* :code:`:layout: tutorial-only-center`
+* :code:`:layout: tutorial`
 
 .. note::
 
