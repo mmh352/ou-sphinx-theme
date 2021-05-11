@@ -2,6 +2,7 @@
 	import { onDestroy } from 'svelte';
 
     import { data, navigate } from '../../store';
+    import Icon from '../Icon.svelte';
 
     let next = null;
     let prev = null;
@@ -34,7 +35,7 @@
         <li class="overflow-hidden">
             {#if prev}
                 <a on:click={handleNav} href={prev.url} class="flex w-full items-center overflow-hidden text-blue hover:text-blue-400 focus:text-blue-400 hover:underline focus:underline">
-                    <img src="/_static/icons/back_left_RGB.png" alt="" class="w-6 h-6 mr-2"/>
+                    <Icon icon="back_left" alt="" class="w-6 h-6 mr-2"/>
                     <span class="block flex-grow flex-shrink overflow-hidden">
                         <span class="block text-left">Previous</span>
                         <span class="block text-left text-sm truncate">{@html prev.title}</span>
@@ -42,7 +43,7 @@
                 </a>
             {:else}
                 <span class="flex w-full items-center overflow-hidden text-black-300">
-                    <img src="/_static/icons/back_left_RGB.png" alt="" class="w-6 h-6 mr-2"/>
+                    <Icon icon="back_left" alt="" class="w-6 h-6 mr-2"/>
                     <span class="block flex-grow flex-shrink overflow-hidden">
                         <span class="block text-left">Previous</span>
                         <span class="block text-left text-sm truncate">You are at the beginning</span>
@@ -58,7 +59,7 @@
                         <span class="block text-right">Next</span>
                         <span class="block text-right text-sm truncate">{@html next.title}</span>
                     </span>
-                    <img src="/_static/icons/forward_right_RGB.png" alt="" class="w-6 h-6 ml-2"/>
+                    <Icon icon="forward_right" alt="" class="w-6 h-6 mr-2"/>
                 </a>
             {:else}
                 <span class="flex w-full items-center overflow-hidden text-black-300">
@@ -66,7 +67,7 @@
                         <span class="block text-right">Next</span>
                         <span class="block text-right text-sm truncate">You have reached the end</span>
                     </span>
-                    <img src="/_static/icons/forward_right_RGB.png" alt="" class="w-6 h-6 ml-2"/>
+                    <Icon icon="forward_right" alt="" class="w-6 h-6 mr-2"/>
                 </span>
             {/if}
         </li>

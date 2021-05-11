@@ -1,5 +1,6 @@
 <script lang="ts">
     import { navigate } from '../../../store';
+    import Icon from '../../Icon.svelte';
 
     export let item = null;
     let expanded = item.expanded || item.current;
@@ -16,9 +17,9 @@
             <a on:click={handleClick} href={item.url} class="block flex-shrink flex-grow pl-4 py-2 text-blue hover:text-blue-400 {item.current ? 'font-bold' : ''}">{item.title}</a>
             <button on:click={e => expanded = !expanded}>
                 {#if expanded}
-                    <img src="/_static/icons/up_tab_RGB.png" alt="Collapse this menu" class="h-5"/>
+                    <Icon icon="up_tab" alt="Collapse the {item.title} menu" class="h-5"/>
                 {:else}
-                    <img src="/_static/icons/down_tab_RGB.png" alt="Expand this menu" class="h-5"/>
+                    <Icon icon="down_tab" alt="Expand the {item.title} menu" class="h-5"/>
                 {/if}
             </button>
         </span>
