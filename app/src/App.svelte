@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 
-	import { data } from './store';
+	import { data, hasIFrame, hasEditor } from './store';
 	import MainNav from './Components/Nav/MainNav/MainNav.svelte';
 	import Tutorial from './Components/Tutorial.svelte';
 	import SideNav from './Components/Nav/SideNav.svelte';
@@ -29,8 +29,12 @@
 	{:else if section === 'block-navigation'}
 		<BlockNav/>
 	{/if}
-	<Editor/>
-	<IFrame/>
+	{#if $hasEditor}
+		<Editor/>
+	{/if}
+	{#if $hasIFrame}
+		<IFrame/>
+	{/if}
 </main>
 
 <style global lang="postcss">

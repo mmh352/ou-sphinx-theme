@@ -8,7 +8,6 @@
 
     const unsubscribe = data.subscribe((value) => {
         if (value) {
-            console.log(value);
             navRoot = value.tutorial.withinBlockNav;
         }
     });
