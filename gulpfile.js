@@ -1,8 +1,7 @@
 const gulp = require('gulp'),
       pump = require('pump'),
       connect = require('gulp-connect'),
-      { spawn } = require('child_process'),
-      sass = require('gulp-sass');
+      { spawn } = require('child_process');
 
 gulp.task('js.mathjax', function(cb) {
     pump([
@@ -38,29 +37,7 @@ gulp.task('js.production', gulp.series('js.build.production', 'js.deploy', 'js.m
 
 gulp.task('js.development', gulp.parallel('js.build.development'));
 
-gulp.task('css:sanitize', (cb) => {
-    pump([
-        gulp.src('node_modules/sanitize.css/sanitize.css'),
-        gulp.dest('ou_sphinx_theme/static')
-    ], cb);
-});
-
-gulp.task('css:theme', (cb) => {
-    pump([
-        gulp.src('styling/theme.scss'),
-        sass(),
-        gulp.dest('ou_sphinx_theme/static')
-    ], cb);
-});
-
-gulp.task('css', gulp.parallel('css:sanitize', 'css:theme'));
-
 gulp.task('default', gulp.parallel('js.production'));
-
-gulp.task('watch', gulp.series('default', gulp.parallel('js.development', (cb) => {
-    gulp.watch('app/dist/js/*.*', {delay: 1000, events: ['add', 'change']}, gulp.parallel('js.deploy'));
-    cb();
-})));
 
 gulp.task('demo.clean', function(cb) {
     const builder = spawn('make', ['clean'], {
@@ -84,6 +61,15 @@ gulp.task('demo.reload', function(cb) {
         connect.reload(),
     ], cb);
 });
+
+gulp.task('demo', gulp.series('js.production', 'demo.build', function(cb) {
+    connect.server({
+        root: 'demo/build/html',
+        host: '0.0.0.0',
+        port: '8080',
+    });
+    cb();
+}));
 
 gulp.task('serve', gulp.series('demo.build', gulp.parallel('js.development', (cb) => {
     gulp.watch('app/public/build/*.*', {delay: 1000, events: ['add', 'change']}, gulp.parallel('js.deploy'));

@@ -59,7 +59,7 @@
                         <span class="block text-right">Next</span>
                         <span class="block text-right text-sm truncate">{@html next.title}</span>
                     </span>
-                    <Icon icon="forward_right" alt="" class="w-6 h-6 mr-2"/>
+                    <Icon icon="forward_right" alt="" class="w-6 h-6 ml-2"/>
                 </a>
             {:else}
                 <span class="flex w-full items-center overflow-hidden text-black-300">
@@ -67,7 +67,7 @@
                         <span class="block text-right">Next</span>
                         <span class="block text-right text-sm truncate">You have reached the end</span>
                     </span>
-                    <Icon icon="forward_right" alt="" class="w-6 h-6 mr-2"/>
+                    <Icon icon="forward_right" alt="" class="w-6 h-6 ml-2"/>
                 </span>
             {/if}
         </li>
