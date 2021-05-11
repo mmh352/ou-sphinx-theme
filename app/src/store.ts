@@ -1,4 +1,5 @@
 import { writable, derived } from 'svelte/store';
+import { decode } from 'he';
 
 export const url = writable('');
 
@@ -54,9 +55,37 @@ export const isInJupyterHub = derived(
     }
 );
 
+export const components = derived(
+    data,
+    (data) => {
+        if (data && data.metadata && data.metadata.layout) {
+            return data.metadata.layout.split('-');
+        } else {
+            return ['tutorial'];
+        }
+    },
+    []
+);
+
+export const hasEditor = derived(
+    components,
+    (components) => {
+        return components.indexOf('editor') >= 0;
+    },
+    false
+);
+
+export const hasIFrame = derived(
+    components,
+    (components) => {
+        return components.indexOf('iframe') >= 0;
+    },
+    false
+);
+
 data.subscribe((data) => {
     if (data && data.tutorial && data.tutorial.title) {
-        document.title = data.tutorial.title;
+        document.title = decode(data.tutorial.title);
     }
 });
 
