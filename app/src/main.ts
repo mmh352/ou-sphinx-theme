@@ -1,6 +1,10 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import store from './store';
+import App from './App.svelte';
+import { url } from './store';
 
-store.dispatch('init');
-createApp(App).use(store).mount('#app');
+const app = new App({
+	target: document.querySelector('#app'),
+});
+
+url.set(window.location.href);
+
+export default app;

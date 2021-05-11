@@ -5,3 +5,4 @@ dist
 node_modules
 *.pyc
 build
+app_old
