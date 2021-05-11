@@ -33,7 +33,7 @@
     }
 </script>
 
-<article id="tutorial" class="col-start-2 col-end-3 row-start-2 row-end-4 flex flex-col border-r-2 border-solid border-gray-200">
+<article id="tutorial" class="col-start-2 col-end-3 row-start-2 row-end-3 lg:row-end-4 flex flex-col border-r-2 border-solid border-gray-200">
     <div on:click={handleClick} class="flex-grow flex-shrink overflow-auto px-4 py-2">{@html tutorialContent}</div>
     <PageNav/>
 </article>

@@ -6,10 +6,12 @@ module.exports = {
     theme: {
         extend: {
             gridTemplateColumns: {
-                'full': 'auto min(40%, 40rem) 1fr',
+                'three-pane': 'auto min(40%, 40rem) 1fr',
+                'single-pane': 'auto 1fr',
             },
             gridTemplateRows: {
-                'full': 'auto 1fr 1fr',
+                'three-pane': 'auto 1fr 1fr',
+                'single-pane': 'auto 1fr',
             },
             fontFamily: {
                 'sans': ['Arial', 'Helvetica', 'sans-serif'],
