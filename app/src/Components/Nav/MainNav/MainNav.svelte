@@ -36,7 +36,7 @@
         {#each blocks as block}
             <MainNavItem href={block.url} current={block.current || block.expanded} show={showMenu}>{block.title}</MainNavItem>
         {/each}
-        <li role="presentation" class="flex-grow flex-shrink"><span class="{showMenu ? 'block' : 'hidden'} lg:block border-b-2 border-solid border-gray-200"></span></li>
+        <li role="presentation" class="flex-grow flex-shrink"><span class="{showMenu && $isInJupyterHub ? 'block' : 'hidden'} lg:block border-b-2 border-solid border-gray-200"></span></li>
         {#if $busy}
             <li role="presentation" class="self-stretch"><span class="flex border-b-2 border-solid border-gray-200 h-full"><img src="/_static/icons/repeat_RGB.png" alt="Loading..." class="w-4 h-4 self-center mx-4"/></span></li>
         {/if}
