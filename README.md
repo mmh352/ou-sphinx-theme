@@ -16,24 +16,21 @@ html_theme = 'openuniversity'
 
 For development, you need the following pre-requisites:
 
+* NPM
 * Poetry
-* Yarn
 
 Then install all dependencies:
 
 ```
-yarn install
 poetry install
+npm install
+cd app && npm install
 ```
 
 Run the development server:
 
 ```
-gulp serve
+gulp dev
 ```
 
 You can then access the demo at http://localhost:8080
-
-## License
-
-The OU Sphinx Theme is available under the MIT License.
