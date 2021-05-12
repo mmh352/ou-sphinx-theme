@@ -9,7 +9,7 @@
 	import Editor from './Components/Editor.svelte';
 	import IFrame from './Components/IFrame.svelte';
 
-	let section = 'block-navigation';
+	let section = 'tutorial';
 
     const unsubscribe = data.subscribe((value) => {
         if (value) {

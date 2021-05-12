@@ -7,6 +7,13 @@
     let files = [];
     let currentFile = '';
 
+    /**
+     * Determine the file type from the filename extension.
+     *
+     * Only recognises .html, .css, and .js.
+     *
+     * @param filename The filename to determine the file type for
+     */
     function determineFileType(filename: string) {
         if (filename) {
             if (filename.endsWith('.html')) {
@@ -20,6 +27,11 @@
         return '';
     }
 
+    /**
+     * Switch the files tab and set the keyboard focus.
+     *
+     * @param file The file to switch to
+     */
     async function switchTab(file) {
         currentFile = file;
         await tick();

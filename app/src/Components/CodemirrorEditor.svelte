@@ -64,6 +64,11 @@
         ];
     }
 
+    /**
+     * Save the document.
+     *
+     * @param text The updated document text
+     */
     async function saveDocument(text: string) {
         file.busy = true;
 
@@ -76,6 +81,9 @@
         file.changed = false;
     }
 
+    /**
+     * Initialise the editor when the component is mounted.
+     */
     onMount(async () => {
         file.busy = true;
 
@@ -87,6 +95,7 @@
             parent: editorElement,
         });
 
+        // Setup the editor extensions
         const extensions = [
             highlightSpecialChars(),
             history(),
@@ -106,6 +115,7 @@
                 ...commentKeymap,
                 ...lintKeymap,
                 ...accessibleTabBinding(),
+                // Added a keybinding to save the editor content
                 {key: 'Ctrl-s', run: ({ state }) => {
                     clearTimeout(updateTimeout);
                     saveDocument(state.doc.toString());
@@ -113,7 +123,7 @@
                 }},
             ]),
         ];
-
+        // Set the appropriate syntax highlighter
         if (file.type === 'html') {
             extensions.push(html());
         } else if (file.type === 'css') {
@@ -121,7 +131,7 @@
         } else if (file.type === 'javascript') {
             extensions.push(javascript());
         }
-
+        // Add an update listener to automatically save the document
         extensions.push(EditorView.updateListener.of(({ state, docChanged }) => {
             if (docChanged) {
                 file.changed = true;
@@ -132,9 +142,12 @@
                 }, 1000);
             }
         }));
-
+        // Add a highlight style that generates CSS classes
         extensions.push(classHighlightStyle);
 
+        /**
+         * Load the document content
+         */
         const response = await fetch($baseUrl + filesSrc + file.filename);
         file.content = await response.text();
         editorView.setState(EditorState.create({

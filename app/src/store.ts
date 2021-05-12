@@ -1,12 +1,27 @@
 import { writable, readable, derived } from 'svelte/store';
 import { decode } from 'he';
 
+/**
+ * The currently displayed URL
+ */
 export const url = writable('');
 
+/**
+ * Whether the interface is currently busy
+ */
 export const busy = writable(true);
 
+/**
+ * Headers extracted from the last response
+ */
 const headers = writable(null);
 
+/**
+ * The data configuring the current page.
+ *
+ * Is derived from the url to automatically update when the url is changed.
+ * As a side-effect updates the headers store.
+ */
 export const data = derived(
     url,
     (url, set) => {
@@ -32,6 +47,11 @@ export const data = derived(
     null
 );
 
+/**
+ * The base URL everything is fetched from.
+ *
+ * Derived from the headers store.
+ */
 export const baseUrl = derived(
     headers,
     (headers) => {
@@ -49,6 +69,9 @@ export const baseUrl = derived(
     ''
 );
 
+/**
+ * Whether we are running inside a JupyterHub.
+ */
 export const isInJupyterHub = derived(
     headers,
     (headers) => {
@@ -60,6 +83,11 @@ export const isInJupyterHub = derived(
     }
 );
 
+/**
+ * Which components are activated for the current page.
+ *
+ * Currently supported components are 'tutorial', 'editor', 'iframe'.
+ */
 export const components = derived(
     data,
     (data) => {
@@ -72,6 +100,9 @@ export const components = derived(
     []
 );
 
+/**
+ * Whether the current page contains an editor component.
+ */
 export const hasEditor = derived(
     components,
     (components) => {
@@ -80,6 +111,9 @@ export const hasEditor = derived(
     false
 );
 
+/**
+ * Whether the current page contains an iframe component.
+ */
 export const hasIFrame = derived(
     components,
     (components) => {
@@ -88,22 +122,42 @@ export const hasIFrame = derived(
     false
 );
 
+/**
+ * Update the document title when the data changes.
+ */
 data.subscribe((data) => {
     if (data && data.tutorial && data.tutorial.title) {
         document.title = decode(data.tutorial.title);
     }
 });
 
+/**
+ * Navigate to a new URL.
+ *
+ * This will automatically update the history.
+ *
+ * @param newUrl The URL to navigate to. Can be absolute or relative.
+ */
 export function navigate(newUrl: string) {
     newUrl = (new URL(newUrl, document.baseURI)).href;
     url.set(newUrl);
     window.history.pushState(null, 'Loading', newUrl);
 }
 
+/**
+ * Handle navigation within the history.
+ */
 window.addEventListener('popstate', function(ev) {
     url.set(window.location.href);
 });
 
+/**
+ * Converts the window width to a breakpoint number.
+ *
+ * Larger numbers imply a greater screen width.
+ *
+ * @returns The breakpoints as a number 0-5.
+ */
 function calculateBreakpoint() {
     const width = window.innerWidth;
     if (width >= 1536) {
@@ -120,6 +174,9 @@ function calculateBreakpoint() {
     return 0;
 }
 
+/**
+ * The currently active breakpoint.
+ */
 export const breakpoint = readable(calculateBreakpoint(), function start(set) {
     function listener() {
         set(calculateBreakpoint());

@@ -14,20 +14,27 @@
 
     onDestroy(unsubscribe);
 
+    /**
+     * Handle clicks inside the tutorial.
+     *
+     * @param ev The click event to handle
+     */
     function handleClick(ev: MouseEvent) {
         let target = ev.target as HTMLElement;
         while (target && target.localName !== 'a' && target.localName !== 'button') {
             target = target.parentElement;
         }
-        if (target.localName === 'button') {
-            if (target.parentElement.parentElement.classList.contains('answer')) {
-                ev.preventDefault();
-                target.parentElement.parentElement.classList.toggle('show');
-            }
-        } else if (target.localName === 'a') {
-            if (target.classList.contains('internal')) {
-                ev.preventDefault();
-                navigate(target.getAttribute('href'));
+        if (target) {
+            if (target.localName === 'button') {
+                if (target.parentElement.parentElement.classList.contains('answer')) {
+                    ev.preventDefault();
+                    target.parentElement.parentElement.classList.toggle('show');
+                }
+            } else if (target.localName === 'a') {
+                if (target.classList.contains('internal')) {
+                    ev.preventDefault();
+                    navigate(target.getAttribute('href'));
+                }
             }
         }
     }
