@@ -3,8 +3,8 @@ Activity
 
 The activity extension provides two new directives that are used to display an activity block and its associated answer.
 
-Directives
-==========
+Activity
+========
 
 The :code:`activity` directive takes a single parameter, which is the title of the activity. The activity directive can have any nested content.
 
@@ -13,6 +13,22 @@ The :code:`activity` directive takes a single parameter, which is the title of t
    .. activity:: Activity title
 
       Activity content
+
+Example
+-------
+
+.. sourcecode:: rst
+
+   .. activity:: An example activity
+
+      This is an example activity
+
+.. activity:: An example activity
+
+   This is an example activity
+
+Activity Answer
+===============
 
 The activity content can contain a :code:`activity-answer` directive, which displays the answer button and the answer content. The :code:`activity-answer` directive can have any nested content.
 

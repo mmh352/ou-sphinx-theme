@@ -33,6 +33,9 @@
                 if (target.parentElement.parentElement.classList.contains('answer')) {
                     ev.preventDefault();
                     target.parentElement.parentElement.classList.toggle('show');
+                } else if (target.parentElement.parentElement.classList.contains('transcript')) {
+                    ev.preventDefault();
+                    target.parentElement.parentElement.classList.toggle('show');
                 }
             } else if (target.localName === 'a') {
                 if (target.classList.contains('internal')) {
@@ -70,6 +73,9 @@
         }
         p {
             @apply mb-3;
+        }
+        a {
+            @apply text-blue;
         }
         ul.simple {
             @apply list-disc ml-4;
@@ -143,6 +149,40 @@
             .content {
                 @apply block;
             }
+        }
+        .transcript {
+            .buttons {
+                @apply text-right;
+
+                button {
+                    @apply border-solid border-pink rounded border px-2 py-1 text-sm;
+
+                    span:nth-child(2) {
+                        @apply hidden;
+                    }
+                }
+            }
+            .content {
+                @apply hidden;
+            }
+        }
+        .transcript.show {
+            .buttons {
+                button {
+                    span:nth-child(1) {
+                        @apply hidden;
+                    }
+                    span:nth-child(2) {
+                        @apply inline;
+                    }
+                }
+            }
+            .content {
+                @apply block;
+            }
+        }
+        .description {
+            @apply sr-only;
         }
         .headerlink {
             @apply hidden;

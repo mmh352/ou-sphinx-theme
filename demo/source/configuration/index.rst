@@ -6,7 +6,7 @@ Configuration settings for the OU Sphinx Theme can be set on each page. They the
 .. toctree::
    :maxdepth: 2
    :includehidden:
+   :titlesonly:
 
    layout/index
-   app-menu
    editor

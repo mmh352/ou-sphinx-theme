@@ -1,0 +1,55 @@
+Accessibility
+#############
+
+The accessibility extension provides two directives to provide accessible content.
+
+Transcript
+==========
+
+The :code:`transcript` directive allows you to provide a transcription of an audio or video file or anything else.
+
+.. sourcecode:: rst
+
+    .. transcript::
+
+        Transcription content goes here.
+
+Example
+-------
+
+.. sourcecode:: rst
+
+    .. transcript::
+
+        Hello, and welcome to this podcast.
+
+.. transcript::
+
+    Hello, and welcome to this podcast.
+
+Description
+===========
+
+The :code:`description` directive allows you to provide a written description of a visual element.
+
+.. sourcecode:: rst
+
+    .. description::
+
+        Description content goes here.
+
+The description does not generate a visible element, but the description content is embedded in the page
+for screenreaders to access.
+
+Example
+-------
+
+.. sourcecode:: rst
+
+    .. description::
+
+        The image shows an arrow pointing to the right.
+
+.. description::
+
+    The image shows an arrow pointing to the right.

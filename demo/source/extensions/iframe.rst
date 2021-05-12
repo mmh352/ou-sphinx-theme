@@ -3,8 +3,8 @@ iFrame
 
 The iFrame extension provides a single directive for embedding other websites.
 
-Directives
-==========
+iFrame
+======
 
 The :code:`iframe` directive creates a single iframe. It takes a single parameter, which is the URL to embed. Additionally, it can take three keyword parameters:
 
@@ -21,7 +21,7 @@ The :code:`iframe` directive creates a single iframe. It takes a single paramete
       :scrolling: auto/yes/no
 
 Example
-=======
+-------
 
 .. sourcecode:: rst
 

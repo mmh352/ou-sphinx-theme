@@ -20,9 +20,3 @@ The editor includes built-in syntax highlighting for the following programming l
 * .html - HTML files
 * .js - JavaScript files
 * .css - Cascading StyleSheet files
-* .java - Java files
-* .py - Python files
-* .json - JavaScript Object Notation files
-* .cpp - C++ Files
-* .sql - Standard SQL dialect files
-* .md - Markdown files

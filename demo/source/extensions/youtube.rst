@@ -3,10 +3,10 @@ YouTube
 
 The YouTube extension provides a single directive for embedding a YouTube video.
 
-Directives
-==========
+YouTube
+=======
 
-The :code:`youtube` directive takes a single parameter, which is the embedding identifier that can be found in the "Share" section of the YouTube video. Additionally, there are two optional keywords :code:`width` and :code:`height`, which can be used to specify the size of the video player in pixels. Additionally, the :code:`youtube` directive can optionally take any content, which can be used to provide a transcript. A transcript should always be provided, unless the video itself contains a transcript or closed captions.
+The :code:`youtube` directive takes a single parameter, which is the embedding identifier that can be found in the "Share" section of the YouTube video. Additionally, there are two optional keywords :code:`width` and :code:`height`, which can be used to specify the size of the video player in pixels.
 
 .. sourcecode:: rst
 
@@ -14,10 +14,10 @@ The :code:`youtube` directive takes a single parameter, which is the embedding i
       :width: int
       :height: int
 
-      Transcript content
+Your video should as its content also include the Transcript and Description directives from the :doc:`accessibility extension <a11y>`.
 
-Example
-=======
+Examples
+--------
 
 Example with transcript:
 
@@ -27,6 +27,22 @@ Example with transcript:
       :width: 425
       :height: 344
 
+      .. transcript::
+
+         [Music]
+
+         [01:04]
+
+         For the first time in history, people and machinery are working together, realising a dream. A uniting force that knows no geographical boundaries, without regard to race, creed or colour. A new era where communication truly brings people together. This is the Dawn of the Net.
+
+         ...
+
+.. youtube:: LGnJw9rtjas
+   :width: 425
+   :height: 344
+
+   .. transcript::
+
       [Music]
 
       [01:04]
@@ -34,18 +50,6 @@ Example with transcript:
       For the first time in history, people and machinery are working together, realising a dream. A uniting force that knows no geographical boundaries, without regard to race, creed or colour. A new era where communication truly brings people together. This is the Dawn of the Net.
 
       ...
-
-.. youtube:: LGnJw9rtjas
-   :width: 425
-   :height: 344
-
-   [Music]
-
-   [01:04]
-
-   For the first time in history, people and machinery are working together, realising a dream. A uniting force that knows no geographical boundaries, without regard to race, creed or colour. A new era where communication truly brings people together. This is the Dawn of the Net.
-
-   ...
 
 Example without transcript:
 

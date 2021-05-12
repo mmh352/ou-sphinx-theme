@@ -6,6 +6,7 @@ The OU Sphinx Theme is designed for the delivery of teaching materials in an int
 .. toctree::
    :maxdepth: 2
    :includehidden:
+   :titlesonly:
 
    configuration/index
    extensions/index
