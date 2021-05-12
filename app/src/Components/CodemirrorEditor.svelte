@@ -20,7 +20,7 @@
 
     import { data } from '../store';
 
-    export let filename = null;
+    export let file = null;
     export let visible = false;
     let editorElement = null;
     let editorView = null;
@@ -65,13 +65,20 @@
     }
 
     async function saveDocument(text: string) {
-        await fetch(filesSrc + filename, {
+        file.busy = true;
+
+        await fetch(filesSrc + file.filename, {
             method: 'PUT',
             body: text,
         });
+
+        file.busy = false;
+        file.changed = false;
     }
 
     onMount(async () => {
+        file.busy = true;
+
         editorView = new EditorView({
             state: EditorState.create({
                 doc: '',
@@ -107,16 +114,18 @@
             ]),
         ];
 
-        if (filename.endsWith('.html')) {
+        if (file.type === 'html') {
             extensions.push(html());
-        } else if (filename.endsWith('.css')) {
+        } else if (file.type === 'css') {
             extensions.push(css());
-        } else if (filename.endsWith('.js')) {
+        } else if (file.type === 'javascript') {
             extensions.push(javascript());
         }
 
         extensions.push(EditorView.updateListener.of(({ state, docChanged }) => {
             if (docChanged) {
+                file.changed = true;
+                file.content = state.doc.toString();
                 clearTimeout(updateTimeout);
                 updateTimeout = setTimeout(async () => {
                     await saveDocument(state.doc.toString());
@@ -126,11 +135,18 @@
 
         extensions.push(classHighlightStyle);
 
-        const response = await fetch(filesSrc + filename);
+        const response = await fetch(filesSrc + file.filename);
+        file.content = await response.text();
         editorView.setState(EditorState.create({
-            doc: await response.text(),
+            doc: file.content,
             extensions: extensions,
         }));
+
+        file.busy = false;
+
+        if (file.id === 0) {
+            editorView.focus();
+        }
     });
 
     const unsubscribe = data.subscribe((data) => {
@@ -149,7 +165,7 @@
     });
 </script>
 
-<div bind:this={editorElement} class="{visible ? 'block' : 'hidden'} flex-grow flex-shrink"></div>
+<div id="editor-{file.id}" bind:this={editorElement} class="{visible ? 'block' : 'hidden'} flex-grow flex-shrink"></div>
 
 <style global lang="postcss">
     .cm-content { @apply text-base; }
