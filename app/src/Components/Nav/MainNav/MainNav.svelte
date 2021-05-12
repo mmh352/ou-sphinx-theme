@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 
-    import { data, baseUrl, isInJupyterHub } from '../../../store';
+    import { data, staticUrl, isInJupyterHub } from '../../../store';
     import MainNavItem from './MainNavItem.svelte';
     import Icon from '../../Icon.svelte';
 
@@ -32,7 +32,7 @@
                 <Icon icon="other" alt="Show the main menu" class="inline h-4"/>
             </button>
             <span class="block flex-shrink flex-grow px-3 py-2 text-blue font-bold border-l-2 border-solid border-white lg:border-l-0 lg:border-b-2 lg:border-gray-200">{moduleTitle}</span>
-            <a href="https://www.open.ac.uk" target="_blank" class="block lg:hidden px-2 py-2"><img src="{$baseUrl}/_static/ou_logo_small.png" alt="The Open University"/></a>
+            <a href="https://www.open.ac.uk" target="_blank" class="block lg:hidden px-2 py-2"><img src="{$staticUrl}/ou_logo_small.png" alt="The Open University"/></a>
         </li>
         {#each blocks as block}
             <MainNavItem href={block.url} current={block.current || block.expanded} show={showMenu}>{block.title}</MainNavItem>
@@ -42,6 +42,6 @@
             <MainNavItem href="/hub/home" show={showMenu}>Compute Home</MainNavItem>
             <MainNavItem href="/hub/logout" show={showMenu}>Logout</MainNavItem>
         {/if}
-        <li class="hidden lg:block"><a href="https://www.open.ac.uk" target="_blank" class="block px-3 py-2 text-blue hover:text-blue-400 focus:text-blue-400 lg:border-b-2 border-solid border-gray-200 hover:border-blue focus:border-blue"><img src="{$baseUrl}/_static/ou_logo.png" alt="The Open University" class="h-8"/></a></li>
+        <li class="hidden lg:block"><a href="https://www.open.ac.uk" target="_blank" class="block px-3 py-2 text-blue hover:text-blue-400 focus:text-blue-400 lg:border-b-2 border-solid border-gray-200 hover:border-blue focus:border-blue"><img src="{$staticUrl}/ou_logo.png" alt="The Open University" class="h-8"/></a></li>
     </ul>
 </nav>

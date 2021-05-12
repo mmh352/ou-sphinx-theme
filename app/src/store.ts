@@ -70,6 +70,21 @@ export const baseUrl = derived(
 );
 
 /**
+ * The relative path to the static files directory.
+ */
+export const staticUrl = derived(
+    data,
+    (data) => {
+        if (data && data.urls && data.urls.static) {
+            return data.urls.static;
+        } else {
+            return ''
+        }
+    },
+    ''
+)
+
+/**
  * Whether we are running inside a JupyterHub.
  */
 export const isInJupyterHub = derived(

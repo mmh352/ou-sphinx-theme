@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { hasEditor, hasIFrame, breakpoint } from '../../store';
+    import { hasEditor, hasIFrame, breakpoint, baseUrl } from '../../store';
     import Icon from '../Icon.svelte';
 
     export let section = '';
@@ -37,7 +37,7 @@
             </li>
         {/if}
         <li>
-            <a href="/download" class="block px-3 py-3 border-r-2 border-solid border-gray-200 hover:border-blue focus:border-blue">
+            <a href="{$baseUrl}/download" class="block px-3 py-3 border-r-2 border-solid border-gray-200 hover:border-blue focus:border-blue">
                 <Icon icon="download" alt="Download all of the module#s content" title="Download Module Content" class="w-8 h-8"/>
             </a>
         </li>

@@ -178,7 +178,7 @@
     });
 </script>
 
-<div id="editor-{file.id}" bind:this={editorElement} class="{visible ? 'block' : 'hidden'} flex-grow flex-shrink"></div>
+<div id="editor-{file.id}" bind:this={editorElement} class="{visible ? 'block' : 'hidden'} flex-grow flex-shrink overflow-hidden"></div>
 
 <style global lang="postcss">
     .cm-content { @apply text-base; }

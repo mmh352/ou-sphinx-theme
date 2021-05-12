@@ -6,12 +6,12 @@ module.exports = {
     theme: {
         extend: {
             gridTemplateColumns: {
-                'three-pane': 'max-content min(40%, 40rem) 1fr',
-                'single-pane': 'max-content 1fr',
+                'three-pane': 'max-content min(40%, 40rem) minmax(0, 1fr)',
+                'single-pane': 'max-content minmax(0, 1fr)',
             },
             gridTemplateRows: {
-                'three-pane': 'auto 1fr 1fr',
-                'single-pane': 'auto 1fr',
+                'three-pane': 'max-content minmax(0, 1fr) minmax(0, 1fr)',
+                'single-pane': 'max-content minmax(0, 1fr)',
             },
             fontFamily: {
                 'sans': ['Arial', 'Helvetica', 'sans-serif'],
