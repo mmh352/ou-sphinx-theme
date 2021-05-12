@@ -18,7 +18,8 @@
     import { lintKeymap } from '@codemirror/lint';
     import { classHighlightStyle } from '@codemirror/highlight';
 
-    import { data, baseUrl } from '../store';
+    import { data, baseUrl, hasIFrame } from '../store';
+import IFrame from "./IFrame.svelte";
 
     export let file = null;
     export let visible = false;
@@ -79,6 +80,13 @@
 
         file.busy = false;
         file.changed = false;
+
+        if ($hasIFrame) {
+            const iframe = document.querySelector('#iframe');
+            if (iframe) {
+                (iframe as HTMLIFrameElement).contentWindow.location.reload();
+            }
+        }
     }
 
     /**
