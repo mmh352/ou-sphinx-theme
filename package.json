@@ -7,16 +7,12 @@
   "dependencies": {
     "gulp": "^4.0.2",
     "gulp-connect": "^5.7.0",
-    "gulp-sass": "^4.1.0",
     "mathjax": "^3.0.5",
-    "pump": "^3.0.0",
-    "sanitize.css": "^11.0.1"
+    "pump": "^3.0.0"
   },
   "scripts": {
     "serve": "gulp serve",
     "build": "gulp"
   },
-  "devDependencies": {
-    "@vue/cli": "^4.5.9"
-  }
+  "devDependencies": {}
 }
