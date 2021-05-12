@@ -6,6 +6,7 @@
 
     let files = [];
     let currentFile = '';
+    let nextFileId = 1;
 
     /**
      * Determine the file type from the filename extension.
@@ -41,17 +42,36 @@
     const unsubscribe = data.subscribe((data) => {
         if (data) {
             if (data.metadata && data.metadata['editor-files'] && data.metadata['editor-files-src']) {
-                files = data.metadata['editor-files'].split(',').map((filename, idx) => {
-                    return {
-                        id: idx,
-                        busy: false,
-                        filename: filename.trim(),
-                        content: '',
-                        changed: false,
-                        type: determineFileType(filename.trim()),
-                    };
+                const currentFiles = (data.metadata['editor-files'].split(',') as string[]).map((filename) => { return filename.trim(); });
+                currentFiles.forEach((filename) => {
+                    let found = false;
+                    for (let idx = 0; idx < files.length; idx++) {
+                        if (files[idx].filename === filename) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        files.push({
+                            id: nextFileId,
+                            busy: false,
+                            filename: filename,
+                            content: '',
+                            changed: false,
+                            type: determineFileType(filename),
+                        });
+                        nextFileId = nextFileId + 1;
+                    }
                 });
-                if (files.length > 0) {
+                let idx = 0;
+                while (idx < files.length) {
+                    if (currentFiles.indexOf(files[idx].filename) < 0) {
+                        files.splice(idx, 1);
+                    } else {
+                        idx = idx + 1;
+                    }
+                }
+                if (files.indexOf(currentFile) < 0) {
                     currentFile = files[0];
                 }
             }
