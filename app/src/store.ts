@@ -36,7 +36,12 @@ export const baseUrl = derived(
     headers,
     (headers) => {
         if (headers && headers.get('x-url-prefix')) {
-            return headers.get('x-url-prefix');
+            const prefix = headers.get('x-url-prefix');
+            if (prefix.endsWith('/')) {
+                return prefix.substring(0, prefix.length - 1);
+            } else {
+                return prefix;
+            }
         } else {
             return ''
         }
