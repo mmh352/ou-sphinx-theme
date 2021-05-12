@@ -110,6 +110,9 @@ module.exports = {
             borderWidth: {
                 1: '1px',
             },
+            inset: {
+                '1/2': '50%',
+            }
         },
     },
     variants: {

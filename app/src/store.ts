@@ -17,6 +17,60 @@ export const busy = writable(true);
 const headers = writable(null);
 
 /**
+ * The current connection status
+ *
+ * 0 - initial connect
+ * 1 - connection established
+ * 2 - connection lost
+ */
+export const connectionStatus = writable(0);
+
+async function sleep(delay: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, delay);
+    });
+}
+
+/**
+ * Fetch page data.
+ *
+ * This will attempt to retry every 10 seconds
+ * for up to 60 seconds.
+ */
+let connectionFails = 0;
+async function fetchData(url: string) {
+    try {
+        busy.set(true);
+        const response = await fetch(url);
+        if (response.status === 200) {
+            headers.set(response.headers);
+            const data = await response.json();
+            busy.set(false);
+            connectionStatus.set(1);
+            connectionFails = 0;
+            return data;
+        } else {
+            throw new Error('Failed to fetch data');
+        }
+    } catch {
+        connectionStatus.set(2);
+        connectionFails++;
+        if (connectionFails < 6) {
+            await sleep(10000);
+            return await fetchData(url);
+        } else {
+            connectionStatus.set(3);
+        }
+        throw new Error('Failed to fetch data');
+    }
+}
+
+/**
+ * Whether the navigation is through the history.
+ */
+let updateHistory = false;
+
+/**
  * The data configuring the current page.
  *
  * Is derived from the url to automatically update when the url is changed.
@@ -25,21 +79,17 @@ const headers = writable(null);
 export const data = derived(
     url,
     (url, set) => {
-        busy.set(true);
         if (url.endsWith('/')) {
             url = url + 'index.json';
         } else if (url.endsWith('.html')) {
             url = url.substring(0, url.length - 4) + 'json';
         }
         if (url !== '') {
-            const request = fetch(url);
-            request.then((response) => {
-                if (response.status === 200) {
-                    headers.set(response.headers);
-                    response.json().then((data) => {
-                        set(data);
-                        busy.set(false);
-                    });
+            fetchData(url).then((data) => {
+                set(data);
+                if (updateHistory) {
+                    window.history.pushState(null, data.project, url);
+                    updateHistory = false;
                 }
             });
         }
@@ -154,9 +204,9 @@ data.subscribe((data) => {
  * @param newUrl The URL to navigate to. Can be absolute or relative.
  */
 export function navigate(newUrl: string) {
+    updateHistory = true;
     newUrl = (new URL(newUrl, document.baseURI)).href;
     url.set(newUrl);
-    window.history.pushState(null, 'Loading', newUrl);
 }
 
 /**
@@ -201,3 +251,35 @@ export const breakpoint = readable(calculateBreakpoint(), function start(set) {
         window.removeEventListener('resize', listener);
     };
 });
+
+export const isStartup = derived(
+    connectionStatus,
+    (connectionStatus) => {
+        return connectionStatus === 0;
+    },
+    true
+);
+
+export const isConnected = derived(
+    connectionStatus,
+    (connectionStatus) => {
+        return connectionStatus === 1;
+    },
+    true
+);
+
+export const isReconnecting = derived(
+    connectionStatus,
+    (connectionStatus) => {
+        return connectionStatus === 2;
+    },
+    true
+);
+
+export const isConnectionLost = derived(
+    connectionStatus,
+    (connectionStatus) => {
+        return connectionStatus === 3;
+    },
+    true
+);

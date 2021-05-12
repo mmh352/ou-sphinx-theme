@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 
-	import { data, hasIFrame, hasEditor, breakpoint } from './store';
+	import { data, hasIFrame, hasEditor, breakpoint, isConnected } from './store';
 	import MainNav from './Components/Nav/MainNav/MainNav.svelte';
 	import Tutorial from './Components/Tutorial.svelte';
 	import SideNav from './Components/Nav/SideNav.svelte';
 	import BlockNav from './Components/Nav/BlockNav/BlockNav.svelte';
 	import Editor from './Components/Editor.svelte';
 	import IFrame from './Components/IFrame.svelte';
+	import ConnectionStatus from './Components/ConnectionStatus.svelte';
 
 	let section = 'tutorial';
 
@@ -34,6 +35,9 @@
 	{/if}
 	{#if $hasIFrame && (section === 'iframe' || $breakpoint >= 3)}
 		<IFrame/>
+	{/if}
+	{#if !$isConnected}
+		<ConnectionStatus/>
 	{/if}
 </main>
 

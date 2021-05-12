@@ -18,8 +18,7 @@
     import { lintKeymap } from '@codemirror/lint';
     import { classHighlightStyle } from '@codemirror/highlight';
 
-    import { data, baseUrl, hasIFrame } from '../store';
-import IFrame from "./IFrame.svelte";
+    import { data, baseUrl, hasIFrame, connectionStatus } from '../store';
 
     export let file = null;
     export let visible = false;
@@ -73,19 +72,23 @@ import IFrame from "./IFrame.svelte";
     async function saveDocument(text: string) {
         file.busy = true;
 
-        await fetch($baseUrl + filesSrc + file.filename, {
+        const response = await fetch($baseUrl + filesSrc + file.filename, {
             method: 'PUT',
             body: text,
         });
 
         file.busy = false;
-        file.changed = false;
+        if (response.status === 200) {
+            file.changed = false;
 
-        if ($hasIFrame) {
-            const iframe = document.querySelector('#iframe');
-            if (iframe) {
-                (iframe as HTMLIFrameElement).contentWindow.location.reload();
+            if ($hasIFrame) {
+                const iframe = document.querySelector('#iframe');
+                if (iframe) {
+                    (iframe as HTMLIFrameElement).contentWindow.location.reload();
+                }
             }
+        } else {
+            connectionStatus.set(3);
         }
     }
 
