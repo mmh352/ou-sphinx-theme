@@ -18,7 +18,7 @@
     import { lintKeymap } from '@codemirror/lint';
     import { classHighlightStyle } from '@codemirror/highlight';
 
-    import { data } from '../store';
+    import { data, baseUrl } from '../store';
 
     export let file = null;
     export let visible = false;
@@ -67,7 +67,7 @@
     async function saveDocument(text: string) {
         file.busy = true;
 
-        await fetch(filesSrc + file.filename, {
+        await fetch($baseUrl + filesSrc + file.filename, {
             method: 'PUT',
             body: text,
         });
@@ -135,7 +135,7 @@
 
         extensions.push(classHighlightStyle);
 
-        const response = await fetch(filesSrc + file.filename);
+        const response = await fetch($baseUrl + filesSrc + file.filename);
         file.content = await response.text();
         editorView.setState(EditorState.create({
             doc: file.content,
