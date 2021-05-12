@@ -25,13 +25,14 @@
     let editorElement = null;
     let editorView = null;
     let filesSrc = '';
+    let updateTimeout = 0;
+    let escapeResetTimeout = 0;
 
     /**
      * Construct accessible tab handling, allowing the use of the escape key to activate normal tab behaviour.
      */
     function accessibleTabBinding() {
         let escapeActive = false;
-        let escapeResetTimeout = 0;
 
         const escapeHandler = ({state}) => {
             escapeActive = !escapeActive;
@@ -63,6 +64,13 @@
         ];
     }
 
+    async function saveDocument(text: string) {
+        await fetch(filesSrc + filename, {
+            method: 'PUT',
+            body: text,
+        });
+    }
+
     onMount(async () => {
         editorView = new EditorView({
             state: EditorState.create({
@@ -91,6 +99,11 @@
                 ...commentKeymap,
                 ...lintKeymap,
                 ...accessibleTabBinding(),
+                {key: 'Ctrl-s', run: ({ state }) => {
+                    clearTimeout(updateTimeout);
+                    saveDocument(state.doc.toString());
+                    return true;
+                }},
             ]),
         ];
 
@@ -102,15 +115,11 @@
             extensions.push(javascript());
         }
 
-        let updateTimeout = 0;
         extensions.push(EditorView.updateListener.of(({ state, docChanged }) => {
             if (docChanged) {
                 clearTimeout(updateTimeout);
                 updateTimeout = setTimeout(async () => {
-                    await fetch(filesSrc + filename, {
-                        method: 'PUT',
-                        body: state.doc.toString(),
-                    });
+                    await saveDocument(state.doc.toString());
                 }, 1000);
             }
         }));
@@ -135,6 +144,8 @@
     onDestroy(async () => {
         editorView.destroy();
         unsubscribe();
+        clearTimeout(updateTimeout);
+        clearTimeout(escapeResetTimeout);
     });
 </script>
 
