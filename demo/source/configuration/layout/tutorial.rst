@@ -1,7 +1,7 @@
 :layout: tutorial
 
-Tutorial Only Centre-aligned
-############################
+Tutorial Only
+#############
 
 To set the page's layout to the tutorial only, set the following configuration settings in the page:
 
