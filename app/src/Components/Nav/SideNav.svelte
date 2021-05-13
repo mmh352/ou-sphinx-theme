@@ -1,8 +1,25 @@
 <script lang="ts">
-    import { hasEditor, hasIFrame, breakpoint, baseUrl } from '../../store';
+    import { derived } from 'svelte/store';
+
+    import { hasEditor, hasIFrame, breakpoint, baseUrl, data } from '../../store';
     import Icon from '../Icon.svelte';
 
     export let section = '';
+
+    /**
+     * Whether block-level navigation is available.
+     */
+    const hasBlockNav = derived(
+        data,
+        (data) => {
+            if (data && data.tutorial && data.tutorial.withinBlockNav) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        false
+    )
 
     function setSection(newSection: string, ev: MouseEvent) {
         ev.preventDefault();
@@ -12,11 +29,13 @@
 
 <nav class="col-start-1 col-end-2 row-start-2 row-end-4 overflow-y-auto">
     <ul class="flex flex-col h-full">
-        <li>
-            <button on:click={ev => setSection('block-navigation', ev)} class="block px-3 py-3 border-r-2 border-solid  {section === 'block-navigation' ? 'border-blue' : 'border-gray-200'} hover:border-blue focus:border-blue">
-                <Icon icon="user_options" alt="Show the navigation menu" title="Navigation Menu" class="w-8 h-8"/>
-            </button>
-        </li>
+        {#if $hasBlockNav}
+            <li>
+                <button on:click={ev => setSection('block-navigation', ev)} class="block px-3 py-3 border-r-2 border-solid  {section === 'block-navigation' ? 'border-blue' : 'border-gray-200'} hover:border-blue focus:border-blue">
+                    <Icon icon="user_options" alt="Show the navigation menu" title="Navigation Menu" class="w-8 h-8"/>
+                </button>
+            </li>
+        {/if}
         <li>
             <button on:click={ev => setSection('tutorial', ev)} class="block px-3 py-3 border-r-2 border-solid {section === 'tutorial' ? 'border-blue' : 'border-gray-200'} hover:border-blue focus:border-blue">
                 <Icon icon="article" alt="Show the tutorial content" title="Tutorial Content" class="w-8 h-8"/>
