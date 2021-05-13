@@ -88,7 +88,7 @@ export const data = derived(
             fetchData(url).then((data) => {
                 set(data);
                 if (updateHistory) {
-                    window.history.pushState(null, data.project, url);
+                    window.history.pushState(null, data.project, url.substring(0, url.length - 4) + 'html');
                     updateHistory = false;
                 }
             });
