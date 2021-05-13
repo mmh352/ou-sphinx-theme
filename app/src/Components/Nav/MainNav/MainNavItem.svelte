@@ -2,12 +2,15 @@
     export let href = null;
     export let current = null;
     export let show = false;
+    export let internalNav = true;
 
     import { navigate } from '../../../store';
 
     function handleNav(ev: MouseEvent) {
-        ev.preventDefault();
-        navigate(href);
+        if (internalNav) {
+            ev.preventDefault();
+            navigate(href);
+        }
     }
 </script>
 

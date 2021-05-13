@@ -39,8 +39,8 @@
         {/each}
         <li role="presentation" class="flex-grow flex-shrink"><span class="{showMenu && $isInJupyterHub ? 'block' : 'hidden'} lg:block border-b-2 border-solid border-gray-200"></span></li>
         {#if $isInJupyterHub}
-            <MainNavItem href="/hub/home" show={showMenu}>Compute Home</MainNavItem>
-            <MainNavItem href="/hub/logout" show={showMenu}>Logout</MainNavItem>
+            <MainNavItem href="/hub/home" show={showMenu} internalNav={false}>Compute Home</MainNavItem>
+            <MainNavItem href="/hub/logout" show={showMenu} internalNav={false}>Logout</MainNavItem>
         {/if}
         <li class="hidden lg:block"><a href="https://www.open.ac.uk" target="_blank" class="block px-3 py-2 text-blue hover:text-blue-400 focus:text-blue-400 lg:border-b-2 border-solid border-gray-200 hover:border-blue focus:border-blue"><img src="{$staticUrl}/ou_logo.png" alt="The Open University" class="h-8"/></a></li>
     </ul>
