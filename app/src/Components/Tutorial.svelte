@@ -159,6 +159,13 @@
                 @apply block;
             }
         }
+        .admonition.note {
+            @apply bg-cream border-solid border-blue border-l-2 px-3 py-2;
+
+            .admonition-title {
+                @apply font-bold;
+            }
+        }
         .transcript {
             .buttons {
                 @apply text-right;
