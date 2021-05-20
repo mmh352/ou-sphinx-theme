@@ -16,7 +16,7 @@
     );
 </script>
 
-<div class="col-start-2 col-end-3 row-start-2 row-end-3 lg:col-start-3 lg:col-end-4 {$hasEditor ? 'lg:row-start-3' : 'lg:row-start-2'} lg:row-end-4 shadow-inner">
+<div class="col-start-1 col-end-2 lg:col-start-3 lg:col-end-4 row-start-3 row-end-4 {$hasEditor ? '' : 'lg:row-start-2'} shadow-inner">
     {#if $iFrameSrc}
         <iframe id="iframe" src={$iFrameSrc} title="" class="w-full h-full"></iframe>
     {/if}

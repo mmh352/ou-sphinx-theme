@@ -192,7 +192,7 @@
 <div id="editor-{file.id}" bind:this={editorElement} class="{visible ? 'block' : 'hidden'} flex-grow flex-shrink overflow-hidden"></div>
 
 <style global lang="postcss">
-    .cm-content { @apply text-base; }
+    .cm-content { @apply text-sm; }
     .cm-editor .cm-gutters { @apply text-base border-r-2 border-gray-200 text-black-300; }
     .cm-editor { @apply h-full; }
 

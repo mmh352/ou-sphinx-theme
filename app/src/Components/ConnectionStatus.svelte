@@ -8,7 +8,7 @@
     }
 </script>
 
-<div class="fixed w-screen h-screen z-50 bg-white bg-opacity-60">
+<div role="alert" aria-live="polite" class="fixed w-screen h-screen z-50 bg-white bg-opacity-60">
     <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white max-w-lg max-h-80 border-2 border-blue shadow-2xl flex flex-col">
         {#if $isStartup}
             <h2 class="border-b-2 border-gray-200 px-4 py-2 font-bold">Connecting...</h2>

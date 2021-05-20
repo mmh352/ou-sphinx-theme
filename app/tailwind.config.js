@@ -7,11 +7,11 @@ module.exports = {
         extend: {
             gridTemplateColumns: {
                 'three-pane': 'max-content min(40%, 40rem) minmax(0, 1fr)',
-                'single-pane': 'max-content minmax(0, 1fr)',
+                'single-pane': 'minmax(0, 1fr)',
             },
             gridTemplateRows: {
                 'three-pane': 'max-content minmax(0, 1fr) minmax(0, 1fr)',
-                'single-pane': 'max-content minmax(0, 1fr)',
+                'single-pane': 'max-content max-content minmax(0, 1fr)',
             },
             fontFamily: {
                 'sans': ['Arial', 'Helvetica', 'sans-serif'],

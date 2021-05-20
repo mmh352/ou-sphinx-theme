@@ -81,7 +81,7 @@
     onDestroy(unsubscribe);
 </script>
 
-<div class="flex flex-col col-start-2 col-end-3 row-start-2 row-end-3 lg:col-start-3 lg:col-end-4 lg:row-start-2 {$hasIFrame ? 'lg:row-end-3' : 'lg:row-end-4'}">
+<div class="flex flex-col col-start-1 col-end-2 lg:col-start-3 lg:col-end-4 row-start-3 row-end-4 lg:row-start-2 {$hasIFrame ? 'lg:row-end-3' : 'lg:row-end-4'}">
     <nav>
         <ul class="flex items-end">
             <li role="presentation"><span class="block border-b-2 border-gray-200 border-solid w-4"></span></li>

@@ -49,14 +49,14 @@
     }
 </script>
 
-<article id="tutorial" class="col-start-2 col-end-3 row-start-2 row-end-3 lg:row-end-4 flex flex-col border-r-2 border-solid border-gray-200">
+<article id="tutorial" class="col-start-1 col-end-1 row-start-3 row-end-4 lg:col-start-2 lg:col-end-3 lg:row-start-2 flex flex-col lg:border-r-2 border-solid border-gray-200">
     <div on:click={handleClick} bind:this={tutorialElement} class="flex-grow flex-shrink overflow-auto px-4 py-2">{@html tutorialContent}</div>
     <PageNav/>
 </article>
 
 <style global type="postcss">
     #tutorial {
-        @apply leading-relaxed;
+        @apply leading-relaxed text-sm;
 
         > div > div {
             @apply pb-8;
@@ -65,13 +65,13 @@
             @apply mt-6;
         }
         h1 {
-            @apply text-3xl font-bold mb-3;
+            @apply text-2xl lg:text-3xl font-bold mb-3;
         }
         h2 {
-            @apply text-2xl font-bold mb-3;
+            @apply text-xl lg:text-2xl font-bold mb-3;
         }
         h3 {
-            @apply text-xl font-bold mb-3;
+            @apply text-lg lg:text-xl font-bold mb-3;
         }
         p {
             @apply mb-3;
