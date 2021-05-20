@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ou-sphinx-theme"
-version = "0.10.4"
+version = "0.11.0"
 description = ""
 authors = ["Mark Hall <mark.hall@work.room3b.eu>"]
 

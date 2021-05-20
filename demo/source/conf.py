@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'OU Sphinx Theme Demo'
-copyright = '2020, Mark Hall'
+copyright = '2020-2021, Mark Hall'
 author = 'Mark Hall'
 
 # The full version, including alpha/beta/rc tags
-release = '0.10.4'
+release = '0.11.0'
 
 
 # -- General configuration ---------------------------------------------------
