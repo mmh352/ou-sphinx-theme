@@ -118,7 +118,7 @@
             }
         }
         .activity {
-            @apply bg-cream border-solid border-orange border-l-2;
+            @apply bg-cream border-solid border-orange border-l-2 mb-3;
 
             > h2, > h3 {
                 @apply bg-orange text-white px-2 py-1 text-lg;
@@ -160,7 +160,7 @@
             }
         }
         .admonition {
-            @apply bg-cream border-solid border-blue border-l-2 px-3 py-2;
+            @apply bg-cream border-solid border-blue border-l-2 px-3 py-2 mb-3;
 
             .admonition-title {
                 @apply font-bold;
