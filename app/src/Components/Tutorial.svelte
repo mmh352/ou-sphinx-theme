@@ -159,7 +159,7 @@
                 @apply block;
             }
         }
-        .admonition.note {
+        .admonition {
             @apply bg-cream border-solid border-blue border-l-2 px-3 py-2;
 
             .admonition-title {
