@@ -1,12 +1,11 @@
 <script lang="ts">
     import { onDestroy, tick } from "svelte";
 
-    import { data, hasIFrame } from '../store';
+    import { data, hasIFrame, currentEditorFilename, defaultEditorFilename } from '../store';
     import CodemirrorEditor from './CodemirrorEditor.svelte';
 
     let files = [];
-    let currentFile = '';
-    let nextFileId = 1;
+    let currentFile = null;
 
     /**
      * Determine the file type from the filename extension.
@@ -35,6 +34,7 @@
      */
     async function switchTab(file) {
         currentFile = file;
+        currentEditorFilename.set(currentFile.filename);
         await tick();
         (document.querySelector('#editor-' + file.id + ' .cm-editor .cm-content') as HTMLElement).focus()
     }
@@ -42,37 +42,33 @@
     const unsubscribe = data.subscribe((data) => {
         if (data) {
             if (data.metadata && data.metadata['editor-files'] && data.metadata['editor-files-src']) {
-                const currentFiles = (data.metadata['editor-files'].split(',') as string[]).map((filename) => { return filename.trim(); });
-                currentFiles.forEach((filename) => {
-                    let found = false;
-                    for (let idx = 0; idx < files.length; idx++) {
-                        if (files[idx].filename === filename) {
-                            found = true;
-                            break;
-                        }
+                let changes = false;
+                let firstHTML = true;
+                const newFiles = (data.metadata['editor-files'].split(',') as string[]).map((filename, idx) => {
+                    filename = filename.trim();
+                    if (filename.endsWith('.html') && firstHTML) {
+                        firstHTML = false;
+                        defaultEditorFilename.set(filename);
                     }
-                    if (!found) {
-                        files.push({
-                            id: nextFileId,
+                    if (idx < files.length && files[idx].filename === filename) {
+                        return files[idx];
+                    } else {
+                        changes = true;
+                        return {
+                            id: idx,
                             busy: false,
                             filename: filename,
                             content: '',
                             changed: false,
                             type: determineFileType(filename),
-                        });
-                        nextFileId = nextFileId + 1;
+                        };
                     }
                 });
-                let idx = 0;
-                while (idx < files.length) {
-                    if (currentFiles.indexOf(files[idx].filename) < 0) {
-                        files.splice(idx, 1);
-                    } else {
-                        idx = idx + 1;
+                if (changes) {
+                    files = newFiles;
+                    if (files.indexOf(currentFile) < 0) {
+                        currentFile = files[0];
                     }
-                }
-                if (files.indexOf(currentFile) < 0) {
-                    currentFile = files[0];
                 }
             }
         }
@@ -85,7 +81,7 @@
     <nav>
         <ul class="flex items-end">
             <li role="presentation"><span class="block border-b-2 border-gray-200 border-solid w-4"></span></li>
-            {#each files as file, idx}
+            {#each files as file}
                 <li>
                     <button on:click={ev => switchTab(file)} class="block px-3 py-1 border-b-2 {file === currentFile ? 'border-blue' : 'border-gray-200'} border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400">
                         <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">

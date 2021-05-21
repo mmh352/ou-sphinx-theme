@@ -22,6 +22,7 @@
 
     export let file = null;
     export let visible = false;
+    let filename = null;
     let editorElement = null;
     let editorView = null;
     let filesSrc = '';
@@ -92,19 +93,8 @@
         }
     }
 
-    /**
-     * Initialise the editor when the component is mounted.
-     */
-    onMount(async () => {
-        file.busy = true;
-
-        editorView = new EditorView({
-            state: EditorState.create({
-                doc: '',
-                extensions: [keymap.of(defaultKeymap)],
-            }),
-            parent: editorElement,
-        });
+    async function initialiseState() {
+        filename = file.filename;
 
         // Setup the editor extensions
         const extensions = [
@@ -171,7 +161,30 @@
         if (file.id === 0) {
             editorView.focus();
         }
+    }
+    /**
+     * Initialise the editor when the component is mounted.
+     */
+    onMount(async () => {
+        file.busy = true;
+
+        editorView = new EditorView({
+            state: EditorState.create({
+                doc: '',
+                extensions: [keymap.of(defaultKeymap)],
+            }),
+            parent: editorElement,
+        });
+
+        await initialiseState();
     });
+
+    $: {
+        if (file.filename !== filename) {
+            initialiseState();
+        }
+    }
+
 
     const unsubscribe = data.subscribe((data) => {
         if (data) {

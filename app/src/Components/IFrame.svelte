@@ -1,13 +1,19 @@
 <script lang="ts">
     import { derived } from 'svelte/store';
 
-    import { data, baseUrl, hasEditor } from '../store';
+    import { data, baseUrl, hasEditor, defaultEditorFilename, currentEditorFilename } from '../store';
 
     const iFrameSrc = derived(
-        [data, baseUrl],
-        ([data, baseUrl]) => {
+        [data, baseUrl, hasEditor, defaultEditorFilename, currentEditorFilename],
+        ([data, baseUrl, hasEditor, defaultEditorFilename, currentEditorFilename]) => {
             if (data && data.metadata && data.metadata['iframe-src']) {
-                return baseUrl + data.metadata['iframe-src'];
+                if (hasEditor && currentEditorFilename && currentEditorFilename.endsWith('.html')) {
+                    return baseUrl + data.metadata['iframe-src'] + currentEditorFilename;
+                } else if (hasEditor && defaultEditorFilename) {
+                    return baseUrl + data.metadata['iframe-src'] + defaultEditorFilename;
+                } else {
+                    return baseUrl + data.metadata['iframe-src'];
+                }
             } else {
                 return null;
             }

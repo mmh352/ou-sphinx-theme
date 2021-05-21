@@ -217,6 +217,16 @@ window.addEventListener('popstate', function(ev) {
 });
 
 /**
+ * Default editor filename
+ */
+ export const defaultEditorFilename = writable(null);
+
+ /**
+ * The current editor filename
+ */
+export const currentEditorFilename = writable(null);
+
+/**
  * Converts the window width to a breakpoint number.
  *
  * Larger numbers imply a greater screen width.
