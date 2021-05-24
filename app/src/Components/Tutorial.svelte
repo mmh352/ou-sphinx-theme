@@ -113,9 +113,6 @@
                     @apply text-lg;
                 }
             }
-            ul ul {
-                @apply ml-4;
-            }
         }
         .activity {
             @apply bg-cream border-solid border-orange border-l-2 mb-3;
