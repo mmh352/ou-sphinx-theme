@@ -3,8 +3,9 @@ import { decode } from 'he';
 
 import { busyCounter } from './busy';
 import { connectionStatus } from './status';
-import { url } from './navigation';
+import { url, navigate } from './navigation';
 import { sleep } from './sleep';
+import { getLocalConfig, setLocalConfig } from '../config';
 
 /**
  * Fetch the current data and headers for the given url.
@@ -45,11 +46,27 @@ async function fetchData(url: string) {
  */
 function stateStore() {
     const state = writable({data: null, headers: null});
+    let firstRequest = true;
 
-    const urlUnsubscribe = url.subscribe((url) => {
-        if (url) {
-            fetchData(url).then((newState) => {
-                state.set(newState);
+    const urlUnsubscribe = url.subscribe((urlValue) => {
+        if (urlValue) {
+            fetchData(urlValue).then((newState) => {
+                if (newState && newState.data && newState.data.project && newState.data.project.name && newState.data.project.release) {
+                    let key = newState.data.project.name + '-' + newState.data.project.release;
+                    key = key.replace(/\s/g, '-').toLowerCase();
+                    if (firstRequest) {
+                        firstRequest = false;
+                        let lastUrl = getLocalConfig(key, 'ux.lastUrl', null);
+                        if (lastUrl && lastUrl !== document.location.pathname) {
+                            navigate(lastUrl);
+                        } else {
+                            state.set(newState);
+                        }
+                    } else {
+                        state.set(newState);
+                    }
+                    setLocalConfig(key, 'ux.lastUrl', (new URL(urlValue)).pathname);
+                }
             });
         }
     });
@@ -93,10 +110,10 @@ export const project = derived(
         if (data && data.tutorial) {
             return data.project;
         } else {
-            return 'Loading...';
+            return {name: 'Loading...', release: ''};
         }
     },
-    'Loading...'
+    {name: 'Loading...', release: ''}
 )
 
 export const tutorial = derived(
@@ -136,6 +153,15 @@ export const urls = derived(
 );
 
 /**
+ * Update the document title when the data changes.
+ */
+ data.subscribe((data) => {
+    if (data && data.tutorial && data.tutorial.title) {
+        document.title = decode(data.tutorial.title);
+    }
+});
+
+/**
  * Headers retrieved from the last response.
  */
 const headers = derived(
@@ -145,15 +171,6 @@ const headers = derived(
     },
     null
 );
-
-/**
- * Update the document title when the data changes.
- */
- data.subscribe((data) => {
-    if (data && data.tutorial && data.tutorial.title) {
-        document.title = decode(data.tutorial.title);
-    }
-});
 
 /**
  * The base URL everything is fetched from.

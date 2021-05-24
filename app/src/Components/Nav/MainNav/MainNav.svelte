@@ -65,7 +65,7 @@
             <ul bind:this={menuList} class="flex flex-col lg:flex-row lg:items-end overflow-hidden">
                 {#if showMenu || $breakpoint >= 3 || !$hasCurrent}
                     <li>
-                        <span class="block flex-shrink flex-grow px-3 py-2 text-blue font-bold border-solid {showMenu ? 'border-b-1' : ''} lg:border-b-2 border-gray-200">{$project}</span>
+                        <span class="block flex-shrink flex-grow px-3 py-2 text-blue font-bold border-solid {showMenu ? 'border-b-1' : ''} lg:border-b-2 border-gray-200">{$project.name} {$project.release}</span>
                     </li>
                 {/if}
                 {#each $blocks as block}

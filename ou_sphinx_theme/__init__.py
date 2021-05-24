@@ -123,7 +123,10 @@ def update_page_context(self, pagename, templatename, context, event_arg):
             metadata.update(context['meta'])
         data = {
             'metadata': metadata,
-            'project': context['project'],
+            'project': {
+                'name': context['project'],
+                'release': context['release'],
+            },
             'urls': {
                 'root': context['pathto'](context['master_doc']),
                 'static': context['pathto']('_static', 1),
