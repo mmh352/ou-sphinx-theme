@@ -4,7 +4,7 @@
     export let show = false;
     export let internalNav = true;
 
-    import { navigate } from '../../../store';
+    import { navigate } from '../../../store/navigation';
 
     function handleNav(ev: MouseEvent) {
         if (internalNav) {

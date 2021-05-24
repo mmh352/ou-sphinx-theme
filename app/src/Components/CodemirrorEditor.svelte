@@ -18,7 +18,9 @@
     import { lintKeymap } from '@codemirror/lint';
     import { classHighlightStyle } from '@codemirror/highlight';
 
-    import { data, baseUrl, hasIFrame, connectionStatus } from '../store';
+    import { metadata, baseUrl } from '../store/data';
+    import { hasIFrame } from '../store/components';
+    import { connectionStatus } from '../store/status';
 
     export let file = null;
     export let visible = false;
@@ -89,7 +91,7 @@
                 }
             }
         } else {
-            connectionStatus.set(3);
+            connectionStatus.lost();
         }
     }
 
@@ -186,10 +188,10 @@
     }
 
 
-    const unsubscribe = data.subscribe((data) => {
-        if (data) {
-            if (data.metadata && data.metadata['editor-files-src']) {
-                filesSrc = data.metadata['editor-files-src'];
+    const unsubscribe = metadata.subscribe((data) => {
+        if (metadata) {
+            if (metadata && metadata['editor-files-src']) {
+                filesSrc = metadata['editor-files-src'];
             }
         }
     });

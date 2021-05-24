@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 
-	import { data, hasIFrame, hasEditor, breakpoint, isConnected } from './store';
+	import { tutorial } from './store/data';
+	import { isConnected } from './store/status';
+    import { breakpoint } from './store/breakpoint';
+    import { hasEditor, hasIFrame } from './store/components';
 	import MainNav from './Components/Nav/MainNav/MainNav.svelte';
 	import Tutorial from './Components/Tutorial.svelte';
 	import SideNav from './Components/Nav/SideNav.svelte';
@@ -12,7 +15,7 @@
 
 	let section = 'tutorial';
 
-    const unsubscribe = data.subscribe((value) => {
+    const unsubscribe = tutorial.subscribe((value) => {
         if (value) {
             section = 'tutorial';
         }

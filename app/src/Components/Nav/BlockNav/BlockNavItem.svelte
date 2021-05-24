@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { navigate } from '../../../store';
+    import { navigate } from '../../../store/navigation';
     import Icon from '../../Icon.svelte';
 
     export let item = null;

@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { isStartup, isReconnecting, isConnectionLost, connectionStatus, url } from '../store';
+    import { url } from '../store/navigation';
+    import { isStartup, isReconnecting, isConnectionLost, connectionStatus } from '../store/status';
 
     function reconnect() {
-        connectionStatus.set(2);
+        connectionStatus.reconnecting();
         url.set('');
         url.set(window.location.href);
     }

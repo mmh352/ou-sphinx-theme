@@ -1,22 +1,11 @@
 <script type="ts">
 	import { onDestroy } from 'svelte';
 
-    import { data, navigate } from '../store';
+    import { tutorial } from '../store/data';
+    import { navigate } from '../store/navigation';
     import PageNav from './Nav/PageNav.svelte';
 
-    let tutorialContent = '';
     let tutorialElement = null as HTMLElement;
-
-    const unsubscribe = data.subscribe((data) => {
-        if (data && data.tutorial && data.tutorial.body) {
-            tutorialContent = data.tutorial.body;
-            if (tutorialElement) {
-                tutorialElement.scrollTop = 0;
-            }
-        }
-    });
-
-    onDestroy(unsubscribe);
 
     /**
      * Handle clicks inside the tutorial.
@@ -50,7 +39,7 @@
 </script>
 
 <article id="tutorial" class="col-start-1 col-end-1 row-start-3 row-end-4 lg:col-start-2 lg:col-end-3 lg:row-start-2 flex flex-col lg:border-r-2 border-solid border-gray-200">
-    <div on:click={handleClick} bind:this={tutorialElement} class="flex-grow flex-shrink overflow-auto px-4 py-2">{@html tutorialContent}</div>
+    <div on:click={handleClick} bind:this={tutorialElement} class="flex-grow flex-shrink overflow-auto px-4 py-2">{@html $tutorial ? $tutorial.body: ''}</div>
     <PageNav/>
 </article>
 

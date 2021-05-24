@@ -1,5 +1,5 @@
 import App from './App.svelte';
-import { url } from './store';
+import { url } from './store/navigation';
 
 const app = new App({
 	target: document.querySelector('#app'),

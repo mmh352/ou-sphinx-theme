@@ -1,7 +1,9 @@
 <script lang="ts">
     import { onDestroy, tick } from "svelte";
 
-    import { data, hasIFrame, currentEditorFilename, defaultEditorFilename } from '../store';
+    import { currentEditorFilename, defaultEditorFilename } from '../store';
+    import { metadata } from '../store/data';
+    import { hasIFrame } from '../store/components';
     import CodemirrorEditor from './CodemirrorEditor.svelte';
 
     let files = [];
@@ -39,36 +41,34 @@
         (document.querySelector('#editor-' + file.id + ' .cm-editor .cm-content') as HTMLElement).focus()
     }
 
-    const unsubscribe = data.subscribe((data) => {
-        if (data) {
-            if (data.metadata && data.metadata['editor-files'] && data.metadata['editor-files-src']) {
-                let changes = false;
-                let firstHTML = true;
-                const newFiles = (data.metadata['editor-files'].split(',') as string[]).map((filename, idx) => {
-                    filename = filename.trim();
-                    if (filename.endsWith('.html') && firstHTML) {
-                        firstHTML = false;
-                        defaultEditorFilename.set(filename);
-                    }
-                    if (idx < files.length && files[idx].filename === filename) {
-                        return files[idx];
-                    } else {
-                        changes = true;
-                        return {
-                            id: idx,
-                            busy: false,
-                            filename: filename,
-                            content: '',
-                            changed: false,
-                            type: determineFileType(filename),
-                        };
-                    }
-                });
-                if (changes) {
-                    files = newFiles;
-                    if (files.indexOf(currentFile) < 0) {
-                        currentFile = files[0];
-                    }
+    const unsubscribe = metadata.subscribe((metadata) => {
+        if (metadata && metadata['editor-files'] && metadata['editor-files-src']) {
+            let changes = false;
+            let firstHTML = true;
+            const newFiles = (metadata['editor-files'].split(',') as string[]).map((filename, idx) => {
+                filename = filename.trim();
+                if (filename.endsWith('.html') && firstHTML) {
+                    firstHTML = false;
+                    defaultEditorFilename.set(filename);
+                }
+                if (idx < files.length && files[idx].filename === filename) {
+                    return files[idx];
+                } else {
+                    changes = true;
+                    return {
+                        id: idx,
+                        busy: false,
+                        filename: filename,
+                        content: '',
+                        changed: false,
+                        type: determineFileType(filename),
+                    };
+                }
+            });
+            if (changes) {
+                files = newFiles;
+                if (files.indexOf(currentFile) < 0) {
+                    currentFile = files[0];
                 }
             }
         }

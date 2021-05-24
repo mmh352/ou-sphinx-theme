@@ -1,7 +1,7 @@
 :layout: tutorial-editor-iframe
 :editor-files: index.html, default.css, a11y.js
 :editor-files-src: /_static/editor-sample/
-:iframe-src: /_static/editor-sample/index.html
+:iframe-src: /_static/editor-sample/
 
 Tutorial, Editor & iFrame
 #########################

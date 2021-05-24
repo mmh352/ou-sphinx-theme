@@ -1,7 +1,9 @@
 <script lang="ts">
     import { derived } from 'svelte/store';
 
-    import { hasEditor, hasIFrame, breakpoint, baseUrl, data } from '../../store';
+    import { baseUrl, withinBlockNav } from '../../store/data';
+    import { hasEditor, hasIFrame } from '../../store/components';
+    import { breakpoint } from '../../store/breakpoint';
     import Icon from '../Icon.svelte';
 
     export let section = '';
@@ -10,9 +12,9 @@
      * Whether block-level navigation is available.
      */
     const hasBlockNav = derived(
-        data,
-        (data) => {
-            if (data && data.tutorial && data.tutorial.withinBlockNav) {
+        withinBlockNav,
+        (withinBlockNav) => {
+            if (withinBlockNav) {
                 return true;
             } else {
                 return false;

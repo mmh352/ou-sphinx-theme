@@ -1,30 +1,39 @@
 <script lang="ts">
-	import { onDestroy, tick } from 'svelte';
+	import { tick } from 'svelte';
+    import { derived } from 'svelte/store';
 
-    import { data, staticUrl, isInJupyterHub, breakpoint } from '../../../store';
+    import { project, tutorial, staticUrl, isInJupyterHub } from '../../../store/data';
+    import { breakpoint } from '../../../store/breakpoint';
     import MainNavItem from './MainNavItem.svelte';
     import Icon from '../../Icon.svelte';
 
-    let moduleTitle = 'Loading...';
-    let blocks = []
     let showMenu = false;
     let menuList = null;
-    let hasCurrent = false;
 
-    const unsubscribe_data = data.subscribe((data) => {
-        if (data) {
-            moduleTitle = data.project;
-            if (data.tutorial && data.tutorial.blocks) {
-                blocks = data.tutorial.blocks;
-                hasCurrent = false;
-                blocks.forEach((block) => {
-                    hasCurrent = hasCurrent || block.current || block.expanded;
-                })
+    const blocks = derived(
+        tutorial,
+        (tutorial) => {
+            if (tutorial && tutorial.blocks) {
+                return tutorial.blocks;
             } else {
-                blocks = [];
+                return [];
             }
-        }
-    });
+        },
+        []
+    );
+
+    const hasCurrent = derived(
+        blocks,
+        (blocks) => {
+            for (let idx = 0; idx < blocks.length; idx++) {
+                if (blocks[idx].current || blocks[idx].expanded) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        false
+    )
 
     function toggleMenu(ev: MouseEvent) {
         showMenu = !showMenu;
@@ -39,10 +48,6 @@
             });
         }
     }
-
-    onDestroy(() => {
-        unsubscribe_data();
-    });
 </script>
 
 <nav class="col-start-1 col-end-4 row-start-1 row-end-2 border-b-2 border-solid boder-gray-200 lg:border-b-0 w-full">
@@ -58,12 +63,12 @@
         </li>
         <li class="flex-shrink flex-grow overflow-hidden">
             <ul bind:this={menuList} class="flex flex-col lg:flex-row lg:items-end overflow-hidden">
-                {#if showMenu || $breakpoint >= 3 || !hasCurrent}
+                {#if showMenu || $breakpoint >= 3 || !$hasCurrent}
                     <li>
-                        <span class="block flex-shrink flex-grow px-3 py-2 text-blue font-bold border-solid {showMenu ? 'border-b-1' : ''} lg:border-b-2 border-gray-200">{moduleTitle}</span>
+                        <span class="block flex-shrink flex-grow px-3 py-2 text-blue font-bold border-solid {showMenu ? 'border-b-1' : ''} lg:border-b-2 border-gray-200">{$project}</span>
                     </li>
                 {/if}
-                {#each blocks as block}
+                {#each $blocks as block}
                     <MainNavItem href={block.url} current={block.current || block.expanded} bind:show={showMenu}>{block.title}</MainNavItem>
                 {/each}
                 <li role="presentation" class="hidden lg:block flex-grow flex-shrink"><span class="lg:block border-b-2 border-solid border-gray-200"></span></li>
@@ -75,10 +80,12 @@
         </li>
         <li class="flex-shrink-0">
             <a href="https://www.open.ac.uk" target="_blank" class="block px-3 py-2 text-blue hover:text-blue-400 focus:text-blue-400 {showMenu ? 'border-b-1' : ''} lg:border-b-2 border-solid border-gray-200 hover:border-blue focus:border-blue">
-                {#if $breakpoint < 3}
-                    <img src="{$staticUrl}/ou_logo_small.png" alt="The Open University"/>
-                {:else}
-                    <img src="{$staticUrl}/ou_logo.png" alt="The Open University" class="h-8"/>
+                {#if $staticUrl}
+                    {#if $breakpoint < 3}
+                        <img src="{$staticUrl}/ou_logo_small.png" alt="The Open University"/>
+                    {:else}
+                        <img src="{$staticUrl}/ou_logo.png" alt="The Open University" class="h-8"/>
+                    {/if}
                 {/if}
             </a>
         </li>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { staticUrl } from '../store';
+    import { staticUrl } from '../store/data';
 
     export let icon = '';
     export let alt = '';
@@ -8,4 +8,6 @@
     export let title = '';
 </script>
 
-<img src="{$staticUrl}/icons/{icon}_RGB.png" alt={alt} title={title} class={cls}/>
+{#if $staticUrl}
+    <img src="{$staticUrl}/icons/{icon}_RGB.png" alt={alt} title={title} class={cls}/>
+{/if}
