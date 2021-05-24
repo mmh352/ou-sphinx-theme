@@ -1,4 +1,4 @@
-:layout: tutorial-editor
+:layout: tutorial-editor-iframe
 :editor-files: index.html, default.css, a11y.js, sample.txt
 :editor-files-src: /_static/editor-sample/
 

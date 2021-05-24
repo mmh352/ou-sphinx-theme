@@ -135,6 +135,9 @@ export const urls = derived(
     null
 );
 
+/**
+ * Headers retrieved from the last response.
+ */
 const headers = derived(
     state,
     (state: any) => {

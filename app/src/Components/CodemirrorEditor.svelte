@@ -18,16 +18,15 @@
     import { lintKeymap } from '@codemirror/lint';
     import { classHighlightStyle } from '@codemirror/highlight';
 
-    import { metadata, baseUrl } from '../store/data';
     import { hasIFrame } from '../store/components';
     import { connectionStatus } from '../store/status';
+    import { busy, changed } from '../store/editor';
 
     export let file = null;
     export let visible = false;
-    let filename = null;
+    let filepath = null;
     let editorElement = null;
     let editorView = null;
-    let filesSrc = '';
     let updateTimeout = 0;
     let escapeResetTimeout = 0;
 
@@ -73,17 +72,15 @@
      * @param text The updated document text
      */
     async function saveDocument(text: string) {
-        file.busy = true;
-
-        const response = await fetch($baseUrl + filesSrc + file.filename, {
+        busy.add(file.filepath);
+        const response = await fetch(file.filepath, {
             method: 'PUT',
             body: text,
         });
+        busy.remove(file.filepath);
+        changed.remove(file.filepath);
 
-        file.busy = false;
         if (response.status === 200) {
-            file.changed = false;
-
             if ($hasIFrame) {
                 const iframe = document.querySelector('#iframe');
                 if (iframe) {
@@ -96,7 +93,7 @@
     }
 
     async function initialiseState() {
-        filename = file.filename;
+        filepath = file.filepath;
 
         // Setup the editor extensions
         const extensions = [
@@ -137,8 +134,7 @@
         // Add an update listener to automatically save the document
         extensions.push(EditorView.updateListener.of(({ state, docChanged }) => {
             if (docChanged) {
-                file.changed = true;
-                file.content = state.doc.toString();
+                changed.add(file.filepath);
                 clearTimeout(updateTimeout);
                 updateTimeout = setTimeout(async () => {
                     await saveDocument(state.doc.toString());
@@ -151,25 +147,19 @@
         /**
          * Load the document content
          */
-        const response = await fetch($baseUrl + filesSrc + file.filename);
-        file.content = await response.text();
+        busy.add(file.filepath);
+        const response = await fetch(file.filepath);
         editorView.setState(EditorState.create({
-            doc: file.content,
+            doc: await response.text(),
             extensions: extensions,
         }));
-
-        file.busy = false;
-
-        if (file.id === 0) {
-            editorView.focus();
-        }
+        busy.remove(file.filepath);
     }
+
     /**
      * Initialise the editor when the component is mounted.
      */
     onMount(async () => {
-        file.busy = true;
-
         editorView = new EditorView({
             state: EditorState.create({
                 doc: '',
@@ -181,24 +171,17 @@
         await initialiseState();
     });
 
+    /**
+     * Reinitialise the editor if the file changes
+     */
     $: {
-        if (file.filename !== filename) {
+        if (file.filepath !== filepath && editorView) {
             initialiseState();
         }
     }
 
-
-    const unsubscribe = metadata.subscribe((data) => {
-        if (metadata) {
-            if (metadata && metadata['editor-files-src']) {
-                filesSrc = metadata['editor-files-src'];
-            }
-        }
-    });
-
     onDestroy(async () => {
         editorView.destroy();
-        unsubscribe();
         clearTimeout(updateTimeout);
         clearTimeout(escapeResetTimeout);
     });

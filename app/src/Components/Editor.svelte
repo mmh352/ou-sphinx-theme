@@ -1,33 +1,10 @@
 <script lang="ts">
-    import { onDestroy, tick } from "svelte";
+    import { onDestroy, tick } from 'svelte';
+    import { get } from 'svelte/store';
 
-    import { currentEditorFilename, defaultEditorFilename } from '../store';
-    import { metadata } from '../store/data';
+    import { files, busy, changed, selected } from '../store/editor';
     import { hasIFrame } from '../store/components';
     import CodemirrorEditor from './CodemirrorEditor.svelte';
-
-    let files = [];
-    let currentFile = null;
-
-    /**
-     * Determine the file type from the filename extension.
-     *
-     * Only recognises .html, .css, and .js.
-     *
-     * @param filename The filename to determine the file type for
-     */
-    function determineFileType(filename: string) {
-        if (filename) {
-            if (filename.endsWith('.html')) {
-                return 'html';
-            } else if (filename.endsWith('.css')) {
-                return 'css';
-            } else if (filename.endsWith('.js')) {
-                return 'javascript';
-            }
-        }
-        return '';
-    }
 
     /**
      * Switch the files tab and set the keyboard focus.
@@ -35,42 +12,22 @@
      * @param file The file to switch to
      */
     async function switchTab(file) {
-        currentFile = file;
-        currentEditorFilename.set(currentFile.filename);
+        selected.set(file.filepath);
         await tick();
         (document.querySelector('#editor-' + file.id + ' .cm-editor .cm-content') as HTMLElement).focus()
     }
 
-    const unsubscribe = metadata.subscribe((metadata) => {
-        if (metadata && metadata['editor-files'] && metadata['editor-files-src']) {
-            let changes = false;
-            let firstHTML = true;
-            const newFiles = (metadata['editor-files'].split(',') as string[]).map((filename, idx) => {
-                filename = filename.trim();
-                if (filename.endsWith('.html') && firstHTML) {
-                    firstHTML = false;
-                    defaultEditorFilename.set(filename);
-                }
-                if (idx < files.length && files[idx].filename === filename) {
-                    return files[idx];
-                } else {
-                    changes = true;
-                    return {
-                        id: idx,
-                        busy: false,
-                        filename: filename,
-                        content: '',
-                        changed: false,
-                        type: determineFileType(filename),
-                    };
-                }
-            });
-            if (changes) {
-                files = newFiles;
-                if (files.indexOf(currentFile) < 0) {
-                    currentFile = files[0];
-                }
+    const unsubscribe = files.subscribe((files) => {
+        const selectedValue = get(selected);
+        let selectedExists = false;;
+        for (let idx = 0; idx < files.length; idx++) {
+            if (files[idx].filepath === selectedValue) {
+                selectedExists = true;
+                break;
             }
+        }
+        if (!selectedExists && files.length > 0) {
+            selected.set(files[0].filepath);
         }
     });
 
@@ -81,11 +38,11 @@
     <nav>
         <ul class="flex items-end">
             <li role="presentation"><span class="block border-b-2 border-gray-200 border-solid w-4"></span></li>
-            {#each files as file}
+            {#each $files as file}
                 <li>
-                    <button on:click={ev => switchTab(file)} class="block px-3 py-1 border-b-2 {file === currentFile ? 'border-blue' : 'border-gray-200'} border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400">
+                    <button on:click={ev => switchTab(file)} class="block px-3 py-1 border-b-2 {file.filepath === $selected ? 'border-blue' : 'border-gray-200'} border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400">
                         <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
-                            {#if file.busy}
+                            {#if $busy.indexOf(file.filepath) >= 0}
                                 <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z">
                                     <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
                                 </path>
@@ -100,7 +57,7 @@
                             {/if}
                         </svg>
                         {file.filename}
-                        {#if file.changed}
+                        {#if $changed.indexOf(file.filepath) >= 0}
                             <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 text-orange-700 fill-current">
                                 <path d="M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z" />
                             </svg>
@@ -111,7 +68,7 @@
             <li role="presentation" class="flex-grow flex-shrink"><span class="block border-b-2 border-gray-200 border-solid"></span></li>
         </ul>
     </nav>
-    {#each files as file}
-        <CodemirrorEditor bind:file={file} visible={file === currentFile}/>
+    {#each $files as file}
+        <CodemirrorEditor file={file} visible={file.filepath === $selected}/>
     {/each}
 </div>

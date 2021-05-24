@@ -1,26 +1,67 @@
 <script lang="ts">
+    import { onDestroy } from 'svelte';
     import { derived } from 'svelte/store';
 
-    import { defaultEditorFilename, currentEditorFilename } from '../store';
+    import { files, selected } from '../store/editor';
     import { metadata, baseUrl } from '../store/data';
     import { hasEditor } from '../store/components';
 
-    const iFrameSrc = derived(
-        [metadata, baseUrl, hasEditor, defaultEditorFilename, currentEditorFilename],
-        ([metadata, baseUrl, hasEditor, defaultEditorFilename, currentEditorFilename]) => {
+    /**
+     * Extract the iFrameSrc from the metadata.
+     */
+    const metadataIFrameSrc = derived(
+        [baseUrl, metadata],
+        ([baseUrl, metadata]) => {
             if (metadata && metadata['iframe-src']) {
-                if (hasEditor && currentEditorFilename && currentEditorFilename.endsWith('.html')) {
-                    return baseUrl + metadata['iframe-src'] + currentEditorFilename;
-                } else if (hasEditor && defaultEditorFilename) {
-                    return baseUrl + metadata['iframe-src'] + defaultEditorFilename;
+                return baseUrl + metadata['iframe-src'];
+            } else {
+                return null;
+            }
+        },
+        null
+    );
+
+    let lastHTMLSelected = '';
+
+    /**
+     * Derive the iFrame source. Either based on the currently selected file in the editor,
+     * the last HTML file selected in the editor, or the iFrame source set in the metadata.
+     */
+    const iFrameSrc = derived(
+        [metadataIFrameSrc, files, selected],
+        ([metadataIFrameSrc, files, selected]) => {
+            if (metadataIFrameSrc) {
+                if (files.length > 0) {
+                    let filename = '';
+                    let defaultFilename = lastHTMLSelected;
+                    for (let idx = 0; idx < files.length; idx++) {
+                        if (files[idx].filepath === selected && files[idx].filepath.endsWith('.html')) {
+                            lastHTMLSelected = files[idx].filename;
+                        }
+                        if (defaultFilename === '' && files[idx].filename.endsWith('.html')) {
+                            defaultFilename = files[idx].filename;
+                        }
+                        if (files[idx].filepath == selected && files[idx].filename.endsWith('.html')) {
+                            filename = files[idx].filename;
+                            break
+                        }
+                    }
+                    if (filename === '' && defaultFilename !== '') {
+                        filename = defaultFilename;
+                    }
+                    if (filename !== '') {
+                        return metadataIFrameSrc + filename;
+                    } else {
+                        return null;
+                    }
                 } else {
-                    return baseUrl + metadata['iframe-src'];
+                    return metadataIFrameSrc;
                 }
             } else {
                 return null;
             }
         },
-        ''
+        null
     );
 </script>
 
