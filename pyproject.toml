@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "ou-sphinx-theme"
-version = "0.12.0"
+version = "0.13.0"
 description = ""
-authors = ["Mark Hall <mark.hall@work.room3b.eu>"]
+authors = ["Mark Hall <mark.hall@open.ac.uk>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
