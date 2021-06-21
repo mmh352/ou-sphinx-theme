@@ -35,13 +35,13 @@
                     let filename = '';
                     let defaultFilename = lastHTMLSelected;
                     for (let idx = 0; idx < files.length; idx++) {
-                        if (files[idx].filepath === selected && files[idx].filepath.endsWith('.html')) {
+                        if (files[idx].filepath === selected && (files[idx].filepath.endsWith('.html') || files[idx].filepath.endsWith('.php'))) {
                             lastHTMLSelected = files[idx].filename;
                         }
-                        if (defaultFilename === '' && files[idx].filename.endsWith('.html')) {
+                        if (defaultFilename === '' && (files[idx].filename.endsWith('.html') || files[idx].filename.endsWith('.php'))) {
                             defaultFilename = files[idx].filename;
                         }
-                        if (files[idx].filepath == selected && files[idx].filename.endsWith('.html')) {
+                        if (files[idx].filepath == selected && (files[idx].filename.endsWith('.html') || files[idx].filename.endsWith('.php'))) {
                             filename = files[idx].filename;
                             break
                         }
