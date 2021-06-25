@@ -14,7 +14,7 @@
     const hasBlockNav = derived(
         withinBlockNav,
         (withinBlockNav) => {
-            if (withinBlockNav) {
+            if (withinBlockNav && withinBlockNav.children.length > 0) {
                 return true;
             } else {
                 return false;
