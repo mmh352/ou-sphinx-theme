@@ -27,7 +27,9 @@
                     target.parentElement.parentElement.classList.toggle('show');
                 }
             } else if (target.localName === 'a') {
-                if (target.classList.contains('internal')) {
+                if (target.classList.contains('download')) {
+                    target.setAttribute('target', '_blank');
+                } else if (target.classList.contains('internal')) {
                     ev.preventDefault();
                     navigate(target.getAttribute('href'));
                 } else if (target.classList.contains('external')) {
