@@ -13,6 +13,9 @@ import { writable } from 'svelte/store';
  * @param newUrl The URL to navigate to. Can be absolute or relative.
  */
 export function navigate(newUrl: string) {
+    if (newUrl === '#') {
+        newUrl = '';
+    }
     newUrl = (new URL(newUrl, document.baseURI)).href;
     url.set(newUrl);
     window.history.pushState(null, '', newUrl);

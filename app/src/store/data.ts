@@ -16,7 +16,11 @@ import { getLocalConfig, setLocalConfig } from '../config';
 async function fetchData(url: string) {
     if (url.endsWith('/')) {
         url = url + 'index.json';
-    } else if (url.endsWith('.html')) {
+    }
+    if (url.indexOf('#') >= 0) {
+        url = url.substring(0, url.indexOf('#'));
+    }
+    if (url.endsWith('.html')) {
         url = url.substring(0, url.length - 4) + 'json';
     }
     if (url !== '') {
