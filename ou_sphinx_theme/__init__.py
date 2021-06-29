@@ -3,7 +3,7 @@ import sphinx
 import sphinx.builders.html
 
 from base64 import b64encode
-from docutils.nodes import bullet_list, list_item
+from docutils.nodes import bullet_list, list_item, paragraph, reference
 from os import path
 from sphinx.environment.adapters.toctree import TocTree
 from sphinx.util.osutil import ensuredir
@@ -11,10 +11,13 @@ from sphinx.util.osutil import ensuredir
 from .ext import a11y, activity, iframe, youtube
 
 
-def get_nav_entry(list_item):
+def get_nav_entry(parent):
     """Convert a toctree list item into a nav-entry dict."""
-    reference = list_item.children[0].children[0]
-    expanded = ('iscurrent' in list_item.attributes and list_item.attributes['iscurrent'])
+    if isinstance(parent, list_item):
+        reference = parent.children[0].children[0]
+    elif isinstance(parent, paragraph):
+        reference = parent.children[0]
+    expanded = ('iscurrent' in parent.attributes and parent.attributes['iscurrent'])
     current = ('iscurrent' in reference.attributes and reference.attributes['iscurrent'])
     return {'title': reference.astext(),
             'url': reference.attributes['refuri'],
@@ -75,6 +78,10 @@ def find_node(self, node, pagename):
             tmp = find_node(self, child, pagename)
             if tmp:
                 return tmp
+    elif isinstance(node, paragraph):
+        entry = get_nav_entry(node)
+        if entry['url'] == '':
+            return node
     return None
 
 
@@ -96,7 +103,10 @@ def get_ancestor_pagenames(self, pagename):
         tmp = find_node(self, top_level, pagename)
         if tmp:
             result = []
-            parent = tmp.parent.parent
+            if isinstance(tmp, list_item):
+                parent = tmp.parent.parent
+            elif isinstance(tmp, paragraph):
+                parent = tmp.parent
             while parent:
                 if isinstance(parent, list_item):
                     parent_pagename = self.env.relfn2path(get_nav_entry(parent)['url'], pagename)[0]
