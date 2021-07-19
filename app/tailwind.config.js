@@ -18,6 +18,9 @@ module.exports = {
             },
             colors: {
                 blue: {
+                    50: '#eef3f9',
+                    60: '#d1dfee',
+                    70: '#c3d5e9',
                     100: '#9fbbdc',
                     200: '#7aa2cf',
                     300: '#5689c1',
@@ -40,6 +43,9 @@ module.exports = {
                     900: '#880c4d',
                 },
                 turquoise: {
+                    50: '#eef6f7',
+                    60: '#d0e7ea',
+                    70: '#c1e0e4',
                     100: '#9bcdd4',
                     200: '#76bac4',
                     300: '#51a8b3',

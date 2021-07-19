@@ -106,10 +106,10 @@
             }
         }
         .activity {
-            @apply bg-cream border-solid border-orange border-l-2 mb-3;
+            @apply bg-turquoise-60 border-solid border-turquoise border-l-2 mb-3;
 
             > h2, > h3 {
-                @apply bg-orange text-white px-2 py-1 text-lg;
+                @apply bg-turquoise text-white px-2 py-1 text-lg;
             }
 
             > .content {
@@ -121,7 +121,7 @@
                 @apply text-right;
 
                 button {
-                    @apply border-solid border-orange rounded border px-2 py-1 text-sm;
+                    @apply border-solid border-turquoise rounded border px-2 py-1 text-sm;
 
                     span:nth-child(2) {
                         @apply hidden;
@@ -148,10 +148,18 @@
             }
         }
         .admonition {
-            @apply bg-cream border-solid border-blue border-l-2 px-3 py-2 mb-3;
+            @apply bg-blue-60 border-solid border-blue border-l-2 mb-3;
+
+            > * {
+                @apply px-2;
+
+                &:last-child {
+                    @apply pb-2;
+                }
+            }
 
             .admonition-title {
-                @apply font-bold;
+                @apply font-bold bg-blue text-white text-lg py-1;
             }
         }
         .transcript {
