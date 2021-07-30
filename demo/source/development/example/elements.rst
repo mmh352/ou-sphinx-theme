@@ -18,3 +18,6 @@ Various Elements
     .. activity-answer::
 
         Yes, that's right.
+
+A section with some maths
+=========================
