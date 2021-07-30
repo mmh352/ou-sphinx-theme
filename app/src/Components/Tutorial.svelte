@@ -43,6 +43,7 @@
         if ($tutorial) {
             tick().then(() => {
                 MathJax.typeset();
+                tutorialElement.scrollTop = 0;
             });
         }
     }
