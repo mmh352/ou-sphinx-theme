@@ -63,3 +63,18 @@ Lists
   * Sub-item
 
 * Item
+
+Tables
+======
+
+.. list-table:: **Table 1:** Demonstrates the list table
+    :header-rows: 1
+
+    * - Column 1
+      - Column 2
+    * - Cell 1 / 1
+      - Cell 1 / 2
+    * - Cell 2 / 1
+      - Cell 2 / 2
+    * - Cell 3 / 1
+      - Cell 3 / 2

@@ -228,6 +228,26 @@
                 @apply text-left ml-4 mt-0 mb-0;
             }
         }
+        table {
+            @apply w-full;
+
+            th.head {
+                @apply bg-blue text-white p-2 text-left;
+            }
+            td {
+                @apply p-2;
+            }
+            tr {
+                &:nth-child(2n) {
+                    td {
+                        @apply bg-blue-50;
+                    }
+                }
+            }
+            :last-child {
+                @apply mb-0;
+            }
+        }
 
         /* Pygments Style */
         .highlight .c { @apply text-green-600 } /* Comment */
