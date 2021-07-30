@@ -106,7 +106,7 @@
             @apply mb-3 overflow-auto font-mono bg-white-600 p-2 border-solid border-turquoise border-l-2;
         }
         code {
-            @apply inline-block bg-cream rounded px-1 font-mono;
+            @apply inline-block bg-white-600 rounded px-1 font-mono;
         }
         .toctree-wrapper {
             a {

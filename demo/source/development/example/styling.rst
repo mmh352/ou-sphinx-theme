@@ -48,3 +48,5 @@ Code Styling
     let count = 0;
     count = count + 1;
     console.log(count);
+
+This is just an inline ``const PI`` mention :samp:`{const} PI`.
