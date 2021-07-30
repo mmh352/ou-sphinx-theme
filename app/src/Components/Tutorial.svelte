@@ -199,6 +199,13 @@
         .headerlink {
             @apply hidden;
         }
+        blockquote {
+            @apply px-6 py-4;
+
+            p.attribution {
+                @apply text-gray-900;
+            }
+        }
 
         /* Pygments Style */
         .highlight .c { @apply text-green-600 } /* Comment */
