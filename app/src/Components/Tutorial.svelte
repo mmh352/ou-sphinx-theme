@@ -1,5 +1,5 @@
 <script type="ts">
-	import { onDestroy } from 'svelte';
+	import { tick } from 'svelte';
 
     import { tutorial } from '../store/data';
     import { navigate } from '../store/navigation';
@@ -36,6 +36,14 @@
                     target.setAttribute('target', '_blank');
                 }
             }
+        }
+    }
+
+    $: {
+        if ($tutorial) {
+            tick().then(() => {
+                MathJax.typeset();
+            });
         }
     }
 </script>
@@ -204,6 +212,13 @@
 
             p.attribution {
                 @apply text-gray-900;
+            }
+        }
+        div.math {
+            @apply mb-3;
+
+            mjx-container[jax="CHTML"][display="true"] {
+                @apply text-left ml-4 mt-0 mb-0;
             }
         }
 
