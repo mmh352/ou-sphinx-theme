@@ -118,6 +118,9 @@ module.exports = {
             },
             inset: {
                 '1/2': '50%',
+            },
+            listStyleType: {
+                'arabic': 'decimal',
             }
         },
     },

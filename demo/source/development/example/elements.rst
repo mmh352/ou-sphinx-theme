@@ -42,3 +42,15 @@ We can try another one:
 
     \frac{a}{b} &= \frac{2}{4} \\
                 &= 0.5
+
+Lists
+=====
+
+#. One
+#. Two
+
+   #. A
+   #. B
+   #. C
+
+#. Three

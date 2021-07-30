@@ -88,6 +88,9 @@
         ul.simple {
             @apply list-disc ml-4;
         }
+        ol.arabic {
+            @apply list-arabic ml-4;
+        }
         .literal-block-wrapper {
             @apply relative;
 
