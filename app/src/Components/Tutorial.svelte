@@ -1,5 +1,5 @@
 <script type="ts">
-	import { tick } from 'svelte';
+	import { tick, onMount } from 'svelte';
 
     import { tutorial } from '../store/data';
     import { navigate } from '../store/navigation';
@@ -39,14 +39,27 @@
         }
     }
 
+    function setupPage() {
+        if ((typeof MathJax) !== 'undefined') {
+            if (MathJax) {
+                MathJax.typeset();
+            }
+        }
+        if (tutorialElement) {
+            tutorialElement.scrollTop = 0;
+            tutorialElement.parentElement.focus();
+        }
+    }
+
     $: {
         if ($tutorial) {
             tick().then(() => {
-                MathJax.typeset();
-                tutorialElement.scrollTop = 0;
+                setupPage();
             });
         }
     }
+
+    onMount(setupPage);
 </script>
 
 <article id="tutorial" class="col-start-1 col-end-1 row-start-3 row-end-4 lg:col-start-2 lg:col-end-3 lg:row-start-2 flex flex-col lg:border-r-2 border-solid border-gray-200">
