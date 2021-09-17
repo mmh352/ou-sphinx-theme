@@ -21,11 +21,20 @@
         }
     });
 
+	/** Jump ahead to the tutorial content, skipping the navigation menus. */
+	function jumpToTutorial(ev: Event) {
+		ev.preventDefault();
+		const tutorial = document.querySelector('#tutorial');
+		if (tutorial) {
+			(tutorial as HTMLElement).focus();
+		}
+	}
+
     onDestroy(unsubscribe);
 </script>
 
 <main class="grid grid-cols-single-pane grid-rows-single-pane lg:grid-cols-three-pane lg:grid-rows-three-pane w-screen h-screen">
-	<a href="#tutorial" class="sr-only">Jump to the tutorial</a>
+	<a href="#tutorial" class="sr-only" on:click={jumpToTutorial}>Jump to the tutorial</a>
 	<MainNav/>
 	<SideNav bind:section={section}/>
 	{#if section === 'tutorial'}
