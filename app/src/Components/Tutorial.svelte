@@ -47,7 +47,7 @@
         }
         if (tutorialElement) {
             tutorialElement.scrollTop = 0;
-            tutorialElement.parentElement.focus();
+            tutorialElement.focus();
         }
     }
 
@@ -63,7 +63,7 @@
 </script>
 
 <article id="tutorial" class="col-start-1 col-end-1 row-start-3 row-end-4 lg:col-start-2 lg:col-end-3 lg:row-start-2 flex flex-col lg:border-r-2 border-solid border-gray-200">
-    <div on:click={handleClick} bind:this={tutorialElement} class="flex-grow flex-shrink overflow-auto px-4 py-2">{@html $tutorial ? $tutorial.body: ''}</div>
+    <div on:click={handleClick} bind:this={tutorialElement} tabindex="0" class="flex-grow flex-shrink overflow-auto px-4 py-2">{@html $tutorial ? $tutorial.body: ''}</div>
     <PageNav/>
 </article>
 
