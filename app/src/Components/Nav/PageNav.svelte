@@ -44,7 +44,7 @@
     <ul class="flex flex-row">
         <li class="overflow-hidden">
             {#if $prev}
-                <a on:click={handleNav} href={$prev.url} class="flex w-full items-center overflow-hidden text-blue hover:text-blue-400 focus:text-blue-400 hover:underline focus:underline">
+                <a on:click={handleNav} href={$prev.url} title={$prev.title} class="flex w-full items-center overflow-hidden text-blue hover:text-blue-400 focus:text-blue-400 hover:underline focus:underline">
                     <Icon icon="back_left" alt="" class="w-6 h-6 mr-2"/>
                     <span class="block flex-grow flex-shrink overflow-hidden">
                         <span class="block text-left">Previous</span>
@@ -52,7 +52,7 @@
                     </span>
                 </a>
             {:else}
-                <span class="flex w-full items-center overflow-hidden text-black-300">
+                <span title="You are at the beginning" class="flex w-full items-center overflow-hidden text-black-300">
                     <Icon icon="back_left" alt="" class="w-6 h-6 mr-2"/>
                     <span class="block flex-grow flex-shrink overflow-hidden">
                         <span class="block text-left">Previous</span>
@@ -64,7 +64,7 @@
         <li role="presentation" class="flex-grow flex-shrink min-w-1rem"></li>
         <li class="overflow-hidden">
             {#if $next}
-                <a on:click={handleNav} href={$next.url} class="flex w-full items-center overflow-hidden text-blue hover:text-blue-400 focus:text-blue-400 hover:underline focus:underline">
+                <a on:click={handleNav} href={$next.url} title={$next.title} class="flex w-full items-center overflow-hidden text-blue hover:text-blue-400 focus:text-blue-400 hover:underline focus:underline">
                     <span class="block flex-grow flex-shrink overflow-hidden">
                         <span class="block text-right">Next</span>
                         <span class="block text-right text-sm truncate">{@html $next.title}</span>
@@ -72,7 +72,7 @@
                     <Icon icon="forward_right" alt="" class="w-6 h-6 ml-2"/>
                 </a>
             {:else}
-                <span class="flex w-full items-center overflow-hidden text-black-300">
+                <span title="You have reached the end" class="flex w-full items-center overflow-hidden text-black-300">
                     <span class="block flex-grow flex-shrink overflow-hidden">
                         <span class="block text-right">Next</span>
                         <span class="block text-right text-sm truncate">You have reached the end</span>
