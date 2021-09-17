@@ -56,7 +56,7 @@
         {#if $hasIFrame && $breakpoint < 3}
             <li>
                 <button on:click={ev => setSection('iframe', ev)} class="block px-5 lg:px-3 py-3 border-b-2 lg:border-b-0 lg:border-r-2 border-solid {section === 'iframe' ? 'border-blue' : 'border-gray-200'} hover:border-blue focus:border-blue">
-                    <Icon icon="online_doc" alt="Show the Something" title="Something" class="w-4 h-4 lg:w-8 lg:h-8"/>
+                    <Icon icon="online_doc" alt="Show the page viewer" title="HTML Page Viewer" class="w-4 h-4 lg:w-8 lg:h-8"/>
                 </button>
             </li>
         {/if}
