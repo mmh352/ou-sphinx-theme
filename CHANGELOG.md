@@ -2,6 +2,7 @@
 
 ## Dev
 
+* **Bugfix**: Fix missing keyboard focus outline on the main menu
 * **Bugfix**: Fix display issues at high zoom levels
 * **Bugfix**: Added missing page navigation tooltips
 * **Bugfix**: Fix issues with keyboard focus on the tutorial content

@@ -61,8 +61,8 @@
                 {/if}
             </button>
         </li>
-        <li class="flex-shrink flex-grow overflow-hidden">
-            <ul bind:this={menuList} class="flex flex-col lg:flex-row lg:items-end overflow-hidden">
+        <li class="flex-shrink flex-grow">
+            <ul bind:this={menuList} class="flex flex-col lg:flex-row lg:items-end">
                 {#if showMenu || $breakpoint >= 3 || !$hasCurrent}
                     <li>
                         <span class="block flex-shrink flex-grow px-3 py-2 text-blue font-bold border-solid {showMenu ? 'border-b-1' : ''} lg:border-b-2 border-gray-200">{$project.name} {$project.release}</span>

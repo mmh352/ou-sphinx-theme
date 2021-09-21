@@ -15,6 +15,6 @@
     }
 </script>
 
-<li class="overflow-hidden">
+<li>
     <a on:click={handleNav} href={href} class="{show || current ? 'block' : 'hidden'} {current ? 'font-bold lg:font-normal' : ''} w-full lg:block px-3 py-2 text-blue truncate hover:text-blue-400 border-solid {current === true && show ? 'border-blue' : 'border-white'} lg:border-b-2 {current === true ? 'lg:border-blue' : 'lg:border-gray-200'} lg:hover:border-blue lg:focus:border-blue"><slot></slot></a>
 </li>
