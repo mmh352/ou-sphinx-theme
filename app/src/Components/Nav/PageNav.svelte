@@ -41,7 +41,7 @@
 </script>
 
 <nav class="px-4 py-4">
-    <ul class="flex flex-row">
+    <ul class="flex flex-row short:flex-col">
         <li class="overflow-hidden">
             {#if $prev}
                 <a on:click={handleNav} href={$prev.url} title={$prev.title} class="flex w-full items-center overflow-hidden text-blue hover:text-blue-400 focus:text-blue-400 hover:underline focus:underline">
