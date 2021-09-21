@@ -46,6 +46,9 @@
             }
         }
         if (tutorialElement) {
+            if (window.innerHeight <= 300) {
+                window.scrollTo(0, 0);
+            }
             tutorialElement.scrollTop = 0;
             tutorialElement.focus();
         }

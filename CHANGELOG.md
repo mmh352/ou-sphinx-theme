@@ -2,6 +2,7 @@
 
 ## Dev
 
+* **Bugfix**: Fix display issues at high zoom levels
 * **Bugfix**: Added missing page navigation tooltips
 * **Bugfix**: Fix issues with keyboard focus on the tutorial content
 * **Bugfix**: Fixed the skip link

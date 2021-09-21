@@ -33,7 +33,7 @@
     onDestroy(unsubscribe);
 </script>
 
-<main class="grid grid-cols-single-pane grid-rows-single-pane lg:grid-cols-three-pane lg:grid-rows-three-pane w-screen h-screen">
+<main class="grid grid-cols-single-pane grid-rows-single-pane lg:grid-cols-three-pane lg:grid-rows-three-pane w-screen h-screen short:w-auto short:h-auto">
 	<a href="#tutorial" class="sr-only" on:click={jumpToTutorial}>Jump to the tutorial</a>
 	<MainNav/>
 	<SideNav bind:section={section}/>

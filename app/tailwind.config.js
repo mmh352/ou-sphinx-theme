@@ -121,6 +121,9 @@ module.exports = {
             },
             listStyleType: {
                 'arabic': 'decimal',
+            },
+            screens: {
+                'short': {'raw': '(max-height: 300px)'}
             }
         },
     },
