@@ -3,7 +3,7 @@ import re
 from typing import List
 
 
-VERSION = '0.15.0'
+VERSION = '1.0.0'
 
 
 def readlines(filename: str) -> List[str]:
@@ -33,3 +33,4 @@ update_version('package.json', '(^  "version": ")[0-9]+\.[0-9]+\.[0-9](",$)', VE
 update_version('app/package.json', '(^  "version": ")[0-9]+\.[0-9]+\.[0-9](",$)', VERSION)
 update_version('pyproject.toml', '(^version = ")[0-9]+\.[0-9]+\.[0-9]+("$)',  VERSION)
 update_version('demo/source/conf.py', "(^.*release = ')[0-9]+\.[0-9]+\.[0-9]+('$)", VERSION)
+update_version('CHANGELOG.md', r'(## )Dev($)',  VERSION)

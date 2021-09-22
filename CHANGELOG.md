@@ -1,6 +1,6 @@
 # Changelog
 
-## Dev
+## 1.0.0
 
 * **Bugfix**: Fix missing keyboard focus outline on the main menu
 * **Bugfix**: Fix display issues at high zoom levels
