@@ -86,6 +86,10 @@
                     method: 'DELETE'
             }).finally(() => {
                 busy.remove(filepath);
+                showEditors = false;
+                tick().then(() => {
+                    showEditors = true;
+                });
             });
         }
     }

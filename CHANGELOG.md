@@ -1,5 +1,9 @@
 # Changelog
 
+## Dev
+
+* **Bugfix**: Fixed a bug when resetting a single file
+
 ## 1.1.0
 
 * **New**: Support resetting files in the editor to their initial state
