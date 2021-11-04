@@ -1,6 +1,6 @@
 # Changelog
 
-## Dev
+## 1.1.2
 
 * **Bugfix**: Fix an app build error
 
