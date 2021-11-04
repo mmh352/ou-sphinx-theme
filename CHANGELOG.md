@@ -1,5 +1,9 @@
 # Changelog
 
+## Dev
+
+* **Bugfix**: Fix an app build error
+
 ## 1.1.1
 
 * **Bugfix**: Fixed a bug when resetting a single file
