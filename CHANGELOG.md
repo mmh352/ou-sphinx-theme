@@ -4,6 +4,7 @@
 
 * **Update**: Added support for PHP in the editor
 * **Update**: Allow the editor tabs to scroll
+* **Update**: Add interface element to manually reload the viewer page
 
 ## 1.0.0
 
