@@ -40,7 +40,7 @@
         const escapeHandler = ({state}) => {
             escapeActive = !escapeActive;
             clearTimeout(escapeResetTimeout);
-            escapeResetTimeout = setTimeout(() => { escapeActive = false; }, 20000);
+            escapeResetTimeout = window.setTimeout(() => { escapeActive = false; }, 20000);
 
             return true;
         };
@@ -139,7 +139,7 @@
             if (docChanged) {
                 changed.add(file.filepath);
                 clearTimeout(updateTimeout);
-                updateTimeout = setTimeout(async () => {
+                updateTimeout = window.setTimeout(async () => {
                     await saveDocument(state.doc.toString());
                 }, 1000);
             }

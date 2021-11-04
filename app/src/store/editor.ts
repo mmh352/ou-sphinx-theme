@@ -1,4 +1,4 @@
-import { writable, get, derived } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 
 import { metadata, baseUrl } from './data'
 
@@ -63,7 +63,7 @@ export const files = derived(
         busy.set([])
         if (metadataEditorFiles && metadataEditorFilesSrc) {
             const newFiles = (metadataEditorFiles.split(',') as string[]).map((filename, idx) => {
-                busy.add(idx);
+                busy.add(baseUrl + metadataEditorFilesSrc + filename);
                 filename = filename.trim();
                 const file = {
                     id: idx,
@@ -87,7 +87,7 @@ function idListStore() {
     return {
         subscribe,
         set,
-        add(id: number) {
+        add(id: string) {
             update((ids) => {
                 if (ids.indexOf(id) >= 0) {
                     return ids;
@@ -96,7 +96,7 @@ function idListStore() {
                 }
             });
         },
-        remove(id: number) {
+        remove(id: string) {
             update((ids) => {
                 if (ids.indexOf(id) >= 0) {
                     return ids.filter((tid) => tid !== id);

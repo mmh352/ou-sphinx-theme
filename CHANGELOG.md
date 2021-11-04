@@ -2,9 +2,10 @@
 
 ## Dev
 
+* **New**: Support resetting files in the editor to their initial state
+* **New**: Add interface element to manually reload the viewer page
 * **Update**: Added support for PHP in the editor
 * **Update**: Allow the editor tabs to scroll
-* **Update**: Add interface element to manually reload the viewer page
 
 ## 1.0.0
 

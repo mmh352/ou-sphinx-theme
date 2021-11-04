@@ -12,6 +12,10 @@
         duration: 100,
     });
     let scrollable = false;
+    let showMenu = false;
+    let menuToggle = null as HTMLButtonElement;
+    let firstMenuItem = null as HTMLButtonElement;
+    let showEditors = true;
 
     /**
      * Switch the files tab and set the keyboard focus.
@@ -54,6 +58,57 @@
 
     function checkScrollable() {
         scrollable = tabsList.scrollWidth > tabsList.clientWidth;
+    }
+
+    function toggleMenu(ev: Event) {
+        ev.preventDefault();
+        showMenu = !showMenu;
+        if (showMenu) {
+            tick().then(() => {
+                firstMenuItem.focus();
+            });
+        }
+    }
+
+    function keyboardCloseMenu(ev: KeyboardEvent) {
+        if (ev.key === 'Escape') {
+            showMenu = false;
+            menuToggle.focus();
+        }
+    }
+
+    function resetCurrentFile() {
+        showMenu = false;
+        const filepath = get(selected);
+        if (filepath) {
+            busy.add(filepath);
+            fetch(filepath, {
+                    method: 'DELETE'
+            }).finally(() => {
+                busy.remove(filepath);
+            });
+        }
+    }
+
+    function resetAllFiles() {
+        showMenu = false;
+        const promises = [];
+        for (const file of get(files)) {
+            busy.add(file.filepath);
+            const promise = fetch(file.filepath, {
+                method: 'DELETE'
+            });
+            promises.push(promise);
+            promise.finally(() => {
+                busy.remove(file.filepath);
+            });
+        }
+        Promise.all(promises).finally(() => {
+            showEditors = false;
+            tick().then(() => {
+                showEditors = true;
+            });
+        });
     }
 
     onMount(() => {
@@ -103,8 +158,25 @@
             {/each}
             <li role="presentation" class="flex-grow flex-shrink"><span class="block border-b-2 border-gray-200 border-solid"></span></li>
         </ul>
-        {#if scrollable}
-            <ul class="flex-0 flex items-end">
+        <ul class="flex-0 flex items-end">
+            <li role="presentation" class="relative">
+                <button bind:this={menuToggle} on:click={toggleMenu} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the left">
+                    <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
+                        <path fill="currentColor" d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+                    </svg>
+                </button>
+                {#if showMenu}
+                    <ul on:keyup={keyboardCloseMenu} class="absolute top-full right-0 bg-white z-10 shadow-lg">
+                        <li role="presentation">
+                            <button bind:this={firstMenuItem} on:click={resetCurrentFile} class="block px-1 py-1 border-l-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap whitespace-nowrap">Reset the current file</button>
+                        </li>
+                        <li role="presentation">
+                            <button on:click={resetAllFiles} class="block px-1 py-1 border-l-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap whitespace-nowrap">Reset all files</button>
+                        </li>
+                    </ul>
+                {/if}
+            </li>
+            {#if scrollable}
                 <li role="presentation">
                     <button on:click={scrollTabsLeft} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the left">
                         <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
@@ -119,10 +191,12 @@
                         </svg>
                     </button>
                 </li>
-            </ul>
-        {/if}
+            {/if}
+        </ul>
     </nav>
-    {#each $files as file}
-        <CodemirrorEditor file={file} visible={file.filepath === $selected}/>
-    {/each}
+    {#if showEditors}
+        {#each $files as file}
+            <CodemirrorEditor file={file} visible={file.filepath === $selected}/>
+        {/each}
+    {/if}
 </div>
