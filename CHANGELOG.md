@@ -1,5 +1,9 @@
 # Changelog
 
+## Dev
+
+* **Update**: Added support for PHP in the editor
+
 ## 1.0.0
 
 * **Bugfix**: Fix missing keyboard focus outline on the main menu

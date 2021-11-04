@@ -1,5 +1,5 @@
 :layout: tutorial-editor
-:editor-files: index.html, default.css, a11y.js, sample.txt
+:editor-files: index.html, default.css, a11y.js, helloworld.php, sample.txt
 :editor-files-src: /_static/editor-sample/
 
 Built-in Editor
@@ -20,3 +20,4 @@ The editor includes built-in syntax highlighting for the following programming l
 * .html - HTML files
 * .js - JavaScript files
 * .css - Cascading StyleSheet files
+* .php - PHP files

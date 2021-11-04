@@ -6,6 +6,7 @@
     import { html } from '@codemirror/lang-html';
     import { css } from '@codemirror/lang-css';
     import { javascript } from '@codemirror/lang-javascript';
+    import { php } from '@codemirror/lang-php';
     import { history, historyKeymap } from '@codemirror/history';
     import { foldGutter, foldKeymap } from '@codemirror/fold';
     import { indentOnInput } from '@codemirror/language';
@@ -130,6 +131,8 @@
             extensions.push(css());
         } else if (file.type === 'javascript') {
             extensions.push(javascript());
+        } else if (file.type === 'php') {
+            extensions.push(php());
         }
         // Add an update listener to automatically save the document
         extensions.push(EditorView.updateListener.of(({ state, docChanged }) => {

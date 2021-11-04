@@ -17,6 +17,8 @@ function determineFileType(filename: string) {
             return 'css';
         } else if (filename.endsWith('.js')) {
             return 'javascript';
+        } else if (filename.endsWith('.php')) {
+            return 'php'
         }
     }
     return '';
