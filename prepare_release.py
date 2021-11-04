@@ -3,7 +3,7 @@ import re
 from typing import List
 
 
-VERSION = '1.1.0'
+VERSION = '1.1.1'
 
 
 def readlines(filename: str) -> List[str]:

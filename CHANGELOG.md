@@ -1,6 +1,6 @@
 # Changelog
 
-## Dev
+## 1.1.1
 
 * **Bugfix**: Fixed a bug when resetting a single file
 
