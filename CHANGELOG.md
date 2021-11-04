@@ -1,6 +1,6 @@
 # Changelog
 
-## Dev
+## 1.1.0
 
 * **New**: Support resetting files in the editor to their initial state
 * **New**: Add interface element to manually reload the viewer page
