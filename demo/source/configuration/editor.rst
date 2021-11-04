@@ -1,5 +1,5 @@
 :layout: tutorial-editor
-:editor-files: index.html, default.css, a11y.js, helloworld.php, sample.txt
+:editor-files: index.html, page.html, default.css, a11y.js, helloworld.php, sample.txt
 :editor-files-src: /_static/editor-sample/
 
 Built-in Editor

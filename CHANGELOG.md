@@ -3,6 +3,7 @@
 ## Dev
 
 * **Update**: Added support for PHP in the editor
+* **Update**: Allow the editor tabs to scroll
 
 ## 1.0.0
 

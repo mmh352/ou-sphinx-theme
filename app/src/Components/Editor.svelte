@@ -1,10 +1,17 @@
 <script lang="ts">
-    import { onDestroy, tick } from 'svelte';
+    import { onMount, onDestroy, tick } from 'svelte';
     import { get } from 'svelte/store';
+	import { tweened } from 'svelte/motion';
 
     import { files, busy, changed, selected } from '../store/editor';
     import { hasIFrame } from '../store/components';
     import CodemirrorEditor from './CodemirrorEditor.svelte';
+
+    let tabsList = null as HTMLUListElement;
+    let tabsScroll = tweened(0, {
+        duration: 100,
+    });
+    let scrollable = false;
 
     /**
      * Switch the files tab and set the keyboard focus.
@@ -17,7 +24,7 @@
         (document.querySelector('#editor-' + file.id + ' .cm-editor .cm-content') as HTMLElement).focus()
     }
 
-    const unsubscribe = files.subscribe((files) => {
+    const unsubscribeFiles = files.subscribe((files) => {
         const selectedValue = get(selected);
         let selectedExists = false;;
         for (let idx = 0; idx < files.length; idx++) {
@@ -31,16 +38,43 @@
         }
     });
 
-    onDestroy(unsubscribe);
+    const unsubscribeTabsScroll = tabsScroll.subscribe((value) => {
+        if (tabsList) {
+            tabsList.scrollLeft = value;
+        }
+    })
+
+    function scrollTabsLeft() {
+        tabsScroll.update((value) => { return Math.max(0, value - 100); });
+    }
+
+    function scrollTabsRight() {
+        tabsScroll.update((value) => { return Math.min(value + 100, tabsList.scrollWidth - tabsList.clientWidth); });
+    }
+
+    function checkScrollable() {
+        scrollable = tabsList.scrollWidth > tabsList.clientWidth;
+    }
+
+    onMount(() => {
+        checkScrollable();
+        window.addEventListener('resize', checkScrollable);
+    });
+
+    onDestroy(() => {
+        unsubscribeFiles();
+        unsubscribeTabsScroll();
+        window.removeEventListener('resize', checkScrollable);
+    });
 </script>
 
 <div class="flex flex-col col-start-1 col-end-2 lg:col-start-3 lg:col-end-4 row-start-3 row-end-4 lg:row-start-2 {$hasIFrame ? 'lg:row-end-3' : 'lg:row-end-4'}">
-    <nav>
-        <ul class="flex items-end">
+    <nav class="flex flex-row">
+        <ul bind:this={tabsList} class="flex-auto flex items-end overflow-x-hidden">
             <li role="presentation"><span class="block border-b-2 border-gray-200 border-solid w-4"></span></li>
             {#each $files as file}
-                <li>
-                    <button on:click={ev => switchTab(file)} class="block px-3 py-1 border-b-2 {file.filepath === $selected ? 'border-blue' : 'border-gray-200'} border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400">
+                <li role="presentation">
+                    <button on:click={ev => switchTab(file)} class="block px-3 py-1 border-b-2 {file.filepath === $selected ? 'border-blue' : 'border-gray-200'} border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap">
                         <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
                             {#if $busy.indexOf(file.filepath) >= 0}
                                 <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z">
@@ -69,6 +103,24 @@
             {/each}
             <li role="presentation" class="flex-grow flex-shrink"><span class="block border-b-2 border-gray-200 border-solid"></span></li>
         </ul>
+        {#if scrollable}
+            <ul class="flex-0 flex items-end">
+                <li role="presentation">
+                    <button on:click={scrollTabsLeft} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the left">
+                        <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
+                            <path fill="currentColor" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+                        </svg>
+                    </button>
+                </li>
+                <li role="presentation">
+                    <button on:click={scrollTabsRight} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the right">
+                        <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
+                            <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        {/if}
     </nav>
     {#each $files as file}
         <CodemirrorEditor file={file} visible={file.filepath === $selected}/>
