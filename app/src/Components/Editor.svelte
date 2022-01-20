@@ -163,38 +163,40 @@
             <li role="presentation" class="flex-grow flex-shrink"><span class="block border-b-2 border-gray-200 border-solid"></span></li>
         </ul>
         <ul class="flex-0 flex items-end">
-            <li role="presentation" class="relative">
-                <button bind:this={menuToggle} on:click={toggleMenu} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the left">
-                    <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
-                        <path fill="currentColor" d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
-                    </svg>
-                </button>
-                {#if showMenu}
-                    <ul on:keyup={keyboardCloseMenu} class="absolute top-full right-0 bg-white z-10 shadow-lg">
-                        <li role="presentation">
-                            <button bind:this={firstMenuItem} on:click={resetCurrentFile} class="block px-1 py-1 border-l-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap whitespace-nowrap">Reset the current file</button>
-                        </li>
-                        <li role="presentation">
-                            <button on:click={resetAllFiles} class="block px-1 py-1 border-l-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap whitespace-nowrap">Reset all files</button>
-                        </li>
-                    </ul>
+            {#if $files.length > 0}
+                <li role="presentation" class="relative">
+                    <button bind:this={menuToggle} on:click={toggleMenu} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the left">
+                        <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
+                            <path fill="currentColor" d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+                        </svg>
+                    </button>
+                    {#if showMenu}
+                        <ul on:keyup={keyboardCloseMenu} class="absolute top-full right-0 bg-white z-10 shadow-lg">
+                            <li role="presentation">
+                                <button bind:this={firstMenuItem} on:click={resetCurrentFile} class="block px-1 py-1 border-l-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap whitespace-nowrap">Reset the current file</button>
+                            </li>
+                            <li role="presentation">
+                                <button on:click={resetAllFiles} class="block px-1 py-1 border-l-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap whitespace-nowrap">Reset all files</button>
+                            </li>
+                        </ul>
+                    {/if}
+                </li>
+                {#if scrollable}
+                    <li role="presentation">
+                        <button on:click={scrollTabsLeft} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the left">
+                            <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
+                                <path fill="currentColor" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+                            </svg>
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button on:click={scrollTabsRight} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the right">
+                            <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
+                                <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                            </svg>
+                        </button>
+                    </li>
                 {/if}
-            </li>
-            {#if scrollable}
-                <li role="presentation">
-                    <button on:click={scrollTabsLeft} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the left">
-                        <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
-                            <path fill="currentColor" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
-                        </svg>
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button on:click={scrollTabsRight} class="block px-1 py-1 border-b-2 border-gray-200 border-solid hover:border-blue focus:border-blue text-blue hover:text-blue-400 focus:text-blue-400 whitespace-nowrap" aria-label="Scroll the tabs to the right">
-                        <svg viewBox="0 0 24 24" class="inline-block w-4 h-4 mr-1 fill-current" aria-hidden="true">
-                            <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                        </svg>
-                    </button>
-                </li>
             {/if}
         </ul>
     </nav>

@@ -3,6 +3,7 @@
 ## Dev
 
 * **New**: Support breaking out the iFrame viewer into a separate tab / window
+* **Bugfix**: Hide the editor menu when no files are loaded
 
 ## 1.1.2
 

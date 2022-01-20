@@ -14,3 +14,4 @@ The example section just holds various examples of content for testing purposes.
    example/styling4
    example/elements
    example/download
+   example/empty-files
