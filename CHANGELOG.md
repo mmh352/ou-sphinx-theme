@@ -1,5 +1,9 @@
 # Changelog
 
+## Dev
+
+* **New**: Support breaking out the iFrame viewer into a separate tab / window
+
 ## 1.1.2
 
 * **Bugfix**: Fix an app build error

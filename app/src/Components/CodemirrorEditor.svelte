@@ -21,7 +21,7 @@
 
     import { hasIFrame } from '../store/components';
     import { connectionStatus } from '../store/status';
-    import { busy, changed } from '../store/editor';
+    import { busy, changed, changeEvent } from '../store/editor';
 
     export let file = null;
     export let visible = false;
@@ -82,12 +82,7 @@
         changed.remove(file.filepath);
 
         if (response.status === 200) {
-            if ($hasIFrame) {
-                const iframe = document.querySelector('#iframe');
-                if (iframe) {
-                    (iframe as HTMLIFrameElement).contentWindow.location.reload();
-                }
-            }
+            changeEvent.notify();
         } else {
             connectionStatus.lost();
         }

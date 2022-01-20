@@ -113,3 +113,16 @@ export const busy = idListStore();
 export const changed = idListStore();
 
 export const selected = writable('');
+
+function evented() {
+    const { subscribe, update } = writable(false);
+
+    return {
+        subscribe,
+        notify() {
+            update((trigger) => { return !trigger; });
+        }
+    }
+}
+
+export const changeEvent = evented();
